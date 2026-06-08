@@ -321,6 +321,7 @@
   .row-header {
     display: flex; align-items: baseline; justify-content: space-between;
     padding: 0 var(--pad-x) 14px;
+    width: 100%;
   }
   .row-title {
     font-size: 20px; font-weight: 700;
@@ -349,8 +350,10 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
+    scroll-padding-inline: var(--pad-x);
     scrollbar-width: none;
     max-width: 100%;
+    width: 100%;
   }
   .row-scroller::-webkit-scrollbar { display: none; }
 
@@ -680,6 +683,12 @@
     color: var(--text);
     margin-bottom: 4px;
   }
+  .edition-info .ed-source {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+    line-height: 1.35;
+  }
   .edition-info .ed-detail {
     font-size: 10px;
     color: var(--text-faint);
@@ -949,6 +958,14 @@
       <option value="rating">Note</option>
       <option value="title">Titre (A-Z)</option>
     </select>
+    <button class="icon-btn" id="viewToggle" title="Formats séparés / éditions regroupées">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="4" y="4" width="7" height="7" rx="1"></rect>
+        <rect x="13" y="4" width="7" height="7" rx="1"></rect>
+        <rect x="4" y="13" width="7" height="7" rx="1"></rect>
+        <rect x="13" y="13" width="7" height="7" rx="1"></rect>
+      </svg>
+    </button>
     <button class="icon-btn" id="statsToggle" title="Statistiques">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>
     </button>
@@ -991,10 +1008,12 @@ let DATA = null;
 let activeFilter = "all";
 let activeCategory = "none";
 let activeUniverse = null;
+let activeCatalogView = "formats";
 let searchTerm = "";
 let sortBy = "default";
 let gridView = false;
 let heroBook = null;
+let currentDisplayItemsById = new Map();
 
 const UNIVERSE_LABELS = {
   V1: "V1", V2: "V2", V3: "V3", V4: "V4", V5: "V5"
@@ -1014,7 +1033,7 @@ function getEditionIsbn(b, universe) {
     const ed = b.editions.find(e => e.universe === universe);
     if (ed) return ed.isbn;
   }
-  return b.isbn;
+  return b.editions[0]?.isbn || b.isbn;
 }
 
 function getEditionData(b, universe) {
@@ -1034,6 +1053,111 @@ function getVisibleBooks() {
   return DATA.books.filter(isVisible);
 }
 
+function isGroupedView() {
+  return activeCatalogView === "editions";
+}
+
+function stripVariantSuffix(title) {
+  return (title || "").replace(/\s*\(([^)]+)\)\s*$/, "").trim();
+}
+
+function bookSearchText(book) {
+  const seriesName = DATA.series.find(s => s.id === book.series)?.name || "";
+  return [
+    book.title,
+    seriesName,
+    ...(book.authors || []),
+    ...(book.tags || []),
+    book.number != null ? String(book.number) : ""
+  ].join(" ").toLowerCase();
+}
+
+function groupKeyForBook(book) {
+  if (book.number != null) return `${book.series}#${book.number}`;
+  return `${book.series}#${stripVariantSuffix(book.title).toLowerCase()}`;
+}
+
+function pickGroupTitle(books) {
+  const sorted = [...books].sort((a, b) => {
+    const aVariant = /\([^)]*\)\s*$/.test(a.title || "") ? 1 : 0;
+    const bVariant = /\([^)]*\)\s*$/.test(b.title || "") ? 1 : 0;
+    if (aVariant !== bVariant) return aVariant - bVariant;
+    const aClean = stripVariantSuffix(a.title || "");
+    const bClean = stripVariantSuffix(b.title || "");
+    if (aClean.length !== bClean.length) return aClean.length - bClean.length;
+    return (b.year || 0) - (a.year || 0);
+  });
+  return stripVariantSuffix(sorted[0]?.title || books[0]?.title || "");
+}
+
+function mergeEditions(books) {
+  const merged = [];
+  const seen = new Set();
+  books.forEach(book => {
+    const sourceEditions = book.editions && book.editions.length
+      ? book.editions
+      : [{ universe: "V1", isbn: book.isbn, year: book.year, date: null, price: book.price, rating: book.rating }];
+    sourceEditions.forEach(e => {
+      const key = e.isbn || `${e.universe || ""}:${e.year || ""}:${book.id}`;
+      if (seen.has(key)) return;
+      seen.add(key);
+      merged.push({
+        ...e,
+        sourceId: book.id,
+        sourceTitle: book.title
+      });
+    });
+  });
+  return merged.sort((a, b) => (a.year || 0) - (b.year || 0) || String(a.universe || "").localeCompare(String(b.universe || "")));
+}
+
+function buildGroupedBooks(books) {
+  const groups = new Map();
+  books.forEach(book => {
+    const key = groupKeyForBook(book);
+    if (!groups.has(key)) {
+      groups.set(key, {
+        id: `group:${key}`,
+        key,
+        series: book.series,
+        number: book.number,
+        books: []
+      });
+    }
+    groups.get(key).books.push(book);
+  });
+
+  return [...groups.values()].map(group => {
+    const booksInGroup = [...group.books].sort((a, b) => (a.year || 0) - (b.year || 0) || a.title.localeCompare(b.title, "fr", { sensitivity: "base" }));
+    const editions = mergeEditions(booksInGroup);
+    const authors = [...new Set(booksInGroup.flatMap(b => b.authors || []))];
+    const years = booksInGroup.map(b => b.year).filter(Boolean);
+    const ratings = booksInGroup.map(b => b.rating).filter(r => typeof r === "number");
+    const difficulties = booksInGroup.map(b => b.difficulty).filter(r => typeof r === "number");
+    const chapters = booksInGroup.map(b => b.chapters).filter(r => typeof r === "number");
+    const tags = [...new Set(booksInGroup.flatMap(b => b.tags || []))];
+    const title = pickGroupTitle(booksInGroup);
+
+    return {
+      ...group,
+      title,
+      authors,
+      year: years.length ? Math.min(...years) : null,
+      rating: ratings.length ? ratings.reduce((s, v) => s + v, 0) / ratings.length : 0,
+      difficulty: difficulties.length ? Math.max(...difficulties) : null,
+      chapters: chapters.length ? Math.max(...chapters) : null,
+      tags,
+      editions,
+      editionCount: editions.length,
+      bookCount: booksInGroup.length
+    };
+  });
+}
+
+function getCatalogBooks(books) {
+  return isGroupedView() ? buildGroupedBooks(books) : books;
+}
+
 async function init() {
   try {
     const res = await fetch("library.json");
@@ -1050,16 +1174,14 @@ async function init() {
 }
 
 function renderStats() {
-  const visible = getVisibleBooks();
+  const visible = getCatalogBooks(getVisibleBooks());
   const totalBooks = visible.length;
   const totalEditions = visible.reduce((s, b) => s + (b.editions ? b.editions.length : 1), 0);
   const totalSeries = new Set(visible.map(b => b.series)).size;
-  const topRated = [...visible].sort((a,b) => (b.rating||0) - (a.rating||0))[0];
   document.getElementById("stats").innerHTML = `
     <span><b>${totalBooks}</b> livres</span>
-    <span><b>${totalEditions}</b> éditions</span>
+    <span><b>${totalEditions}</b> parutions</span>
     <span><b>${totalSeries}</b> séries</span>
-    ${topRated ? `<span>Top <b>${topRated.rating}★</b></span>` : ""}
   `;
 }
 
@@ -1068,14 +1190,14 @@ function renderNav() {
   const navSeries = document.getElementById("navSeries");
   const navCats = document.getElementById("navCategories");
 
-  const allU = `<a class="${!activeUniverse ? 'active' : ''}" data-universe="">Tous univers</a>`;
+  const allU = `<a class="${!activeUniverse ? 'active' : ''}" data-universe="">Toutes les éditions</a>`;
   const uItems = Object.entries(UNIVERSE_LABELS).map(([k, v]) => {
     const count = DATA.books.filter(b => b.editions && b.editions.some(e => e.universe === k)).length;
     return `<a class="${activeUniverse === k ? 'active' : ''}" data-universe="${k}">${v} <span style="opacity:.5;font-size:9px;">${count}</span></a>`;
   }).join("");
   navUniverses.innerHTML = allU + uItems;
 
-  const visible = getVisibleBooks();
+  const visible = getCatalogBooks(getVisibleBooks());
   const allCount = visible.length;
   const all = `<a class="${activeFilter === 'all' ? 'active' : ''}" data-series="all">Tout (${allCount})</a>`;
   const seriesInScope = DATA.series.filter(s => visible.some(b => b.series === s.id));
@@ -1094,8 +1216,8 @@ function renderNav() {
 }
 
 function pickHero() {
-  const pool = getVisibleBooks().filter(b => b.rating >= 4.3);
-  heroBook = pool[Math.floor(Math.random() * pool.length)] || getVisibleBooks()[0];
+  const pool = getCatalogBooks(getVisibleBooks()).filter(b => b.rating >= 4.3);
+  heroBook = pool[Math.floor(Math.random() * pool.length)] || getCatalogBooks(getVisibleBooks())[0];
   renderHero();
 }
 
@@ -1105,12 +1227,7 @@ function renderHero() {
   const content = document.getElementById("heroContent");
 
   if (searchTerm) {
-    const matches = getVisibleBooks().filter(b =>
-      b.title.toLowerCase().includes(searchTerm) ||
-      (b.authors || []).some(a => a.toLowerCase().includes(searchTerm)) ||
-      (b.tags || []).some(t => t.toLowerCase().includes(searchTerm)) ||
-      (DATA.series.find(s => s.id === b.series)?.name || "").toLowerCase().includes(searchTerm)
-    );
+    const matches = getCatalogBooks(getVisibleBooks().filter(b => bookSearchText(b).includes(searchTerm)));
     heroEl.className = "hero compact search";
     const coverIsbn = matches.length ? getEditionIsbn(matches[0], activeUniverse) : null;
     bg.style.backgroundImage = coverIsbn ? `url(${COVER_BIG(coverIsbn)})` : `none`;
@@ -1134,7 +1251,7 @@ function renderHero() {
     };
     const s = sortLabels[sortBy];
     heroEl.className = "hero compact sort";
-    const pool = activeFilter === "all" ? getVisibleBooks() : getVisibleBooks().filter(b => b.series === activeFilter);
+    const pool = getCatalogBooks(activeFilter === "all" ? getVisibleBooks() : getVisibleBooks().filter(b => b.series === activeFilter));
     const coverIsbn = pool[0] ? getEditionIsbn(pool[0], activeUniverse) : null;
     bg.style.backgroundImage = coverIsbn ? `url(${COVER_BIG(coverIsbn)})` : "none";
     bg.style.filter = "blur(6px) saturate(1.1) brightness(0.45)";
@@ -1153,7 +1270,7 @@ function renderHero() {
   if (activeFilter !== "all") {
     const series = DATA.series.find(s => s.id === activeFilter);
     if (!series) return;
-    const books = getVisibleBooks().filter(b => b.series === series.id).sort((a,b)=>(a.number||0)-(b.number||0));
+    const books = getCatalogBooks(getVisibleBooks().filter(b => b.series === series.id)).sort((a,b)=>(a.number||0)-(b.number||0));
     heroEl.className = "hero compact";
     const coverIsbn = books[0] ? getEditionIsbn(books[0], activeUniverse) : null;
     bg.style.backgroundImage = coverIsbn ? `url(${COVER_BIG(coverIsbn)})` : "none";
@@ -1213,19 +1330,15 @@ function renderLibrary() {
 
   let base = activeFilter === "all" ? getVisibleBooks() : getVisibleBooks().filter(b => b.series === activeFilter);
   if (searchTerm) {
-    base = base.filter(b =>
-      b.title.toLowerCase().includes(searchTerm) ||
-      (b.authors || []).some(a => a.toLowerCase().includes(searchTerm)) ||
-      (b.tags || []).some(t => t.toLowerCase().includes(searchTerm)) ||
-      (DATA.series.find(s => s.id === b.series)?.name || "").toLowerCase().includes(searchTerm)
-    );
+    base = base.filter(b => bookSearchText(b).includes(searchTerm));
   }
 
   const rows = [];
 
   if (sortBy === "year") {
+    const catalog = getCatalogBooks(base);
     const byDecade = {};
-    base.forEach(b => {
+    catalog.forEach(b => {
       const y = b.year || 0;
       const decade = y ? Math.floor(y / 10) * 10 : 0;
       (byDecade[decade] = byDecade[decade] || []).push(b);
@@ -1240,6 +1353,7 @@ function renderLibrary() {
       });
     });
   } else if (sortBy === "rating") {
+    const catalog = getCatalogBooks(base);
     const tiers = [
       { id: "legend", label: "★ 4.5 et plus · Légendes", min: 4.5, max: 6 },
       { id: "great",  label: "★ 4.0 – 4.5 · Très bons", min: 4.0, max: 4.5 },
@@ -1248,7 +1362,7 @@ function renderLibrary() {
       { id: "low",    label: "★ Moins de 3.0",           min: 0,   max: 3.0 },
     ];
     tiers.forEach(t => {
-      const list = base.filter(b => (b.rating||0) >= t.min && (b.rating||0) < t.max);
+      const list = catalog.filter(b => (b.rating||0) >= t.min && (b.rating||0) < t.max);
       if (list.length) {
         rows.push({
           title: t.label,
@@ -1259,8 +1373,9 @@ function renderLibrary() {
       }
     });
   } else if (sortBy === "title") {
+    const catalog = getCatalogBooks(base);
     const byLetter = {};
-    base.forEach(b => {
+    catalog.forEach(b => {
       const letter = (b.title[0] || "?").toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
       const key = /[A-Z]/.test(letter) ? letter : "#";
       (byLetter[key] = byLetter[key] || []).push(b);
@@ -1280,6 +1395,7 @@ function renderLibrary() {
     const cat = CATEGORIES.find(c => c.id === activeCategory);
     if (cat) {
       let list = [...base].filter(cat.filter);
+      if (isGroupedView()) list = getCatalogBooks(list);
       list.sort(cat.sort);
       rows.push({
         title: `${cat.ico} ${cat.label}`,
@@ -1288,17 +1404,20 @@ function renderLibrary() {
         forceGrid: true,
       });
     } else if (searchTerm) {
-      rows.push({ title: `Recherche « ${searchTerm} »`, subtitle: `${base.length} résultat(s)`, books: base, forceGrid: true });
+      const list = getCatalogBooks(base);
+      rows.push({ title: `Recherche « ${searchTerm} »`, subtitle: `${list.length} résultat(s)`, books: list, forceGrid: true });
     } else if (activeFilter !== "all") {
       const s = DATA.series.find(x => x.id === activeFilter);
+      const list = getCatalogBooks(base);
+      const editionTotal = list.reduce((sum, b) => sum + (b.editions ? b.editions.length : 1), 0);
       rows.push({
         title: s?.name || "",
-        subtitle: `L'intégrale · ${s ? visibleCount(s.id) : 0} tomes`,
-        books: base.sort((a,b)=>(a.number||0)-(b.number||0)),
+        subtitle: isGroupedView() ? `${editionTotal} éditions` : `L'intégrale · ${s ? visibleCount(s.id) : 0} tomes`,
+        books: list.sort((a,b)=>(a.number||0)-(b.number||0)),
         forceGrid: true,
       });
     } else {
-      const visible = getVisibleBooks();
+      const visible = getCatalogBooks(getVisibleBooks());
       const seriesInScope = DATA.series.filter(s => visible.some(b => b.series === s.id));
       const orderedSeries = [...seriesInScope].sort((a,b) =>
         a.name.localeCompare(b.name, "fr", { sensitivity: "base" })
@@ -1306,9 +1425,10 @@ function renderLibrary() {
       orderedSeries.forEach(s => {
         const sBooks = visible.filter(b => b.series === s.id).sort((a,b)=>(a.number||0)-(b.number||0));
         if (sBooks.length) {
+          const editionTotal = sBooks.reduce((sum, b) => sum + (b.editions ? b.editions.length : 1), 0);
           rows.push({
             title: s.name,
-            subtitle: `${sBooks.length} tomes`,
+            subtitle: isGroupedView() ? `${editionTotal} éditions` : `${sBooks.length} tomes`,
             books: sBooks
           });
         }
@@ -1322,9 +1442,11 @@ function renderLibrary() {
     return;
   }
 
+  currentDisplayItemsById = new Map();
   finalRows.forEach(row => {
     const el = document.createElement("div");
     el.className = "row" + (row.forceGrid ? " force-grid" : "");
+    row.books.forEach(item => currentDisplayItemsById.set(item.id, item));
     el.innerHTML = `
       <div class="row-header">
         <div class="row-title">${row.title} <span class="count">${row.books.length}</span></div>
@@ -1378,12 +1500,16 @@ function cardHTML(b) {
 }
 
 function openModal(id) {
-  const b = DATA.books.find(x => x.id === id);
-  if (!b) return;
-  const series = DATA.series.find(s => s.id === b.series);
-  const authors = (b.authors || []).join(", ") || "Auteur inconnu";
-  const coverIsbn = getEditionIsbn(b, activeUniverse);
-  const editions = b.editions || [{ universe: "V1", isbn: b.isbn, year: b.year, date: null, price: b.price, rating: b.rating }];
+  const item = currentDisplayItemsById.get(id) || DATA.books.find(x => x.id === id);
+  if (!item) return;
+  const books = item.books || [item];
+  const series = DATA.series.find(s => s.id === item.series || books[0]?.series);
+  const authors = ((item.authors && item.authors.length ? item.authors : [...new Set(books.flatMap(b => b.authors || []))]) || []).join(", ") || "Auteur inconnu";
+  const coverIsbn = getEditionIsbn(item, activeUniverse);
+  const editions = item.editions && item.editions.length
+    ? item.editions
+    : [{ universe: "V1", isbn: item.isbn, year: item.year, date: null, price: item.price, rating: item.rating, sourceTitle: item.title }];
+  const isGrouped = !!item.books;
 
   const editionsHTML = editions.map(e => `
     <div class="edition-card">
@@ -1393,6 +1519,7 @@ function openModal(id) {
       </div>
       <div class="edition-info">
         <div class="ed-universe">${e.universe} ${activeUniverse === e.universe ? '(actif)' : ''}</div>
+        ${isGrouped && e.sourceTitle ? `<div class="ed-source">${e.sourceTitle}</div>` : ""}
         <div class="ed-detail">
           ${e.year ? `Année : ${e.year}<br>` : ""}
           ${e.price ? `Prix : ${e.price.toFixed(2)} €<br>` : ""}
@@ -1407,26 +1534,28 @@ function openModal(id) {
     <button class="modal-close" id="modalClose">✕</button>
     <div class="modal-hero" style="background-image:url(${COVER_BIG(coverIsbn)})">
       <div class="modal-hero-content">
-        <h2>${b.title}</h2>
+        <h2>${item.title}</h2>
         <div class="meta">
-          <span>${series?.name || ""} · Tome ${b.number || "?"}</span>
+          <span>${series?.name || ""} · Tome ${item.number || "?"}</span>
           <span>·</span>
           <span>${authors}</span>
-          ${b.year ? `<span>·</span><span>${b.year}</span>` : ""}
-          ${b.rating ? `<span class="rating">★ ${b.rating.toFixed(2)} / 5</span>` : ""}
+          ${item.year ? `<span>·</span><span>${item.year}</span>` : ""}
+          ${item.rating ? `<span class="rating">★ ${item.rating.toFixed(2)} / 5</span>` : ""}
+          ${isGrouped ? `<span class="chip">${books.length} formats</span>` : ""}
         </div>
       </div>
     </div>
     <div class="modal-body">
       <div>
-        ${b.description ? `<p>${b.description}</p>` : ""}
-        <div class="tags">${(b.tags || []).map(t => `<span class="tag">${t.trim()}</span>`).join("")}</div>
+        ${item.description ? `<p>${item.description}</p>` : ""}
+        <div class="tags">${(item.tags || []).map(t => `<span class="tag">${t.trim()}</span>`).join("")}</div>
       </div>
       <aside>
         <div class="stat"><span>ISBN</span><span>${coverIsbn}</span></div>
-        <div class="stat"><span>Année</span><span>${b.year || "—"}</span></div>
+        <div class="stat"><span>Année</span><span>${item.year || "—"}</span></div>
         <div class="stat"><span>Auteur(s)</span><span>${authors}</span></div>
-        <div class="stat"><span>Note moyenne</span><span>${b.rating ? "★ " + b.rating.toFixed(2) : "—"}</span></div>
+        ${isGrouped ? `<div class="stat"><span>Formats</span><span>${books.length}</span></div>` : ""}
+        <div class="stat"><span>Note moyenne</span><span>${item.rating ? "★ " + item.rating.toFixed(2) : "—"}</span></div>
         <div class="stat"><span>Éditions</span><span>${editions.length}</span></div>
         <div class="stat"><span>Série</span><span>${series?.name || "—"}</span></div>
         <button class="btn btn-primary" style="margin-top:18px;width:100%;justify-content:center;">▶ Lire ce livre</button>
@@ -1504,6 +1633,12 @@ function bindEvents() {
     renderLibrary();
   });
 
+  document.getElementById("viewToggle").addEventListener("click", e => {
+    activeCatalogView = activeCatalogView === "formats" ? "editions" : "formats";
+    e.currentTarget.classList.toggle("active", activeCatalogView === "editions");
+    fullRender();
+  });
+
   document.getElementById("statsToggle").addEventListener("click", toggleStats);
   document.getElementById("statsClose").addEventListener("click", toggleStats);
 
@@ -1526,7 +1661,7 @@ function bindEvents() {
   let idx = 0;
   setInterval(() => {
     if (!DATA) return;
-    const pool = getVisibleBooks().filter(b => b.rating >= 4.3);
+    const pool = getCatalogBooks(getVisibleBooks()).filter(b => b.rating >= 4.3);
     if (!pool.length) return;
     idx = (idx + 1) % pool.length;
     heroBook = pool[idx];
