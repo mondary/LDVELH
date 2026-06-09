@@ -6,9 +6,12 @@ const {
 } = require("node:sqlite");
 
 const PORT = 5432;
+const ADMIN_PASSWORD = process.env.LDVELH_ADMIN || "ldvelh";
+const ADMIN_EMAIL = process.env.LDVELH_EMAIL || "";
 const SRC = path.join(__dirname, "..", "src");
 const DB_PATH = path.join(__dirname, "ldvelh.db");
 const READERS_DIR = path.join(SRC, "data", "readers");
+const PENDING_DIR = path.join(__dirname, "pending");
 
 const MIME = {
   ".html": "text/html;charset=utf-8",
@@ -104,6 +107,8 @@ function importJsonFiles() {
 
 const count = importJsonFiles();
 console.log(`Importé/mis à jour : ${count} livre(s)`);
+
+if (!fs.existsSync(PENDING_DIR)) fs.mkdirSync(PENDING_DIR, { recursive: true });
 
 function getBook(isbn) {
   const row = db.prepare("SELECT * FROM books WHERE isbn = ?").get(isbn);
@@ -247,6 +252,59 @@ const server = http.createServer(async (req, res) => {
     if (req.method === "POST" && parts[3] === "reset") {
       resetBook(isbn);
       return json(res, 200, { ok: true });
+    }
+
+    if (req.method === "POST" && parts[3] === "promote") {
+      const body = JSON.parse(await readBody(req));
+      if (body.password !== ADMIN_PASSWORD) return json(res, 403, { error: "Mot de passe incorrect" });
+      const book = getBook(isbn);
+      if (!book) return json(res, 404, { error: "Livre non trouvé" });
+      const exportData = {
+        bookId: book.bookId,
+        title: book.title,
+        subtitle: book.subtitle,
+      };
+      const meta = JSON.parse(
+        db.prepare("SELECT metadata FROM books WHERE isbn = ?").get(isbn).metadata || "{}"
+      );
+      if (meta.pdf) exportData.pdf = meta.pdf;
+      if (meta.intro) exportData.intro = meta.intro;
+      exportData.sections = book.sections.map((s) => ({
+        id: s.id,
+        text: s.text,
+        choices: s.choices,
+      }));
+      const filePath = path.join(READERS_DIR, isbn + ".json");
+      fs.writeFileSync(filePath, JSON.stringify(exportData, null, 2), "utf-8");
+      resetBook(isbn);
+      importJsonFiles();
+      return json(res, 200, { ok: true, sections: exportData.sections.length });
+    }
+
+    if (req.method === "POST" && parts[3] === "request-mod") {
+      const book = getBook(isbn);
+      if (!book) return json(res, 404, { error: "Livre non trouvé" });
+      const modified = book.sections.filter((s) => s.modified);
+      if (modified.length === 0) return json(res, 200, { ok: true, message: "Aucune modification en attente" });
+      const exportData = {
+        bookId: book.bookId,
+        title: book.title,
+        subtitle: book.subtitle,
+        requested: new Date().toISOString(),
+        sections: book.sections.map((s) => ({
+          id: s.id,
+          text: s.text,
+          choices: s.choices,
+        })),
+      };
+      const meta = JSON.parse(
+        db.prepare("SELECT metadata FROM books WHERE isbn = ?").get(isbn).metadata || "{}"
+      );
+      if (meta.pdf) exportData.pdf = meta.pdf;
+      if (meta.intro) exportData.intro = meta.intro;
+      const reqFile = path.join(PENDING_DIR, isbn + "-" + Date.now() + ".json");
+      fs.writeFileSync(reqFile, JSON.stringify(exportData, null, 2), "utf-8");
+      return json(res, 200, { ok: true, file: path.basename(reqFile), sections: modified.length, adminEmail: ADMIN_EMAIL });
     }
 
     return json(res, 404, { error: "Route inconnue" });

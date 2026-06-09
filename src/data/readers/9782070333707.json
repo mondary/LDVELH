@@ -1,6 +1,7 @@
 {
   "bookId": "astre-dor-le-sorcier-majdar",
   "title": "Le Sorcier Majdar",
+  "subtitle": "",
   "pdf": "/assets/pdf/LDVELH - PDF - Artre D'or/Astre d'Or 1-Le sorcier majdar.pdf",
   "sections": [
     {
@@ -29,15 +30,15 @@
     },
     {
       "id": 3,
-      "text": "Vous quittez la route pour vous enfoncer dans les sous-bois. Après quelques minutes de marche, vous débouchez sur une petite clairière ombragée par le feuillage d'un immense acacia et vous décidez d'y faire halte. La faim vous tenaille et il vous faut sans plus attendre prendre 1 Repas, faute de quoi vous perdrez 3 points d'ENDURANCE. Quant aux 2 Repas qui vous reste, vous les donnez à Tanid et Chan (n'oubliez pas de rayer ces 3 Repas de votre Feuille d'Aventure). La nuit est douce et vous vous en réjouissez tous les trois, car vous n'avez pas de couvertures et vous ne voulez pas allumer un feu, de peur qu'il ne trahisse votre présence. Vous voyant exténué, Tanid et Chan vous proposent de dormir pendant qu'ils veilleront à tour de rôle. Caustique, vous leur faites remarquer que c'est bien la première fois qu'ils sont d'accord... Mais ils insistent et vous devez répondre. Allez-vous accepter leur offre (rendez-vous au 85) ou prendre le premier tour de garde et vous coucher ensuite, épuisé (rendez-vous au 275)?",
+      "text": "Vous quittez la route pour vous enfoncer dans les sous-bois. Après quelques minutes de marche, vous débouchez sur une petite clairière ombragée par le feuillage d'un immense acacia et vous décidez d'y faire halte. La faim vous tenaille et il vous faut sans plus attendre prendre 1 Repas, faute de quoi vous perdrez 3 points d'ENDURANCE. Quant aux 2 Repas qui vous reste, vous les donnez à Tanid et Chan (n'oubliez pas de rayer ces 3 Repas de votre Feuille d'Aventure). La nuit est douce et vous vous en réjouissez tous les trois, car vous n'avez pas de couvertures et vous ne voulez pas allumer un feu, de peur qu'il ne trahisse votre présence. Vous voyant exténué, Tanid et Chan vous proposent de dormir pendant qu'ils veilleront à tour de rôle. Caustique, vous leur faites remarquer que c'est bien la première fois qu'ils sont d'accord... Mais ils insistent et vous devez répondre. \n\nAllez-vous accepter leur offre (rendez-vous au 85) \nou prendre le premier tour de garde et vous coucher ensuite, épuisé (rendez-vous au 275)?",
       "choices": [
         {
-          "to": 85,
-          "label": "Allez-vous accepter leur offre ("
+          "label": "Allez-vous accepter leur offre",
+          "to": 85
         },
         {
-          "to": 275,
-          "label": "Allez-vous accepter leur offre"
+          "label": "Prendre le premier tour de garde",
+          "to": 275
         }
       ]
     },
@@ -102,15 +103,15 @@
     },
     {
       "id": 10,
-      "text": "Vous vous levez et vous vous dirigez vers Tanid qui vous regarde avec des yeux hagards, comme absents. « Astre d'Or, dit-elle d'une voix entrecoupée, pardonne-moi, je... je n'ai pas pu résister... » Si vous vous étiez emparé de la Pierre de Kazim, rendez-vous au 51. Sinon, rendez-vous au 102.",
+      "text": "Vous vous levez et vous vous dirigez vers Tanid qui vous regarde avec des yeux hagards, comme absents. « Astre d'Or, dit-elle d'une voix entrecoupée, pardonne-moi, je... je n'ai pas pu résister... » \n\nSi vous vous étiez emparé de la Pierre de Kazim, rendez-vous au 51. \nSinon, rendez-vous au 102.",
       "choices": [
         {
-          "to": 51,
-          "label": "» Si vous vous étiez emparé de la Pierre de Kazim"
+          "label": "» Si vous vous étiez emparé de la Pierre de Kazim",
+          "to": 51
         },
         {
-          "to": 102,
-          "label": "Sinon"
+          "label": "Sinon",
+          "to": 102
         }
       ]
     },
@@ -200,15 +201,19 @@
     },
     {
       "id": 18,
-      "text": "De toute évidence, vos nouveaux compagnons vous font une confiance aveugle et sont prêts à vous suivre quoi qu'il arrive. Vous leur confessez que vous n'avez pas la moindre idée de la direction à prendre, mais cela ne semble guère les troubler. Sans donner davantage de précisions, vous leur expliquez alors que votre mission consiste à retrouver la Tribu Perdue de Lara et vous demandez à Chan s'il peut vous y mener. « Ne vous sentez pas obligés de rester avec moi, cependant, ajoutez-vous. Vous êtes libres de faire ce que vous voulez. » « En ce qui me concerne, répond Tanid, je n'ai pas d'endroit où aller. Mère Magri était une maîtresse cruelle, et je serais heureuse d'aider quiconque se bat contre le roi démon et sa horde. » « Je suis dans le même cas, dit Chan, mais où pouvons-nous aller ? Les Chadakines doivent être à notre recherche, et nous ferions mieux de ne pas trop nous attarder ici... » Vous gardez tous trois le silence quelques instants, en proie à une intense réflexion. Finalement, vous prenez la parole pour demander leur avis à vos compagnons. Chan suggère de se mettre aussitôt en route pour rejoindre l'Azanam, dans le sud du royaume, car il est convaincu que la Tribu Perdue a trouvé refuge là-bas. Il propose de vous y conduire. « Voilà qui me semble bien risqué, réplique Tanid. Si Chan se trompe, nous aurons fait un voyage très long et périlleux pour rien. Ce qu'il nous faut, c'est un conseil avisé. A trois jours de marche au nord habite Gnajna le Sage, un ermite qui se fait appeler Celui Qui ne Connaît Pas de Maître. Je peux vous y mener. » Si vous possédez le Médaillon du Rédempteur, rendez- vous au 264. Sinon, il vous faut maintenant choisir le conseil que vous suivrez. Si vous décidez de partir pour l'Azanam, guidé par Chan, rendez-vous au 190. Mais si vous préférez aller trouver Gnajna le Sage, rendez-vous au 134.",
+      "text": "De toute évidence, vos nouveaux compagnons vous font une confiance aveugle et sont prêts à vous suivre quoi qu'il arrive. Vous leur confessez que vous n'avez pas la moindre idée de la direction à prendre, mais cela ne semble guère les troubler. Sans donner davantage de précisions, vous leur expliquez alors que votre mission consiste à retrouver la Tribu Perdue de Lara et vous demandez à Chan s'il peut vous y mener. « Ne vous sentez pas obligés de rester avec moi, cependant, ajoutez-vous. Vous êtes libres de faire ce que vous voulez. » « En ce qui me concerne, répond Tanid, je n'ai pas d'endroit où aller. Mère Magri était une maîtresse cruelle, et je serais heureuse d'aider quiconque se bat contre le roi démon et sa horde. » « Je suis dans le même cas, dit Chan, mais où pouvons-nous aller ? Les Chadakines doivent être à notre recherche, et nous ferions mieux de ne pas trop nous attarder ici... » Vous gardez tous trois le silence quelques instants, en proie à une intense réflexion. Finalement, vous prenez la parole pour demander leur avis à vos compagnons. Chan suggère de se mettre aussitôt en route pour rejoindre l'Azanam, dans le sud du royaume, car il est convaincu que la Tribu Perdue a trouvé refuge là-bas. Il propose de vous y conduire. « Voilà qui me semble bien risqué, réplique Tanid. Si Chan se trompe, nous aurons fait un voyage très long et périlleux pour rien. Ce qu'il nous faut, c'est un conseil avisé. A trois jours de marche au nord habite Gnajna le Sage, un ermite qui se fait appeler Celui Qui ne Connaît Pas de Maître. Je peux vous y mener. » \n\nSi vous possédez le Médaillon du Rédempteur, rendez- vous au 264. \nSinon, il vous faut maintenant choisir le conseil que vous suivrez. Si vous décidez de partir pour l'Azanam, guidé par Chan, rendez-vous au 190. \nMais si vous préférez aller trouver Gnajna le Sage, rendez-vous au 134.",
       "choices": [
         {
-          "to": 190,
-          "label": "Si vous décidez de partir pour l'Azanam, guidé par Chan"
+          "label": "Vous possédez le médaillon du rédempteur",
+          "to": 264
         },
         {
-          "to": 134,
-          "label": "Mais si vous préférez aller trouver Gnajna le Sage"
+          "label": "Si vous décidez de partir pour l'Azanam, guidé par Chan",
+          "to": 190
+        },
+        {
+          "label": "Mais si vous préférez aller trouver Gnajna le Sage",
+          "to": 134
         }
       ]
     },
@@ -291,29 +296,29 @@
     },
     {
       "id": 24,
-      "text": "Vous sombrez dans un sommeil trouble et agité de cauchemars. Au beau milieu de la nuit, vous vous réveillez dans un sursaut : immobile et accroupie, Tanid contemple les braises mourantes du feu, qui dégagent une lumière ambrée. Si vous désirez aller voir de plus près de quoi il retourne, rendez-vous au 10. S'il vous paraît plus avisé de faire semblant de dormir, rendez-vous au 33.",
+      "text": "Vous sombrez dans un sommeil trouble et agité de cauchemars. Au beau milieu de la nuit, vous vous réveillez dans un sursaut : immobile et accroupie, Tanid contemple les braises mourantes du feu, qui dégagent une lumière ambrée. \n\nSi vous désirez aller voir de plus près de quoi il retourne, rendez-vous au 10. \nS'il vous paraît plus avisé de faire semblant de dormir, rendez-vous au 33.",
       "choices": [
         {
-          "to": 10,
-          "label": "Si vous désirez aller voir de plus près de quoi il retourne"
+          "label": "Si vous désirez aller voir de plus près de quoi il retourne",
+          "to": 10
         },
         {
-          "to": 33,
-          "label": "S'il vous paraît plus avisé de faire semblant de dormir"
+          "label": "S'il vous paraît plus avisé de faire semblant de dormir",
+          "to": 33
         }
       ]
     },
     {
       "id": 25,
-      "text": "Vous débouchez sur une petite antichambre que vous reconnaissez sans peine : c'est là que Mère Magri vous avait soumis à l'Épreuve de Vérité. Posée sur un socle au milieu d'une petite table, la Pierre de Kazim luit d'une lumière surnaturelle. Si vous souhaitez vous emparer de la Pierre de Kazim, rendez-vous au 77. Si vous préférez quitter la pièce sans plus attendre, rendez-vous au 129.",
+      "text": "Vous débouchez sur une petite antichambre que vous reconnaissez sans peine : c'est là que Mère Magri vous avait soumis à l'Épreuve de Vérité. Posée sur un socle au milieu d'une petite table, la Pierre de Kazim luit d'une lumière surnaturelle. \n\nSi vous souhaitez vous emparer de la Pierre de Kazim, rendez-vous au 77. \nSi vous préférez quitter la pièce sans plus attendre, rendez-vous au 129.",
       "choices": [
         {
-          "to": 77,
-          "label": "Si vous souhaitez vous emparer de la Pierre de Kazim"
+          "label": "Si vous souhaitez vous emparer de la Pierre de Kazim",
+          "to": 77
         },
         {
-          "to": 129,
-          "label": "Si vous préférez quitter la pièce sans plus attendre"
+          "label": "Si vous préférez quitter la pièce sans plus attendre",
+          "to": 129
         }
       ]
     },
@@ -473,15 +478,15 @@
     },
     {
       "id": 39,
-      "text": "Chan vous guide par un étroit sentier forestier, au couvert du sous-bois. Tout à coup, il s'arrête net et penche la tête sur le côté, l'oreille aux aguets. « Que se passe-t-il ? » lui demandez-vous en chuchotant. « J'ai entendu un cri qui vient de là-bas. Écoutez... » Effectivement, des voix et des bruits de lames qui s'entrechoquent vous parviennent, étouffés par la distance. Avec précaution, vous vous glissez tous trois dans les fourrés et vous regardez alentour. A peu de distance, un combat fait rage : six chevaliers en armes, revêtus de tuniques rouge et bleu, se battent vaillamment contre une vingtaine de soldats Chadakines. De toute évidence, ils s'efforcent de défendre leur chariot qui est rangé un peu plus loin, au milieu d'un large pont de pierre. Immobile et sans arme, un homme richement vêtu, juché sur le siège avant du chariot, suit le combat avec frayeur. A en juger par les cadavres de Chadakines qui jonchent le sol, les chevaliers manient l'épée avec une redoutable dextérité, mais cela leur fois plus suffira-t-il pour anéantir nombreux qu'eux ? « Ils n'ont aucune chance », murmurez-vous. « Tu as peut-être raison, Astre d'Or, répond Chan, mais ce ne sont pas des soldats ordinaires. Regarde le blason gravé sur leurs boucliers : une montagne surmontée de deux étoiles. Ce sont les Armes Royales de Durenor, et ces hommes sont des Chevaliers de la Montagne Blanche, de vaillants seigneurs du Durenor, un royaume libre situé à l'extrême nord. » Si vous comptez les Chadakines, trois continuer votre route vers le sud en longeant l'Azane, il vous faudra dépasser le lieu de la bataille sans que les Chadakines vous remarquent. Qu'allez-vous faire ? Si vous souhaitez venir en aide aux Chevaliers de la Montagne Blanche, rendez-vous au 55. Si vous préférez contourner la bataille et traverser la route, rendez-vous au 208.",
+      "text": "Chan vous guide par un étroit sentier forestier, au couvert du sous-bois. Tout à coup, il s'arrête net et penche la tête sur le côté, l'oreille aux aguets. « Que se passe-t-il ? » lui demandez-vous en chuchotant. « J'ai entendu un cri qui vient de là-bas. Écoutez... » Effectivement, des voix et des bruits de lames qui s'entrechoquent vous parviennent, étouffés par la distance. Avec précaution, vous vous glissez tous trois dans les fourrés et vous regardez alentour. A peu de distance, un combat fait rage : six chevaliers en armes, revêtus de tuniques rouge et bleu, se battent vaillamment contre une vingtaine de soldats Chadakines. De toute évidence, ils s'efforcent de défendre leur chariot qui est rangé un peu plus loin, au milieu d'un large pont de pierre. Immobile et sans arme, un homme richement vêtu, juché sur le siège avant du chariot, suit le combat avec frayeur. A en juger par les cadavres de Chadakines qui jonchent le sol, les chevaliers manient l'épée avec une redoutable dextérité, mais cela leur fois plus suffira-t-il pour anéantir nombreux qu'eux ? « Ils n'ont aucune chance », murmurez-vous. « Tu as peut-être raison, Astre d'Or, répond Chan, mais ce ne sont pas des soldats ordinaires. Regarde le blason gravé sur leurs boucliers : une montagne surmontée de deux étoiles. Ce sont les Armes Royales de Durenor, et ces hommes sont des Chevaliers de la Montagne Blanche, de vaillants seigneurs du Durenor, un royaume libre situé à l'extrême nord. » Si vous comptez les Chadakines, trois continuer votre route vers le sud en longeant l'Azane, il vous faudra dépasser le lieu de la bataille sans que les Chadakines vous remarquent. Qu'allez-vous faire ? \n\nSi vous souhaitez venir en aide aux Chevaliers de la Montagne Blanche, rendez-vous au 55. \nSi vous préférez contourner la bataille et traverser la route, rendez-vous au 208.",
       "choices": [
         {
-          "to": 55,
-          "label": "Si vous souhaitez venir en aide aux Chevaliers de la Montagne Blanche"
+          "label": "Si vous souhaitez venir en aide aux Chevaliers de la Montagne Blanche",
+          "to": 55
         },
         {
-          "to": 208,
-          "label": "Si vous préférez contourner la bataille et traverser la route"
+          "label": "Si vous préférez contourner la bataille et traverser la route",
+          "to": 208
         }
       ]
     },
@@ -653,11 +658,11 @@
     },
     {
       "id": 51,
-      "text": "En vous approchant du feu, vous voyez que la Pierre de Kazim repose sur les braises ; Tanid a dû vous la voler pendant que vous dormiez (n'oubliez pas de la rayer de votre Feuille d'Aventure). Vous scrutez la pierre. Vous sursautez d'effroi en y découvrant le visage hagard de Mère Magri qui vous regarde droit dans les yeux. « Pauvre idiot, persifle-t-elle, je te tiens, maintenant ! » Là- dessus, les braises se raniment et éclatent en hautes flammes rouges. Rendez-vous au 102.",
+      "text": "En vous approchant du feu, vous voyez que la Pierre de Kazim repose sur les braises ; Tanid a dû vous la voler pendant que vous dormiez (n'oubliez pas de la rayer de votre Feuille d'Aventure). Vous scrutez la pierre. Vous sursautez d'effroi en y découvrant le visage hagard de Mère Magri qui vous regarde droit dans les yeux. « Pauvre idiot, persifle-t-elle, je te tiens, maintenant ! » Là- dessus, les braises se raniment et éclatent en hautes flammes rouges. \n\nRendez-vous au 102.",
       "choices": [
         {
-          "to": 102,
-          "label": "Aller à 102"
+          "label": "Aller à 102",
+          "to": 102
         }
       ]
     },
@@ -682,53 +687,41 @@
     },
     {
       "id": 54,
-      "text": "Quittant les rives de l'Azane, vous vous dirigez vers l'est, vous enfonçant dans les Dents du Dragon. A mesure que vous vous éloignez du fleuve, les aiguilles de calcaire se font plus nombreuses et plus rapprochées. Vous êtes bientôt oblité de zigzaguer de l une à l'autre, ce qui rend votre progression extrêmement lente et pénible. Vous ne pouvez guère faire plus de vingt pas en ligne droite sans vous heurter à une colonne rocheuse. Une heure s'est écoulée. Le soleil, maintenant haut dans le ciel, vous darde implacablement de ses rayons puissants, et force vous est d'admettre que vous vous êtes bel et bien perdus dans ce dédale de stalagmites. Si vous possédez le Pouvoir Magique de Voyance et si vous désirez y recourir, rendez-vous au 278. Si vous ne maîtrisez pas le don de Voyance, il vous faut choisir arbitrairement la direction à prendre. Qu'allez-vous faire : Tourner à gauche ? Rendez-vous au 184 Tourner à droite ? Rendez-vous au 228 Continuer tout droit ? Rendez-vous au 238",
+      "text": "Quittant les rives de l'Azane, vous vous dirigez vers l'est, vous enfonçant dans les Dents du Dragon. A mesure que vous vous éloignez du fleuve, les aiguilles de calcaire se font plus nombreuses et plus rapprochées. Vous êtes bientôt oblité de zigzaguer de l une à l'autre, ce qui rend votre progression extrêmement lente et pénible. Vous ne pouvez guère faire plus de vingt pas en ligne droite sans vous heurter à une colonne rocheuse. Une heure s'est écoulée. Le soleil, maintenant haut dans le ciel, vous darde implacablement de ses rayons puissants, et force vous est d'admettre que vous vous êtes bel et bien perdus dans ce dédale de stalagmites. \n\nSi vous possédez le Pouvoir Magique de Voyance et si vous désirez y recourir, rendez-vous au 278. \nSi vous ne maîtrisez pas le don de Voyance, il vous faut choisir arbitrairement la direction à prendre. Qu'allez-vous faire : \nTourner à gauche ? Rendez-vous au 184 \nTourner à droite ? Rendez-vous au 228 \nContinuer tout droit ? Rendez-vous au 238",
       "choices": [
         {
-          "to": 184,
-          "label": "Quittant les rives de l'Azane, vous vous dirigez vers l'est, vous"
+          "label": "Si vous possédez le Pouvoir Magique de Voyance et si vous désirez y recourir",
+          "to": 278
         },
         {
-          "to": 228,
-          "label": "choisir arbitrairement la direction à prendre. Qu'allez-vous faire :"
+          "label": "Gauche",
+          "to": 184
         },
         {
-          "to": 238,
-          "label": "Tourner à gauche ?"
+          "label": "Droite",
+          "to": 228
         },
         {
-          "to": 278,
-          "label": "Si vous possédez le Pouvoir Magique de Voyance et si vous désirez y recourir"
-        },
-        {
-          "to": 184,
-          "label": "Aller à 184"
-        },
-        {
-          "to": 228,
-          "label": "Aller à 228"
-        },
-        {
-          "to": 238,
-          "label": "Aller à 238"
+          "label": "Tout droit",
+          "to": 238
         }
       ]
     },
     {
       "id": 55,
-      "text": "Vous réfléchissez en silence à la stratégie à adopter. I,'arbalète à la route et la main, cinq soldats Chadakines quittent s'approchent du lieu du combat. Parvenus à quelques mètres à peine de votre cachette, ils s'arrêtent pour bander leurs arcs. Si jamais ils se mettent à décocher des flèches de l'endroit où ils sont postés, les chevaliers n'auront pas la moindre chance de s'en sortir. Si vous possédez le don d'Envoûtement, vous pouvez y recourir pour tenter de sortir les chevaliers de ce mauvais pas (rendez-vous au 70). Dans le cas contraire, deux possibilités s'offrent à vous. Vous pouvez soit attaquer les Chadakines de l'endroit où vous êtes, en leur envoyant une déflagration à longue portée (rendez-vous au 81), soit vous approcher furtivement pour les attaquer par surprise (rendez-vous au 99).",
+      "text": "Vous réfléchissez en silence à la stratégie à adopter. I,'arbalète à la route et la main, cinq soldats Chadakines quittent s'approchent du lieu du combat. Parvenus à quelques mètres à peine de votre cachette, ils s'arrêtent pour bander leurs arcs. Si jamais ils se mettent à décocher des flèches de l'endroit où ils sont postés, les chevaliers n'auront pas la moindre chance de s'en sortir. \n\nSi vous possédez le don d'Envoûtement, vous pouvez y recourir pour tenter de sortir les chevaliers de ce mauvais pas (rendez-vous au 70). \nDans le cas contraire, deux possibilités s'offrent à vous. Vous pouvez soit attaquer les Chadakines de l'endroit où vous êtes, en leur envoyant une déflagration à longue portée (rendez-vous au 81), \nsoit vous approcher furtivement pour les attaquer par surprise (rendez-vous au 99).",
       "choices": [
         {
-          "to": 70,
-          "label": "Aller à 70"
+          "label": "Utiliser le don d'envoûtement",
+          "to": 70
         },
         {
-          "to": 81,
-          "label": "Aller à 81"
+          "label": "Attaquer les Chadakines avec une déflagration longue portée",
+          "to": 81
         },
         {
-          "to": 99,
-          "label": "Vous pouvez soit attaquer les Chadakines de l'endroit où vous êtes, en leur envoyant une déflagration à longue portée"
+          "label": "Attaquer les Chadakines par surprise",
+          "to": 99
         }
       ]
     },
@@ -985,23 +978,15 @@
     },
     {
       "id": 77,
-      "text": "Vous prenez la Pierre de Kazim et vous ouvrez grand la porte de l'antichambre. Debout dans la pièce ronde se tient Tanid, la jeune fille au service de Mère Magri. « Astre d'Or ! s'exclame-t- elle. Te voilà enfin ! » « Méfie-toi, vous dit Chan, c'est une esclave Chadakine, on ne peut pas lui faire confiance ! » Qu'allez- vous faire : Attaquer la jeune fille ? Rendez-vous au 67 Lui poser des questions ? Rendez-vous au 147",
+      "text": "Vous prenez la Pierre de Kazim et vous ouvrez grand la porte de l'antichambre. Debout dans la pièce ronde se tient Tanid, la jeune fille au service de Mère Magri. « Astre d'Or ! s'exclame-t- elle. Te voilà enfin ! » \n« Méfie-toi, vous dit Chan, c'est une esclave Chadakine, on ne peut pas lui faire confiance ! » \n\nQu'allez- vous faire : \nAttaquer la jeune fille ? Rendez-vous au 67 \nLui poser des questions ? Rendez-vous au 147",
       "choices": [
         {
-          "to": 67,
-          "label": "Vous prenez la Pierre de Kazim et vous ouvrez grand la porte de"
+          "label": "Attaquer la fille",
+          "to": 67
         },
         {
-          "to": 147,
-          "label": "vous faire :"
-        },
-        {
-          "to": 67,
-          "label": "Aller à 67"
-        },
-        {
-          "to": 147,
-          "label": "Aller à 147"
+          "label": "Lui poser des questions",
+          "to": 147
         }
       ]
     },
@@ -1027,11 +1012,15 @@
     },
     {
       "id": 80,
-      "text": "Chan sur vos talons, vous gravissez les marches quatre à quatre. Vous apercevez une trappe au-dessus de votre tête. Vous la poussez et vous vous hissez à l'intérieur. Vous voici dans une pièce ronde comportant deux portes. Un rai de lumière jaune passe sous la porte qui se trouve juste en face de vous. Allez-vous l'ouvrir (rendez-vous au 25) ou essayer l'autre porte (rendez- vous au 41) ?",
+      "text": "Chan sur vos talons, vous gravissez les marches quatre à quatre. Vous apercevez une trappe au-dessus de votre tête. Vous la poussez et vous vous hissez à l'intérieur. Vous voici dans une pièce ronde comportant deux portes. Un rai de lumière jaune passe sous la porte qui se trouve juste en face de vous. \n\nAllez-vous l'ouvrir (rendez-vous au 25) \nou essayer l'autre porte (rendez- vous au 41) ?",
       "choices": [
         {
-          "to": 25,
-          "label": "Allez-vous l'ouvrir ("
+          "label": "Allez-vous l'ouvrir",
+          "to": 25
+        },
+        {
+          "label": "Essaye l'autre porte",
+          "to": 41
         }
       ]
     },
@@ -1113,15 +1102,19 @@
     },
     {
       "id": 87,
-      "text": "Le cœur étreint par la crainte, vous sortez du pentacle et vous récitez le chapitre du Tome Interdit, intitulé « Le Chant des Morts ». Le fantôme du prêtre assassiné pousse alors un lourd soupir. « Tout est accompli, dit-il. Prends l'amulette que porte encore la dépouille de ma dernière vie, elle te protégera des morts malfaisants. » Vous décrochez l'amulette pendue par une chaîne en argent au cou du défunt et vous la passez au vôtre (inscrivez-la comme Objet Spécial sur votre Feuille d'Aventure). Le recours à l'Évocation vous a coûté 2 points de VOLONTÉ. Le silence retombe, opaque comme un brouillard. Peu à peu, le froid envahit la cellule. Et ce sont d'abord de très faibles notes, à peine audibles, qui parviennent à vos oreilles, pour monter lentement en un crescendo infernal qui vous glace l'âme. Les morts sont là, les morts vont vite, ils crient vengeance, ils crient haine et torture. Avec un hurlement, le vent s'engouffre dans la cellule, les portes claquent. Chan est debout, immobile et silencieux. Vous le saisissez par le bras. « Vite, lui chuchotez-vous à l'oreille, allons- nous-en. » Vous voici tous deux dans le couloir, courant à perdre haleine. Surgissant des murs et du sol, les ombres des morts prennent forme et se répandent partout. Vous vous retournez et vous apercevez sur votre droite le cadavre du geôlier, horriblement mutilé. Sa main déjà raide serre encore un poignard que vous- pouvez prendre si vous le souhaitez (n'oubliez pas votre Feuille d'Aventure).Qu'allez-vous faire maintenant ? Vous pouvez prendre les clés du geôlier et libérer les détenus enfermés à cet étage (rendez-vous au 125), grimper l'escalier de gauche (rendez- vous au 137) ou celui de droite (rendez-vous au 212). alors de l'inscrire sur",
+      "text": "Le cœur étreint par la crainte, vous sortez du pentacle et vous récitez le chapitre du Tome Interdit, intitulé « Le Chant des Morts ». Le fantôme du prêtre assassiné pousse alors un lourd soupir. « Tout est accompli, dit-il. Prends l'amulette que porte encore la dépouille de ma dernière vie, elle te protégera des morts malfaisants. » Vous décrochez l'amulette pendue par une chaîne en argent au cou du défunt et vous la passez au vôtre (inscrivez-la comme Objet Spécial sur votre Feuille d'Aventure). Le recours à l'Évocation vous a coûté 2 points de VOLONTÉ. Le silence retombe, opaque comme un brouillard. Peu à peu, le froid envahit la cellule. Et ce sont d'abord de très faibles notes, à peine audibles, qui parviennent à vos oreilles, pour monter lentement en un crescendo infernal qui vous glace l'âme. Les morts sont là, les morts vont vite, ils crient vengeance, ils crient haine et torture. Avec un hurlement, le vent s'engouffre dans la cellule, les portes claquent. Chan est debout, immobile et silencieux. Vous le saisissez par le bras. « Vite, lui chuchotez-vous à l'oreille, allons- nous-en. » Vous voici tous deux dans le couloir, courant à perdre haleine. Surgissant des murs et du sol, les ombres des morts prennent forme et se répandent partout. Vous vous retournez et vous apercevez sur votre droite le cadavre du geôlier, horriblement mutilé. Sa main déjà raide serre encore un poignard que vous- pouvez prendre si vous le souhaitez (n'oubliez pas alors de l'inscrire sur votre Feuille d'Aventure).Qu'allez-vous faire maintenant ? Vous pouvez prendre les clés du geôlier et libérer les détenus enfermés à cet étage (rendez-vous au 125), grimper l'escalier de gauche (rendez- vous au 137) ou celui de droite (rendez-vous au 212).",
       "choices": [
         {
-          "to": 125,
-          "label": "Vous pouvez prendre les clés du geôlier et libérer les détenus enfermés à cet étage ("
+          "label": "Vous pouvez prendre les clés du geôlier et libérer les détenus enfermés à cet étage",
+          "to": 125
         },
         {
-          "to": 212,
-          "label": "Vous pouvez prendre les clés du geôlier et libérer les détenus enfermés à cet étage"
+          "label": "Grimper à l'escalier de gauche",
+          "to": 137
+        },
+        {
+          "label": "Escalier de droite",
+          "to": 212
         }
       ]
     },
@@ -1172,8 +1165,12 @@
     {
       "id": 92,
       "text": "Votre don de Voyance vous permet de déterminer qu'il vous faut prendre à gauche. Le recours à ce Pouvoir Magique vous a coûté 1 point de VOLONTÉ. Maintenant, retournez au paragraphe d'où vous venez.",
-      "choices": [],
-      "go_back": true
+      "choices": [
+        {
+          "label": "",
+          "to": -1
+        }
+      ]
     },
     {
       "id": 93,
@@ -1200,8 +1197,12 @@
       "text": "Tout en discutant avec Chan, vous examinez la porte du donjon, et plus particulièrement sa serrure. Votre Pouvoir Magique de Sorcellerie devrait vous permettre d'enfoncer la porte sans difficulté ; la serrure, en revanche, risque de nécessiter de nombreux points de VOLONTÉ pour céder. Vous n'avez aucun moyen de savoir à l'avance combien de points de VOLONTÉ le sortilège va absorber ; tout ce que vous savez, c'est qu'une fois le processus enclenché vous ne pourrez plus revenir sur votre décision. Si vous voulez tenter de forcer la porte à l'aide de votre Pouvoir Magique de Sorcellerie, rendez-vous au 109. Si vous préférez ne pas recourir à ce pouvoir, n'ayant pas, entre autres raisons, de grandes réserves de points de VOLONTÉ, rendez- vous au 172 pour y choisir un autre Pouvoir Magique.",
       "choices": [
         {
-          "to": 109,
-          "label": "Si vous voulez tenter de forcer la porte à l'aide de votre Pouvoir Magique de Sorcellerie"
+          "label": "Si vous voulez tenter de forcer la porte à l'aide de votre Pouvoir Magique de Sorcellerie",
+          "to": 109
+        },
+        {
+          "label": "Sinon pour un autre pouvoir magique",
+          "to": 172
         }
       ]
     },
@@ -1245,15 +1246,15 @@
     },
     {
       "id": 99,
-      "text": "A pas de loup, vous vous dirigez vers les arbalétriers en brandissant votre Baguette de sorcier, qui laisse derrière elle un sillon d'étincelles magiques. L'œil féroce et les mâchoires serrées, Chan se livre à une pantomime guerrière, qui — Dieu seul sait pourquoi — est loin de produire l'effet recherché... Les Cha- dakines n'ont pas même le temps de bander leurs arbalètes que vous leur tombez dessus à bras raccourcis. Votre HABILETÉ se trouve accrue de 4 points : 2 pour l'effet de surprise et 2 pour le soutien de Chan, dont la vaillance n'a d'égale que l'embompoint. Vous devez affronter tous les Chadakines en même temps, comme s'il s'agissait d'un ennemi unique, et c'est un combat à mort que vous allez livrer. CINQ ARBALÉTRIERS CHADAKINES HABILETÉ ENDURANCE : 32 : 25 Si vous êtes vainqueur, vous pouvez maintenant lancer une attaque à longue portée contre les Chadakines qui sont sur le pont (rendez-vous au 88) ou bien charger (rendez-vous au 94).",
+      "text": "A pas de loup, vous vous dirigez vers les arbalétriers en brandissant votre Baguette de sorcier, qui laisse derrière elle un sillon d'étincelles magiques. L'œil féroce et les mâchoires serrées, Chan se livre à une pantomime guerrière, qui — Dieu seul sait pourquoi — est loin de produire l'effet recherché... Les Cha- dakines n'ont pas même le temps de bander leurs arbalètes que vous leur tombez dessus à bras raccourcis. Votre HABILETÉ se trouve accrue de 4 points : 2 pour l'effet de surprise et 2 pour le soutien de Chan, dont la vaillance n'a d'égale que l'embompoint. Vous devez affronter tous les Chadakines en même temps, comme s'il s'agissait d'un ennemi unique, et c'est un combat à mort que vous allez livrer. CINQ ARBALÉTRIERS CHADAKINES HABILETÉ ENDURANCE : 32 : 25 \n\nSi vous êtes vainqueur, vous pouvez maintenant lancer une attaque à longue portée contre les Chadakines qui sont sur le pont (rendez-vous au 88) \nou bien charger (rendez-vous au 94).",
       "choices": [
         {
-          "to": 88,
-          "label": "Aller à 88"
+          "label": "Attaquer les Chadakines a longue portée",
+          "to": 88
         },
         {
-          "to": 94,
-          "label": "Aller à 94"
+          "label": "Charger",
+          "to": 94
         }
       ]
     },
@@ -1298,11 +1299,15 @@
     },
     {
       "id": 104,
-      "text": "Il devient bientôt impossible d'éviter les grappes de Yaku entremêlées, et vous vous faufilez entre elles avec adresse, en prenant bien soin de ne pas toucher le cœur hérissé des plantes vénéneuses. Malheureusement, vous effleurez du pied une tentacule, qui prend aussitôt vie et vous enlace la cheville avec une rapidité foudroyante. Sans avoir le temps de dire ouf, vous perdez l'équilibre et vous tombez par terre. Vous vous sentez immédiatement traîné vers le cœur du Yaku, distant d'à peine quelques mètres. Il faut réagir vite. Qu'allez-vous faire : allez- vous pourfendre le tentacule qui vous enserre la cheville (rendez- vous au 248) ou préférez-vous envoyer une déflagration de votre Baguette de sorcier au cœur du Yaku (rendez-vous au 179) ?",
+      "text": "Il devient bientôt impossible d'éviter les grappes de Yaku entremêlées, et vous vous faufilez entre elles avec adresse, en prenant bien soin de ne pas toucher le cœur hérissé des plantes vénéneuses. Malheureusement, vous effleurez du pied une tentacule, qui prend aussitôt vie et vous enlace la cheville avec une rapidité foudroyante. Sans avoir le temps de dire ouf, vous perdez l'équilibre et vous tombez par terre. Vous vous sentez immédiatement traîné vers le cœur du Yaku, distant d'à peine quelques mètres. Il faut réagir vite. \n\nQu'allez-vous faire : allez- vous pourfendre le tentacule qui vous enserre la cheville (rendez- vous au 248) \nou préférez-vous envoyer une déflagration de votre Baguette de sorcier au cœur du Yaku (rendez-vous au 179) ?",
       "choices": [
         {
-          "to": 179,
-          "label": "Aller à 179"
+          "label": "Pourfendre le tentacule qui vous enserre la cheville",
+          "to": 248
+        },
+        {
+          "label": "envoyer une déflagration de votre Baguette de sorcier au cœur du Yaku",
+          "to": 179
         }
       ]
     },
@@ -1558,24 +1563,16 @@
       "text": "Vous arrachez le trousseau de clefs des mains du mort et vous repartez en courant le long du couloir, vous arrêtant à chaque porte pour l'ouvrir aussi vite que vous le pouvez. Les unes après les autres, les cellules se vident de leurs prisonniers qui s'éparpillent dans les couloirs. Qu'allez-vous faire des clefs ? Si vous voulez les garder, inscrivez-les comme Objet Spécial sur votre Feuille d'Aventure. Vous apercevez une étroite galerie au bout du couloir. Si vous désirez y aller, rendez-vous au 333. Si cela ne vous dit rien, retournez sur vos pas ; vous arriverez au palier d'où vous pourrez prendre : L'escalier de gauche Rendez-vous au 137 L'escalier de droite Rendez-vous au 212",
       "choices": [
         {
-          "to": 137,
-          "label": "Vous arrachez le trousseau de clefs des mains du mort et vous"
+          "label": "Galerie au bout du couloir",
+          "to": 333
         },
         {
-          "to": 212,
-          "label": "palier d'où vous pourrez prendre :"
+          "label": "Escalier de gauche",
+          "to": 137
         },
         {
-          "to": 333,
-          "label": "Si vous désirez y aller"
-        },
-        {
-          "to": 137,
-          "label": "L'escalier de gauche"
-        },
-        {
-          "to": 212,
-          "label": "L'escalier de gauche"
+          "label": "Escalier de droite",
+          "to": 212
         }
       ]
     },
@@ -1601,19 +1598,19 @@
     },
     {
       "id": 128,
-      "text": "Chan s'est maintenant réfugié à vos côtés. De longs tentacules grouillants vous encerclent, mais ils semblent encore hésiter à attaquer. « Cet endroit aurait besoin d'un bon désherbage », murmure Chan avec un demi-sourire. Vous êtes tous deux bien perplexes : à moins de rester plantés là ad vitam aeternam, vous devrez passer devant le terrible Yaku... « Ce qu'il faudrait, dites- vous d'un air songeur, c'est arriver à détourner leur attention quelques instants... » « Ne me regarde pas comme ça ! » s'exclame aussitôt Chan, pris de panique. Malgré le côté dramatique de votre situation, vous ne pouvez réprimer un fou rire en voyant la mine effarée du marchand. « Mais non, bien sûr, je ne pensais pas à toi, le rassurez-vous, mais il doit bien y avoir un moyen de s'en sortir... » Si vous voulez recourir à l'un de la vos Pouvoirs Magiques, vous avez Communication avec les Éléments (rendez-vous au 181) ou l'Envoûtement, à condition que vous disposiez également de quelques champignons de Calacène (rendez-vous au 206). Si vous n'avez aucun de ces Pouvoirs, ou si vous préférez ne pas vous en servir, vous pouvez tenter de fuir en vous battant contre les ignobles plantes (rendez-vous au 12). le choix entre",
+      "text": "Chan s'est maintenant réfugié à vos côtés. De longs tentacules grouillants vous encerclent, mais ils semblent encore hésiter à attaquer. « Cet endroit aurait besoin d'un bon désherbage », murmure Chan avec un demi-sourire. \nVous êtes tous deux bien perplexes : à moins de rester plantés là ad vitam aeternam, vous\ndevrez passer devant le terrible Yaku... « Ce qu'il faudrait, ditesvous d'un air songeur, c'est arriver à détourner leur attention quelques instants... » \n« Ne me regarde pas comme ça ! » s'exclame aussitôt Chan, pris de panique. Malgré le côté dramatique de votre situation, vous ne pouvez réprimer un fou rire en voyant la mine effarée du marchand. « Mais non, bien\nsûr, je ne pensais pas à toi, le rassurez-vous, mais il doit bien y avoir un moyen de s'en sortir... » \n\nSi vous voulez recourir à l'un de vos Pouvoirs Magiques, vous avez le choix entre \nla Communication avec les Éléments (rendez-vous au 181) \nou l'Envoûtement, à condition que vous disposiez également de quelques champignons de Calacène (rendez-vous au 206). \nSi vous n'avez aucun de ces Pouvoirs, ou si vous préférez ne pas vous en servir, vous pouvez tenter de fuir en vous battant contre les ignobles plantes (rendez-vous au 12).",
       "choices": [
         {
-          "to": 181,
-          "label": "» Si vous voulez recourir à l'un de la vos Pouvoirs Magiques, vous avez Communication avec les Éléments ("
+          "label": "la Communication avec les Éléments",
+          "to": 181
         },
         {
-          "to": 206,
-          "label": "» Si vous voulez recourir à l'un de la vos Pouvoirs Magiques, vous avez Communication avec les Éléments"
+          "label": "l'Envoûtement, à condition que vous disposiez également de quelques champignons de Calacène",
+          "to": 206
         },
         {
-          "to": 12,
-          "label": "Aller à 12"
+          "label": "Aucun pouvoir",
+          "to": 12
         }
       ]
     },
@@ -1705,37 +1702,33 @@
     },
     {
       "id": 136,
-      "text": "Vous avancez à pas de loup, fouillant l'obscurité des yeux à la recherche de quelque ennemi tapi dans l'ombre, prêt à bondir de derrière un rocher ou un taillis. Rien. Tout est désert. Et pourtant l'étrange croassement persiste et devient plus aigu et plus fort. La peur a gagné Chan, qui tremble maintenant comme une feuille. Il tend la main vers son épée, mais vous lui faites signe de ne pas bouger : un mouvement brusque pourrait attirer l'attention d'une bête sauvage... Si vous disposez du Pouvoir Magique de Voyance, vous pouvez y faire appel pour tenter de déterminer la nature du danger qui plane sur vous. Rendez-vous alors au 345. Si vous préférez ne pas y recourir ou si vous ne possédez pas ce don, rendez-vous au 61.",
+      "text": "Vous avancez à pas de loup, fouillant l'obscurité des yeux à la recherche de quelque ennemi tapi dans l'ombre, prêt à bondir de derrière un rocher ou un taillis. Rien. Tout est désert. Et pourtant l'étrange croassement persiste et devient plus aigu et plus fort. La peur a gagné Chan, qui tremble maintenant comme une feuille. Il tend la main vers son épée, mais vous lui faites signe de ne pas bouger : un mouvement brusque pourrait attirer l'attention d'une bête sauvage... \n\nSi vous disposez du Pouvoir Magique de Voyance, vous pouvez y faire appel pour tenter de déterminer la nature du danger qui plane sur vous. Rendez-vous alors au 345. \nSi vous préférez ne pas y recourir ou si vous ne possédez pas ce don, rendez-vous au 61.",
       "choices": [
         {
-          "to": 61,
-          "label": "Si vous préférez ne pas y recourir ou si vous ne possédez pas ce don"
+          "label": "Pouvoir Magique de Voyance pour tenter de déterminer la nature du danger qui plane sur vous",
+          "to": 345
+        },
+        {
+          "label": "Si vous préférez ne pas y recourir ou si vous ne possédez pas ce don",
+          "to": 61
         }
       ]
     },
     {
       "id": 137,
-      "text": "Vous grimpez les marches quatre à quatre et vous parvenez à un petit palier : sur la gauche, une lourde porte en bois massif, sur la droite une arcade d'où part un étroit couloir. Soudain, le sol se met à trembler sous vos pieds et vous percevez, assourdi par la distance, des cris et le fracas de murs qui s'écroulent. « Que fait- on ? » demande placidement Chan. Si vous souhaitez recourir au Pouvoir Magique de Voyance pour trouver la réponse à cette question, rendez-vous au 92 (notez le numéro de ce paragraphe car vous devrez y revenir). Si vous ne disposez pas de ce Pouvoir, ou si vous ne désirez pas y faire appel, vous avez le choix entre passer : Par la porte de bois Rendez-vous au 142 Par l'arcade Rendez-vous au 163",
+      "text": "Vous grimpez les marches quatre à quatre et vous parvenez à un petit palier : sur la gauche, une lourde porte en bois massif, sur la droite une arcade d'où part un étroit couloir. \nSoudain, le sol se met à trembler sous vos pieds et vous percevez, assourdi par la distance, des cris et le fracas de murs qui s'écroulent. « Que fait- on ? » demande placidement Chan. \nSi vous souhaitez recourir au Pouvoir Magique de Voyance pour trouver la réponse à cette question, rendez-vous au 92 (notez le numéro de ce paragraphe car vous devrez y revenir). \nSi vous ne disposez pas de ce Pouvoir, ou si vous ne désirez pas y faire appel, vous avez le choix entre passer : Par la porte de bois Rendez-vous au 142 / Par l'arcade Rendez-vous au 163",
       "choices": [
         {
-          "to": 142,
-          "label": "Vous grimpez les marches quatre à quatre et vous parvenez à un"
+          "label": "Si vous souhaitez recourir au Pouvoir Magique de Voyance pour trouver la réponse à cette question",
+          "to": 92
         },
         {
-          "to": 163,
-          "label": "Pouvoir Magique de Voyance pour trouver la réponse à cette"
+          "label": "Par la porte de bois",
+          "to": 142
         },
         {
-          "to": 92,
-          "label": "Si vous souhaitez recourir au Pouvoir Magique de Voyance pour trouver la réponse à cette question"
-        },
-        {
-          "to": 142,
-          "label": "Par la porte de bois"
-        },
-        {
-          "to": 163,
-          "label": "Par la porte de bois"
+          "label": "Par l'arcade",
+          "to": 163
         }
       ]
     },
@@ -1780,19 +1773,23 @@
     },
     {
       "id": 142,
-      "text": "Vous poussez violemment la porte et vous laissez échapper un cri de déception : elle est verrouillée. Si vous possédez le trousseau de clefs du geôlier, rendez-vous au 286. Sinon, qu'allez-vous faire : recourir à la Sorcellerie pour ouvrir la porte (rendez-vous au 159), recourir à l'Alchimie dans le même dessein (rendez- vous au 170) ou bien passer l'arcade sur votre droite et vous engager dans le couloir (rendez-vous au 163)?",
+      "text": "Vous poussez violemment la porte et vous laissez échapper un cri de déception : elle est verrouillée. \n\nSi vous possédez le trousseau de clefs du geôlier, rendez-vous au 286. \nSinon, qu'allez-vous faire : \nrecourir à la Sorcellerie pour ouvrir la porte (rendez-vous au 159), \nrecourir à l'Alchimie dans le même dessein (rendez- vous au 170) \nou bien passer l'arcade sur votre droite et vous engager dans le couloir (rendez-vous au 163)?",
       "choices": [
         {
-          "to": 286,
-          "label": "Si vous possédez le trousseau de clefs du geôlier"
+          "label": "Si vous possédez le trousseau de clefs du geôlier",
+          "to": 286
         },
         {
-          "to": 159,
-          "label": "recourir à la Sorcellerie pour ouvrir la porte ("
+          "label": "recourir à la Sorcellerie pour ouvrir la porte",
+          "to": 159
         },
         {
-          "to": 163,
-          "label": "recourir à la Sorcellerie pour ouvrir la porte"
+          "label": "recourir à l'alchimie pour ouvrir la porte",
+          "to": 170
+        },
+        {
+          "label": "passer l'arcade sur la droite",
+          "to": 163
         }
       ]
     },
@@ -1850,15 +1847,15 @@
     },
     {
       "id": 147,
-      "text": "Vous regardez la jeune fille droit dans les yeux. « Tanid, lui dites- vous, tu es au service de Mère Magri. Que comptes-tu faire ? » « Je sais où ils ont caché ta Baguette de sorcier, répond-elle. Je peux t'y mener et ensuite t'aider à fuir, à condition que tu me prennes avec toi. Décide-toi vite car le temps presse. Nous sommes en danger, ici. » Effectivement, vous entendez les pas des Chadakines qui se rapprochent et les vitupérations de Mère Magri qui aboie des ordres d'une voix furieuse. Qu'allez-vous faire ? Si vous acceptez la proposition de Tanid, rendez-vous au 221. Si vous préférez la refuser, rendez-vous au 63.",
+      "text": "Vous regardez la jeune fille droit dans les yeux. \n« Tanid, lui dites- vous, tu es au service de Mère Magri. Que comptes-tu faire ? » \n« Je sais où ils ont caché ta Baguette de sorcier, répond-elle. Je peux t'y mener et ensuite t'aider à fuir, à condition que tu me prennes avec toi. Décide-toi vite car le temps presse. Nous sommes en danger, ici. » \nEffectivement, vous entendez les pas des Chadakines qui se rapprochent et les vitupérations de Mère Magri qui aboie des ordres d'une voix furieuse. \n\nQu'allez-vous faire ? \nSi vous acceptez la proposition de Tanid, rendez-vous au 221. \nSi vous préférez la refuser, rendez-vous au 63.",
       "choices": [
         {
-          "to": 221,
-          "label": "Si vous acceptez la proposition de Tanid"
+          "label": "Si vous acceptez la proposition de Tanid",
+          "to": 221
         },
         {
-          "to": 63,
-          "label": "Si vous préférez la refuser"
+          "label": "Si vous préférez la refuser",
+          "to": 63
         }
       ]
     },
@@ -1867,22 +1864,22 @@
       "text": "Une main palmée s'agrippe à l'escarpement rocheux, prémices d'un horrifiant spectacle que vous contemplez à la lumière froide des rayons lunaires : le Kraku, blessé et sanguinolent, se hisse sur le plateau. Comme mû par une force surnaturelle, il traîne son corps meurtri vers vous. Chan le regarde, terrassé. Vous le forcez à repartir : « Allez, Chan, l'encouragez-vous, encore un effort ! Nous sommes presque arrivés au lac Chen-Wu ! » S'appuyant à votre bras, Chan se redresse et vous reprenez tous deux votre lente marche vers le sud, épuisés et titubant. Inexorable, le Kraku vous suit, gagnant peu à peu du terrain. Apercevant un ravin de près de deux mètres de large qui vous barre la route, vous poussez un cri de désespoir. Que faire ? Il est impossible de le contourner car le Kraku se rapproche de plus en plus. Et dire qu'à vol d'oiseau la Grande Muraille d'Azakawa n'est guère qu'à quelques minutes... Si vous voulez tenter de sauter par-dessus le ravin, rendez-vous au 49. Si vous préférez affronter le Kraku, rendez-vous au 233.",
       "choices": [
         {
-          "to": 49,
-          "label": "Si vous voulez tenter de sauter par-dessus le ravin"
+          "label": "Si vous voulez tenter de sauter par-dessus le ravin",
+          "to": 49
         },
         {
-          "to": 233,
-          "label": "Si vous préférez affronter le Kraku"
+          "label": "Si vous préférez affronter le Kraku",
+          "to": 233
         }
       ]
     },
     {
       "id": 149,
-      "text": "« Un Klaysha ! hurle Tanid. Un Mangeur d'Ames ! » Entre le Klaysha et vous, c'est un combat à mort qui s'annonce. A chaque Assaut, il vous faudra soustraire de vos totaux 1 point de VOLONTÉ et 2 points d'ENDURANCE. Si vous vous êtes protégé d'un écran magique de Sorcellerie, vous ne retirerez que 1 point de VOLONTÉ et 1 point d'ENDURANCE j par Assaut. Courage, le Klaysha veut vous dévorer ' l'âme ! KLAYSHA HABILETÉ: 25 ENDURANCE : 30 Si vous êtes encore en vie après quatre Assauts, rendez-vous au 165.",
+      "text": "« Un Klaysha ! hurle Tanid. Un Mangeur d'Ames ! » Entre le Klaysha et vous, c'est un combat à mort qui s'annonce. A chaque Assaut, il vous faudra soustraire de vos totaux 1 point de VOLONTÉ et 2 points d'ENDURANCE. Si vous vous êtes protégé d'un écran magique de Sorcellerie, vous ne retirerez que 1 point de VOLONTÉ et 1 point d'ENDURANCE j par Assaut. Courage, le Klaysha veut vous dévorer ' l'âme ! KLAYSHA HABILETÉ: 25 ENDURANCE : 30 \n\nSi vous êtes encore en vie après quatre Assauts, rendez-vous au 165.",
       "choices": [
         {
-          "to": 165,
-          "label": "30 Si vous êtes encore en vie après quatre Assauts"
+          "label": "30 Si vous êtes encore en vie après quatre Assauts",
+          "to": 165
         }
       ]
     },
@@ -1916,15 +1913,19 @@
     },
     {
       "id": 152,
-      "text": "locale parfaitement Vous voici devant la cabane qui a l'air abandonnée : la porte bat au vent et les fenêtres sont envahies par des branches jaunâtres inoffensive. Un d'Ogosho, une plante bruissement vous parvient de l'intérieur. Qu'allez-vous faire ? Si vous souhaitez entrer dans la cabane, rendez-vous au 252. Si l'effet de surprise en poussant vous préférez brusquement la porte, rendez-vous au 277. Mais vous pouvez également envoyer Chan en éclaireur ; rendez-vous dans ce cas au 302. jouer de",
+      "text": "Vous voici devant la cabane qui a l'air abandonnée : la porte bat au vent et les fenêtres sont envahies par des branches jaunâtres d'Ogosho, une plante locale parfaitement inoffensive. \nUn bruissement vous parvient de l'intérieur. Qu'allez-vous faire ? \n\nSi vous souhaitez entrer dans la cabane, rendez-vous au 252. \nSi vous préférez jouer l'effet de surprise en poussant brusquement la porte, rendez-vous au 277. \nMais vous pouvez également envoyer Chan en éclaireur ; rendez-vous dans ce cas au 302.",
       "choices": [
         {
-          "to": 252,
-          "label": "Si vous souhaitez entrer dans la cabane"
+          "label": "Si vous souhaitez entrer dans la cabane",
+          "to": 252
         },
         {
-          "to": 277,
-          "label": "Si l'effet de surprise en poussant vous préférez brusquement la porte"
+          "label": "Effet de surprise en poussant brusquement la porte",
+          "to": 277
+        },
+        {
+          "label": "Envoyer Chan en éclaireur",
+          "to": 302
         }
       ]
     },
@@ -2065,11 +2066,15 @@
     },
     {
       "id": 165,
-      "text": "A mesure qu'il suce votre énergie mentale comme un vampire des âmes, le Klaysha gagne en force. Vous avez beau pourfendre son enveloppe noire, il continue à se nourrir de votre esprit. Soudain, la créature enfle comme une voile gonflée par des vents funestes et se jette sur vous : vous croyez étouffer dans les plis de cette noirceur létale. Le choc a été terrible. Vous y laissez 5 points de VOLONTÉ et 5 points d'ENDURANCE. Si vous êtes toujoursyn vie et que votre total de VOLONTÉ est tombé à zéro ou au- dessous, rendez-vous au 177. S'il est supérieur à zéro, rendez- vous au 192.",
+      "text": "A mesure qu'il suce votre énergie mentale comme un vampire des âmes, le Klaysha gagne en force. Vous avez beau pourfendre son enveloppe noire, il continue à se nourrir de votre esprit. Soudain, la créature enfle comme une voile gonflée par des vents funestes et se jette sur vous : vous croyez étouffer dans les plis de cette noirceur létale. Le choc a été terrible. Vous y laissez 5 points de VOLONTÉ et 5 points d'ENDURANCE. \n\nSi vous êtes toujoursyn vie et que votre total de VOLONTÉ est tombé à zéro ou au- dessous, rendez-vous au 177. \nS'il est supérieur à zéro, rendez- vous au 192.",
       "choices": [
         {
-          "to": 177,
-          "label": "Si vous êtes toujoursyn vie et que votre total de VOLONTÉ est tombé à zéro ou au- dessous"
+          "label": "Si vous êtes toujoursyn vie et que votre total de VOLONTÉ est tombé à zéro ou au- dessous",
+          "to": 177
+        },
+        {
+          "label": "Si votre VOLONTE est supérieure à zéro",
+          "to": 192
         }
       ]
     },
@@ -2146,55 +2151,31 @@
     },
     {
       "id": 172,
-      "text": "Vous réfléchissez calmement et posément aux attributs de chacun de vos Pouvoirs Magiques afin de déterminer lequel se prêtera le mieux à votre propos. Pour lequel allez-vous opter : La Sorcellerie L'Envoûtement Rendez-vous au 95 Rendez-vous au 124 La Communication avec les Éléments Rendez-vous au 271 L'Alchimie La Psychomancie La Voyance Rendez-vous au 151 Rendez-vous au 236 Rendez-vous au 211",
+      "text": "Vous réfléchissez calmement et posément aux attributs de chacun de vos Pouvoirs Magiques afin de déterminer lequel se prêtera le mieux à votre propos. Pour lequel allez-vous opter : \n\nLa Sorcellerie , Rendez-vous au 95 /\nL'Envoûtement , Rendez-vous au 124 /\nLa Communication avec les Éléments , Rendez-vous au 271 /\nL'Alchimie , Rendez-vous au 151 /\nLa Psychomancie , Rendez-vous au 236 /\nLa Voyance , Rendez-vous au 211",
       "choices": [
         {
-          "to": 95,
-          "label": "Vous réfléchissez calmement et posément aux attributs de"
+          "label": "La Sorcellerie",
+          "to": 95
         },
         {
-          "to": 124,
-          "label": "prêtera le mieux à votre propos. Pour lequel allez-vous opter :"
+          "label": "L'Envoûtement",
+          "to": 124
         },
         {
-          "to": 271,
-          "label": "La Sorcellerie"
+          "label": "La Communication avec les Éléments",
+          "to": 271
         },
         {
-          "to": 151,
-          "label": "L'Envoûtement"
+          "label": "L'Alchimie",
+          "to": 151
         },
         {
-          "to": 236,
-          "label": "La Communication avec les Éléments"
+          "label": "La Psychomancie",
+          "to": 236
         },
         {
-          "to": 211,
-          "label": "L'Alchimie"
-        },
-        {
-          "to": 95,
-          "label": "La Sorcellerie L'Envoûtement"
-        },
-        {
-          "to": 124,
-          "label": "La Sorcellerie L'Envoûtement"
-        },
-        {
-          "to": 271,
-          "label": "La Sorcellerie L'Envoûtement"
-        },
-        {
-          "to": 151,
-          "label": "La Sorcellerie L'Envoûtement"
-        },
-        {
-          "to": 236,
-          "label": "La Sorcellerie L'Envoûtement"
-        },
-        {
-          "to": 211,
-          "label": "La Sorcellerie L'Envoûtement"
+          "label": "La voyange",
+          "to": 211
         }
       ]
     },
@@ -2238,11 +2219,15 @@
     },
     {
       "id": 176,
-      "text": "A bout de souffle et le cœur battant la chamade, vous gagnez le palier supérieur. Si vous avez le trousseau de clefs du geôlier et si vous souhaitez verrouiller la porte derrière vous, rendez-vous au 153. Si vous préférez décamper sans perdre une minute, rendez- vous au 60.",
+      "text": "A bout de souffle et le cœur battant la chamade, vous gagnez le palier supérieur. \n\nSi vous avez le trousseau de clefs du geôlier et si vous souhaitez verrouiller la porte derrière vous, rendez-vous au 153. \nSi vous préférez décamper sans perdre une minute, rendez- vous au 60.",
       "choices": [
         {
-          "to": 153,
-          "label": "Si vous avez le trousseau de clefs du geôlier et si vous souhaitez verrouiller la porte derrière vous"
+          "label": "Si vous avez le trousseau de clefs du geôlier et si vous souhaitez verrouiller la porte derrière vous",
+          "to": 153
+        },
+        {
+          "label": "Décamper",
+          "to": 60
         }
       ]
     },
@@ -2267,11 +2252,15 @@
     },
     {
       "id": 179,
-      "text": "Vous brandissez votre Baguette de sorcier et attaquez le Yaku, envoyant une violente décharge d'énergie au cœur de la plante. Celle-ci, foudroyée, relâche aussitôt son étreinte. Cette attaque vous a coûté 1 point de VOLONTÉ. Voilà soudain que Chan s'écroule en poussant un cri : un tentacule rampant lui enserre les jambes comme un étau. Qu'allez-vous faire ? Si vous décidez de courir aux côtés de Chan, rendez-vous au 240. Si vous préférez envoyer une décharge d'énergie au cœur du Yaku vers lequel le tentacule traîne votre malheureux compagnon, rendez- vous au 285.",
+      "text": "Vous brandissez votre Baguette de sorcier et attaquez le Yaku, envoyant une violente décharge d'énergie au cœur de la plante. Celle-ci, foudroyée, relâche aussitôt son étreinte. Cette attaque vous a coûté 1 point de VOLONTÉ. Voilà soudain que Chan s'écroule en poussant un cri : un tentacule rampant lui enserre les jambes comme un étau. Qu'allez-vous faire ? \n\nSi vous décidez de courir aux côtés de Chan, rendez-vous au 240. \nSi vous préférez envoyer une décharge d'énergie au cœur du Yaku vers lequel le tentacule traîne votre malheureux compagnon, rendez- vous au 285.",
       "choices": [
         {
-          "to": 240,
-          "label": "Si vous décidez de courir aux côtés de Chan"
+          "label": "Courir aux côtés de Chan",
+          "to": 240
+        },
+        {
+          "label": "Envoyer une décharge d'énergie au cœur du Yaku vers lequel le tentacule traîne votre malheureux compagnon",
+          "to": 285
         }
       ]
     },
@@ -2327,23 +2316,15 @@
     },
     {
       "id": 185,
-      "text": "« Au nom du ciel ! s'exclame Chan. Qu'est-ce que tu fabriques encore ? » « Chut ! » lui intimez-vous sèchement. Puis vous fermez les yeux et entrez dans une profonde concentration. Au prix de 1 point de VOLONTÉ, vous parvenez à créer une plaque magique pour barrer la porte. Les gardes Chadakines devront peiner longtemps pour parvenir à l'enfoncer... Et maintenant, quel escalier allez-vous emprunter : Celui de gauche ? Celui de droite ? Rendez-vous au 80 Rendez-vous au 253",
+      "text": "« Au nom du ciel ! s'exclame Chan. Qu'est-ce que tu fabriques encore ? » « Chut ! » lui intimez-vous sèchement. Puis vous fermez les yeux et entrez dans une profonde concentration. Au prix de 1 point de VOLONTÉ, vous parvenez à créer une plaque magique pour barrer la porte. Les gardes Chadakines devront peiner longtemps pour parvenir à l'enfoncer... Et maintenant, quel escalier allez-vous emprunter : \n\nCelui de gauche ? Rendez-vous au 80\nCelui de droite ? Rendez-vous au 253",
       "choices": [
         {
-          "to": 80,
-          "label": "quel escalier allez-vous emprunter :"
+          "label": "Celui de gauche ?",
+          "to": 80
         },
         {
-          "to": 253,
-          "label": "Celui de gauche ?"
-        },
-        {
-          "to": 80,
-          "label": "Aller à 80"
-        },
-        {
-          "to": 253,
-          "label": "Aller à 253"
+          "label": "Celui de droite",
+          "to": 253
         }
       ]
     },
@@ -2515,19 +2496,19 @@
     },
     {
       "id": 199,
-      "text": "Vous surplombez un vallon que traverse le Shuni. De l'autre côté du fleuve s'étend une forêt luxuriante. « Venez, dit Tanid, il y a un pont près d'ici ; nous allons le passer pour gagner le couvert de la forêt. Là, nous pourrons nous reposer, mais pas avant, ce serait beaucoup trop dangereux. » « La sorcière dit vrai », commente Chan d'un ton méprisant. La jeune fille le fusille d'un regard glacial mais se tient coite. Malgré la fatigue, vous reprenez votre marche. Vous parvenez enfin à un large pont, orné d'imposantes sculptures. « Les Chadakines ne vont pas tarder à nous rattraper, déclare Tanid, connais-tu un sortilège qui pourrait détruire le pont après notre passage ? » Si vous désirez recourir à votre Pouvoir Magique de Communication avec les Éléments pour détruire le pont, rendez-vous au 31. Si vous préférez créer une barrière magique à l'aide de votre Pouvoir de Sorcellerie, rendez-vous au 48. Enfin, si vous décidez de ne faire appel à aucun Pouvoir Magique pour économiser votre énergie, rendez-vous au 244.",
+      "text": "Vous surplombez un vallon que traverse le Shuni. De l'autre côté du fleuve s'étend une forêt luxuriante. \n« Venez, dit Tanid, il y a un pont près d'ici ; nous allons le passer pour gagner le couvert de la forêt. Là, nous pourrons nous reposer, mais pas avant, ce serait beaucoup trop dangereux. » \n« La sorcière dit vrai », commente Chan d'un ton méprisant. La jeune fille le fusille d'un regard glacial mais se tient coite. Malgré la fatigue, vous reprenez votre marche. Vous parvenez enfin à un large pont, orné d'imposantes sculptures. \n« Les Chadakines ne vont pas tarder à nous rattraper, déclare Tanid, connais-tu un sortilège qui pourrait détruire le pont après notre passage ? » \n\nSi vous désirez recourir à votre Pouvoir Magique de Communication avec les Éléments pour détruire le pont, rendez-vous au 31. \nSi vous préférez créer une barrière magique à l'aide de votre Pouvoir de Sorcellerie, rendez-vous au 48. \nEnfin, si vous décidez de ne faire appel à aucun Pouvoir Magique pour économiser votre énergie, rendez-vous au 244.",
       "choices": [
         {
-          "to": 31,
-          "label": "» Si vous désirez recourir à votre Pouvoir Magique de Communication avec les Éléments pour détruire le pont"
+          "label": "Si vous désirez recourir à votre Pouvoir Magique de Communication avec les Éléments pour détruire le pont",
+          "to": 31
         },
         {
-          "to": 48,
-          "label": "Si vous préférez créer une barrière magique à l'aide de votre Pouvoir de Sorcellerie"
+          "label": "Si vous préférez créer une barrière magique à l'aide de votre Pouvoir de Sorcellerie",
+          "to": 48
         },
         {
-          "to": 244,
-          "label": "Enfin, si vous décidez de ne faire appel à aucun Pouvoir Magique pour économiser votre énergie"
+          "label": "Enfin, si vous décidez de ne faire appel à aucun Pouvoir Magique pour économiser votre énergie",
+          "to": 244
         }
       ]
     },
@@ -2677,8 +2658,12 @@
       "text": "Vous concentrez votre énergie mentale et la projetez dans l'avenir au prix de 1 point de VOLONTÉ. La vision est trouble, mais il est cependant une image qui revient sans cesse : celle du prêtre mort. Vous ressentez un besoin de plus en plus fort d'évoquer l'esprit du vieillard. Si vous décidez d'appeler l'esprit du prêtre Majdar, rendez-vous au 250. Si vous avez déjà recouru au Sortilège d'Évocation ou si vous préférez ne pas tenir compte de la vision, retournez au 172 pour y choisir un autre Pouvoir Magique.",
       "choices": [
         {
-          "to": 250,
-          "label": "Si vous décidez d'appeler l'esprit du prêtre Majdar"
+          "label": "Si vous décidez d'appeler l'esprit du prêtre Majdar",
+          "to": 250
+        },
+        {
+          "label": "Si déja invoqué",
+          "to": 172
         }
       ]
     },
@@ -2687,12 +2672,12 @@
       "text": "Arrivé en haut de l'escalier, vous pénétrez dans une petite pièce. Vous tournant le dos, un garde Chadakine, affalé sur une chaise, ronfle bruyamment. Allez-vous l'attaquer (rendez-vous au 309) ou préférez-vous quitter la pièce sur la pointe des pieds pour emprunter l'autre escalier (rendez-vous au 137) ?",
       "choices": [
         {
-          "to": 309,
-          "label": "Allez-vous l'attaquer ("
+          "label": "Allez-vous l'attaquer",
+          "to": 309
         },
         {
-          "to": 137,
-          "label": "Allez-vous l'attaquer"
+          "label": "l'autre escalier",
+          "to": 137
         }
       ]
     },
@@ -2716,15 +2701,19 @@
     },
     {
       "id": 214,
-      "text": "I a serrure cède dans un claquement. « Loué soit le . n I ! » vous exclamez-vous. « Loué soit le geôlier ! » réplique Chan en essuyant de la main la sueur qui perle à son front. Franchissant la porte, vous débouchez à nouveau sur un palier. Deux majestueux escaliers vous font face. Si vous possédez le Pouvoir Magique de Voyance, vous pouvez y recourir en vous rendant au 92 (n'oubliez de noter le numéro de ce paragraphe car vous devrez y revenir). Si vous décidez d'emprunter l'escalier de gauche, rendez-vous au 176. Si vous préférez prendre celui de droite, rendez-vous au 45.",
+      "text": "La serrure cède dans un claquement. « Loué soit le . n I ! » vous exclamez-vous. \n« Loué soit le geôlier ! » réplique Chan en essuyant de la main la sueur qui perle à son front. Franchissant la porte, vous débouchez à nouveau sur un palier. Deux majestueux escaliers vous font face. \n\nSi vous possédez le Pouvoir Magique de Voyance, vous pouvez y recourir en vous rendant au 92 (n'oubliez de noter le numéro de ce paragraphe car vous devrez y revenir). \nSi vous décidez d'emprunter l'escalier de gauche, rendez-vous au 176. \nSi vous préférez prendre celui de droite, rendez-vous au 45.",
       "choices": [
         {
-          "to": 176,
-          "label": "Si vous décidez d'emprunter l'escalier de gauche"
+          "label": "Recourir à la voyange",
+          "to": 92
         },
         {
-          "to": 45,
-          "label": "Si vous préférez prendre celui de droite"
+          "label": "Si vous décidez d'emprunter l'escalier de gauche",
+          "to": 176
+        },
+        {
+          "label": "Si vous préférez prendre celui de droite",
+          "to": 45
         }
       ]
     },
@@ -2780,11 +2769,11 @@
     },
     {
       "id": 221,
-      "text": "« Très bien, Tanid, nous te suivons », répondez-vous à la jeune fille qui pousse un profond soupir de soulagement. « Par ici », déclare-t-elle en indiquant l'antichambre de Mère Magri. Blême de peur, Chan murmure des paroles confuses d'où se détachent çà et là quelques mots : « Boucherie... destruction... mort... trahison... » Vous l'attrapez par la main et pénétrez dans l'antichambre. « Casas Indu », dit Tanid, ouvrant par ces paroles magiques une porte secrète qui donne sur un couloir obscur. « C'est un passage secret », explique-t-elle. Elle décroche un flambeau et l'approche de la paroi, éclairant ainsi une petite niche ; votre cœur se soulève de joie quand vous y apercevez votre Baguette de sorcier et votre Sac à Dos. « Et voici tes affaires ! » ajoute la jeune fille d'un ton détaché. Vous récupérez immédiatement vos biens. « Et maintenant, Tanid ? » « Maintenant dans le passage secret, et vite ! » Vous vous engouffrez dans l'étroit corridor, suivi de Chan. Tanid ferme la marche. « Casas Sandra ! » dit-elle, et la paroi secrète se referme sur vous. Si vous vous « tes emparé de la Pierre de Kazim, vous pouvez la ranger dans votre Sac à Dos, mais n'oubliez pas de l'inscrire dans la case Objets Spéciaux de votre Feuille d'Aventure. Rendez-vous au 292.",
+      "text": "« Très bien, Tanid, nous te suivons », répondez-vous à la jeune fille qui pousse un profond soupir de soulagement. \n« Par ici », déclare-t-elle en indiquant l'antichambre de Mère Magri. \nBlême de peur, Chan murmure des paroles confuses d'où se détachent çà et là quelques mots : « Boucherie... destruction... mort... trahison... » \nVous l'attrapez par la main et pénétrez dans l'antichambre. \n« Casas Indu », dit Tanid, ouvrant par ces paroles magiques une porte secrète qui donne sur un couloir obscur. \n« C'est un passage secret », explique-t-elle. Elle décroche un flambeau et l'approche de la paroi, éclairant ainsi une petite niche ; votre cœur se soulève de joie quand vous y apercevez votre Baguette de sorcier et votre Sac à Dos. \n« Et voici tes affaires ! » ajoute la jeune fille d'un ton détaché. Vous récupérez immédiatement vos biens. \n« Et maintenant, Tanid ? » \n« Maintenant dans le passage secret, et vite ! » Vous vous engouffrez dans l'étroit corridor, suivi de Chan. \nTanid ferme la marche. « Casas Sandra ! » dit-elle, et la paroi secrète se referme sur vous. \n\nSi vous vous êtes emparé de la Pierre de Kazim, vous pouvez la ranger dans votre Sac à Dos, mais n'oubliez pas de l'inscrire dans la case Objets Spéciaux de votre Feuille d'Aventure. \n\nRendez-vous au 292.",
       "choices": [
         {
-          "to": 292,
-          "label": "Aller à 292"
+          "label": "Aller à 292",
+          "to": 292
         }
       ]
     },
@@ -2959,15 +2948,15 @@
     },
     {
       "id": 238,
-      "text": "Malgré les doutes qui vous assaillent, vous continuez tout droit. Vous avez l'impression d'errer entre 1rs pics rocailleux et escarpés qui n'offrent pas le moindre point de repère. Une heure passe, vous entendez alors un son qui vous est connu : le léger clipotis des eaux de l'Azane. Vous apercevez maintenant un Yaku, puis un second. Chan pousse un grognement déconfit : « Regarde cette pierre, dit-il en pointant le doigt vers un rocher en à-pic, je la reconnais. De l'autre côté, c'est le fleuve ; nous sommes de nouveau à notre point de départ ! » Force vous est d'admettre que Chan a raison : vous vous trouvez à l'endroit même où vous aviez décidé de vous éloigner des rives de l'Azane pour éviter les Yikus! Qu'allez-vous faire? Si vous décidez de quitter les abords de l'Azane une fois de plus pour M MIS enfoncer vers l'est dans les Dents du Dragon et reprendre ensuite la direction du sud, rendez-vous au 103. Si vous préférez longer le fleuve en prenant le risque de traverser les épais taillis de Yakus, rendez-vous au 104.",
+      "text": "Malgré les doutes qui vous assaillent, vous continuez tout droit. Vous avez l'impression d'errer entre les pics rocailleux et escarpés qui n'offrent pas le moindre point de repère. Une heure passe, vous entendez alors un son qui vous est connu : le léger clipotis des eaux de l'Azane. Vous apercevez maintenant un Yaku, puis un second. Chan pousse un grognement déconfit : « Regarde cette pierre, dit-il en pointant le doigt vers un rocher en à-pic, je la reconnais. De l'autre côté, c'est le fleuve ; nous sommes de nouveau à notre point de départ ! » \nForce vous est d'admettre que Chan a raison : vous vous trouvez à l'endroit même où vous aviez décidé de vous éloigner des rives de l'Azane pour éviter les Yikus! Qu'allez-vous faire? \n\nSi vous décidez de quitter les abords de l'Azane une fois de plus pour M MIS enfoncer vers l'est dans les Dents du Dragon et reprendre ensuite la direction du sud, rendez-vous au 103. \nSi vous préférez longer le fleuve en prenant le risque de traverser les épais taillis de Yakus, rendez-vous au 104.",
       "choices": [
         {
-          "to": 103,
-          "label": "Aller à 103"
+          "label": "Vous enfoncer vers l'est dans les Dents du Dragon et reprendre ensuite la direction du sud",
+          "to": 103
         },
         {
-          "to": 104,
-          "label": "Si vous préférez longer le fleuve en prenant le risque de traverser les épais taillis de Yakus"
+          "label": "Longer le fleuve en prenant le risque de traverser les épais taillis de Yakus",
+          "to": 104
         }
       ]
     },
@@ -3130,20 +3119,12 @@
       "text": "Vous avez décidé d'évoquer l'esprit du prêtre mort pour lui demander de l'aide. Avec un fragment de pierre, vous tracez un pentacle sur le sol poussiéreux de la cellule et vous y pénétrez. Debout dans le symbole magique, vous prenez quelques profondes inspirations puis entrez progressivement en transe. Vous vous concentrez sur le corps du prêtre mort et dirigez votre énergie mentale vers le Champ des Esprits. Un cortège de visions étranges, fantômes livides et âmes sans corps, se met à défiler derrière vos yeux clos. Et c'est alors que l'ombre translucide du vieux prêtre se matérialise au-dessus de sa dépouille charnelle, illuminant la cellule d'un halo argenté. Tremblant comme une feuille, le marchand se recroqueville dans un coin, blême de frayeur. « Me voici, Astre d'Or, dit l'Ombre d'une voix sépulcrale. Je te viendrai en aide mais, si je te libère, il te faudra payer le prix des Morts. Te sens-tu prêt à t'en acquitter ? » La peur vous emplit soudain car vous comprenez que, si vous voulez obtenir l'aide du prêtre mort, vous devez vous engager à en payer le prix, quel qu'il soit. Qu'allez-vous faire : Accepter ? Refuser ? Rendez-vous au 326 Rendez-vous au 305",
       "choices": [
         {
-          "to": 326,
-          "label": "Vous avez décidé d'évoquer l'esprit du prêtre mort pour lui"
+          "label": "Accepter",
+          "to": 326
         },
         {
-          "to": 305,
-          "label": "Debout dans"
-        },
-        {
-          "to": 326,
-          "label": "Aller à 326"
-        },
-        {
-          "to": 305,
-          "label": "Aller à 305"
+          "label": "Refuser",
+          "to": 305
         }
       ]
     },
@@ -3241,11 +3222,11 @@
     },
     {
       "id": 259,
-      "text": "Sans que vous en connaissiez la raison, la vague d'appréhension qui vous tenaillait les entrailles vous submerge maintenant totalement ; vous êtes paniqué. Quant à Chan, il tremble comme une feuille à vos côtés. Vous avancez avec appréhension, vous enfonçant dans la boue molle de la fondrière. Une odeur douceâtre et écœurante flotte, indéfinissable. Vous ne pouvez pas chasser l'impression qu'il y a dans cette caverne quelqu'un ou quelque chose, mais quoi ? Difficile à dire dans cette obscurité profonde... La vase semble vouloir vous aspirer mais vous reprenez courage en apercevant une faible lueur à l'autre bout de la grotte. « Astre d'Or ! » hurle soudain Chan d'une voix remplie de terreur, les yeux rivés au sol. Suivant son regard, vous comprenez alors sa frayeur et un spasme de révulsion vous fait frissonner : la vase de la fondrière n'est rien d'autre que la bouillie putride et grouillante de vers de centaines de cadavres empilés les uns sur les autres... Chan a perdu tout contrôle sur lui-même et ne cesse de hurler, en proie à une crise de démence. Vous essayez de le calmer mais, hélas ! vous voici bientôt gagné vous-même par les visions cauchemardesques qui hantent cette antichambre de l'enfer. Vous êtes dans la fameuse Chambre des Tréfonds Obscurs de Mère Magri. Votre seule chance de parvenir à en sortir est de vaincre la peur panique qu'elle vous communique par ses vibrations néfastes que vous allez affronter en un âpre combat. Additionnez vos points de VOLONTÉ et vos points d'ENDURANCE, le total ainsi obtenu représentera votre HABILETÉ mentale, que vous allez devoir mesurer à l'HABILETÉ de la Chambre des Tréfonds Obscurs. CHAMBRE DES TRÉFONDS OBSCURS HABILETÉ ENDURANCE : 30 : 28 Si vous êtes vainqueur, rendez-vous au 296.",
+      "text": "Sans que vous en connaissiez la raison, la vague d'appréhension qui vous tenaillait les entrailles vous submerge maintenant totalement ; vous êtes paniqué. Quant à Chan, il tremble comme une feuille à vos côtés. Vous avancez avec appréhension, vous enfonçant dans la boue molle de la fondrière. Une odeur douceâtre et écœurante flotte, indéfinissable. Vous ne pouvez pas chasser l'impression qu'il y a dans cette caverne quelqu'un ou quelque chose, mais quoi ? Difficile à dire dans cette obscurité profonde... La vase semble vouloir vous aspirer mais vous reprenez courage en apercevant une faible lueur à l'autre bout de la grotte. « Astre d'Or ! » hurle soudain Chan d'une voix remplie de terreur, les yeux rivés au sol. Suivant son regard, vous comprenez alors sa frayeur et un spasme de révulsion vous fait frissonner : la vase de la fondrière n'est rien d'autre que la bouillie putride et grouillante de vers de centaines de cadavres empilés les uns sur les autres... Chan a perdu tout contrôle sur lui-même et ne cesse de hurler, en proie à une crise de démence. Vous essayez de le calmer mais, hélas ! vous voici bientôt gagné vous-même par les visions cauchemardesques qui hantent cette antichambre de l'enfer. Vous êtes dans la fameuse Chambre des Tréfonds Obscurs de Mère Magri. Votre seule chance de parvenir à en sortir est de vaincre la peur panique qu'elle vous communique par ses vibrations néfastes que vous allez affronter en un âpre combat. Additionnez vos points de VOLONTÉ et vos points d'ENDURANCE, le total ainsi obtenu représentera votre HABILETÉ mentale, que vous allez devoir mesurer à l'HABILETÉ de la Chambre des Tréfonds Obscurs. CHAMBRE DES TRÉFONDS OBSCURS HABILETÉ : 28 + ENDURANCE : 30  Si vous êtes vainqueur, rendez-vous au 296.",
       "choices": [
         {
-          "to": 296,
-          "label": "28 Si vous êtes vainqueur"
+          "label": "Si vous êtes vainqueur",
+          "to": 296
         }
       ]
     },
@@ -3495,15 +3476,15 @@
     },
     {
       "id": 281,
-      "text": "Pour le moment, le rapace est encore dans les airs, mais vous comprenez qu'il compte vous empoisonner en vous frôlant de ses pustules venimeuses. Le moindre contact avec la peau du Kraku signifierait pour vous une mort instantanée, aussi ne pouvez- vous pas prendre de risques. Durant tout le combat, votre aliatégie se limitera donc à la défensive, ce qui diminue votre HABILETÉ de 1 point. KRAKU HABILETÉ: 15 ENDURANCE : 30 Si, après le premier Assaut, votre total de VOLONTÉ est supérieur ou égal à 10, rendez-vous au 331. S'il est inférieur, rendez-vous au 32.",
+      "text": "Pour le moment, le rapace est encore dans les airs, mais vous comprenez qu'il compte vous empoisonner en vous frôlant de ses pustules venimeuses. Le moindre contact avec la peau du Kraku signifierait pour vous une mort instantanée, aussi ne pouvezvous pas prendre de risques. Durant tout le combat, votre aliatégie se limitera donc à la défensive, ce qui diminue votre HABILETÉ de 1 point.\nKRAKU HABILETÉ: 15 ENDURANCE : 30\n\nSi, après le premier Assaut, votre total de VOLONTÉ est supérieur ou égal à 10, rendez-vous au 331. \nS'il est inférieur, rendez-vous au 32.",
       "choices": [
         {
-          "to": 331,
-          "label": "30 Si, après le premier Assaut, votre total de VOLONTÉ est supérieur ou égal à 10"
+          "label": "Si, après le premier Assaut, votre total de VOLONTÉ est supérieur ou égal à 10",
+          "to": 331
         },
         {
-          "to": 32,
-          "label": "S'il est inférieur"
+          "label": "S'il est inférieur à 10",
+          "to": 32
         }
       ]
     },
@@ -3549,19 +3530,19 @@
     },
     {
       "id": 286,
-      "text": "Les mains moites, vous passez toutes les clefs du trousseau en revue, essayant de trouver celle qui pourrait faire tourner la serrure. Si vous possédez le Pouvoir Magique de Psychomancie, rendez-vous au 235. Sinon, utilisez la Table de Hasard pour obtenir un chiffre. Si vous tirez 0, 2, 4, 6 ou 8, rendez-vous au 214. Si vous tirez 1, 3, 5, 7 ou 9, rendez-vous au 205.",
+      "text": "Les mains moites, vous passez toutes les clefs du trousseau en revue, essayant de trouver celle qui pourrait faire tourner la serrure. \n\nSi vous possédez le Pouvoir Magique de Psychomancie, rendez-vous au 235. \nSinon, utilisez la Table de Hasard pour obtenir un chiffre. \nSi vous tirez 0, 2, 4, 6 ou 8, rendez-vous au 214. \nSi vous tirez 1, 3, 5, 7 ou 9, rendez-vous au 205.",
       "choices": [
         {
-          "to": 235,
-          "label": "Si vous possédez le Pouvoir Magique de Psychomancie"
+          "label": "Si vous possédez le Pouvoir Magique de Psychomancie",
+          "to": 235
         },
         {
-          "to": 214,
-          "label": "Si vous tirez 0, 2, 4, 6 ou 8"
+          "label": "Si vous tirez 0, 2, 4, 6 ou 8 (pair)",
+          "to": 214
         },
         {
-          "to": 205,
-          "label": "Si vous tirez 1, 3, 5, 7 ou 9"
+          "label": "Si vous tirez 1, 3, 5, 7 ou 9 (impair)",
+          "to": 205
         }
       ]
     },
@@ -4204,11 +4185,11 @@
     },
     {
       "id": 346,
-      "text": "Vous vous retournez et vous regardez derrière vous. Au sommet de la colline la citadelle, lugubre masse noire, se dresse haut dans le ciel étoilé. Elle semble comme enveloppé d'un brouillard létal : ce sont les ombres des morts qui tourbillonnent en une danse macabre et frénétique. Pierre par pierre, ils démolissent la prison de leurs supplices : d'abord les lourds remparts, puis bientôt tout l'édifice se fissurent et s'écroulent, et l'écho vous porte les cris d'horreur des Chadakines qui périssent sous la main de leurs victimes de jadis. « Est-ce toi qui as convoqué les morts ? » vous demande Tanid en vous regardant de ses grands yeux écarquillés. Vous hochez la tête, incapable d'émettre le moindre son, et un frisson glacé vous parcourt le dos. « Une mort abominable, commente la jeune fille d'un ton détaché. Cha- ratchak aurait approuvé... » Elle semble inconsciente de l'ironie de sa remarque et, quant à vous, vous rentrez la tête dans les épaules, assailli de violents remords. Rendez-vous au 199.",
+      "text": "Vous vous retournez et vous regardez derrière vous. Au sommet de la colline la citadelle, lugubre masse noire, se dresse haut dans le ciel étoilé. Elle semble comme enveloppé d'un brouillard létal : ce sont les ombres des morts qui tourbillonnent en une danse macabre et frénétique. Pierre par pierre, ils démolissent la prison de leurs supplices : d'abord les lourds remparts, puis bientôt tout l'édifice se fissurent et s'écroulent, et l'écho vous porte les cris d'horreur des Chadakines qui périssent sous la main de leurs victimes de jadis. \n« Est-ce toi qui as convoqué les morts ? » vous demande Tanid en vous regardant de ses grands yeux écarquillés. Vous hochez la tête, incapable d'émettre le moindre son, et un frisson glacé vous parcourt le dos. \n« Une mort abominable, commente la jeune fille d'un ton détaché. Cha- ratchak aurait approuvé... » Elle semble inconsciente de l'ironie de sa remarque et, quant à vous, vous rentrez la tête dans les épaules, assailli de violents remords. \n\nRendez-vous au 199.",
       "choices": [
         {
-          "to": 199,
-          "label": "Aller à 199"
+          "label": "Aller à 199",
+          "to": 199
         }
       ]
     },
@@ -4237,12 +4218,12 @@
       "text": "C'est Tanid, la jeune servante au service de Mère Magri, qui se dirige vers vous, tenant votre Sac à Dos et votre Baguette de sorcier. « Astre d'Or ! s'exclame-t-elle en vous apercevant. Te voilà enfin ! » De l'autre bout du couloir vous parviennent les bruits de pas précipités des guerriers Chadakines et la voix rauque de Mère Magri qui les lance à vos trousses. « Nous sommes cernés ! » s'écrie Chan avec effroi. La jeune fille vous a maintenant rattrapé. Allez-vous l'attaquer (rendez-vous au 173) ou préférez-vous tenter de la convaincre de vous rendre vos affaires (rendez-vous au 245) ?",
       "choices": [
         {
-          "to": 173,
-          "label": "Allez-vous l'attaquer ("
+          "label": "Allez-vous l'attaquer",
+          "to": 173
         },
         {
-          "to": 245,
-          "label": "Allez-vous l'attaquer"
+          "label": "Le convaincre",
+          "to": 245
         }
       ]
     },

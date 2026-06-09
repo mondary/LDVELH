@@ -119,6 +119,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .edit-actions{display:flex;gap:8px;margin-top:10px}
 .edit-actions .btn-save{background:var(--green);border:none;color:#fff;padding:6px 14px;border-radius:var(--radius);cursor:pointer;font-size:12px;font-weight:600}
 .edit-actions .btn-save:hover{opacity:0.85}
+.edit-actions .btn-submit{background:var(--accent);border:none;color:#000;padding:6px 14px;border-radius:var(--radius);cursor:pointer;font-size:12px;font-weight:600}
+.edit-actions .btn-submit:hover{opacity:0.85}
 .edit-actions .btn-cancel-edit{background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);padding:6px 14px;border-radius:var(--radius);cursor:pointer;font-size:12px}
 .edit-actions .btn-add-choice{background:none;border:1px dashed var(--border);color:var(--text-muted);padding:6px 12px;border-radius:var(--radius);cursor:pointer;font-size:12px;width:100%;text-align:center}
 .edit-actions .btn-add-choice:hover{border-color:var(--accent);color:var(--accent)}
@@ -145,6 +147,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
     <button class="btn" onclick="resetGame()">Recommencer</button>
     <button class="btn" onclick="showResetModal()">Réinitialiser</button>
     <button class="btn" id="pdfBtn" onclick="openPDF()" style="display:none">📄 PDF</button>
+    <button class="btn" id="submitBtn" onclick="submitMod()" style="display:none">📨 Soumettre <span id="modCount"></span></button>
     <button class="btn" id="exportBtn" onclick="exportBookData()" style="display:none">⬇ JSON</button>
     <button class="btn" onclick="exportSave()">💾 Sauvegarde</button>
     <label class="btn" style="cursor:pointer">📂 Restaurer<input type="file" accept=".json" onchange="importSave(event)" style="display:none"></label>
@@ -236,6 +239,7 @@ function loadBook(isbn) {
       restoreTTSControls();
       updateBreadcrumb();
       renderGraph();
+      updateModCount();
     })
     .catch(function(e) {
       console.error("Erreur chargement:", e);
@@ -341,6 +345,20 @@ function restoreState() {
   }
 }
 
+function updateModCount() {
+  var count = 0;
+  for (var id in BOOK_DATA) { if (BOOK_DATA[id].modified) count++; }
+  var btn = document.getElementById("submitBtn");
+  var span = document.getElementById("modCount");
+  if (count > 0) {
+    if (btn) { btn.style.display = "inline-block"; btn.style.background = "var(--accent)"; btn.style.color = "#000"; btn.style.borderColor = "var(--accent)"; }
+    if (span) span.textContent = "(" + count + ")";
+  } else {
+    if (btn) { btn.style.display = "none"; btn.style.background = ""; btn.style.color = ""; btn.style.borderColor = ""; }
+    if (span) span.textContent = "";
+  }
+}
+
 function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
 function saveState() {
   if (!attempts[currentAttemptIdx]) attempts[currentAttemptIdx] = { hist: [1], ts: Date.now() };
@@ -437,6 +455,7 @@ function renderParagraph(id) {
       '</div>' +
       '<div class="edit-actions">' +
         '<button class="btn-save" onclick="saveAll(' + id + ')">Enregistrer</button>' +
+        '<button class="btn-cancel-edit" onclick="toggleEditMode()">Annuler</button>' +
       '</div>';
 
     var ta = document.getElementById("editText");
@@ -531,6 +550,37 @@ function closePDF() {
   drawer.classList.remove("open");
 }
 
+function submitMod() {
+  var pw = prompt("Mot de passe admin ?\n(Laisser vide pour envoyer une demande)");
+  if (pw === null) return;
+  if (pw) {
+    fetch("/api/books/" + encodeURIComponent(currentIsbn) + "/promote", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ password: pw })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.error) { alert("Erreur : " + data.error); return; }
+      alert("Promu ! " + data.sections + " sections mises à jour.");
+      loadBook(currentIsbn);
+    });
+  } else {
+    fetch("/api/books/" + encodeURIComponent(currentIsbn) + "/request-mod", { method: "POST" })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.message) { alert(data.message); return; }
+      var msg = "Demande enregistrée (" + data.sections + " sections).\nFichier : " + data.file;
+      if (data.adminEmail) {
+        var subject = encodeURIComponent("[LDVELH] Modifs - " + (BOOK_META.title || currentIsbn));
+        var body = encodeURIComponent("Modifications pour " + (BOOK_META.title || currentIsbn) + "\nFichier : " + data.file + "\nSections : " + data.sections);
+        window.open("mailto:" + data.adminEmail + "?subject=" + subject + "&body=" + body);
+      }
+      alert(msg);
+    });
+  }
+}
+
 function autoResize(el) {
   el.style.height = "auto";
   el.style.height = el.scrollHeight + "px";
@@ -560,6 +610,7 @@ function saveAll(id) {
   if (btn) btn.classList.remove("active");
   var exportBtn = document.getElementById("exportBtn");
   if (exportBtn) exportBtn.style.display = "none";
+  updateModCount();
   renderParagraph(id);
 }
 
@@ -978,7 +1029,7 @@ function renderOverlayGraph() {
 
   var nodeId = 0;
   function TreeNode(pid, attemptIdx, parentNode) {
-    return { id: nodeId++, pid: pid, attempts: [attemptIdx], children: [], parent: parentNode || null, loopTarget: null, mergeFrom: [] };
+    return { id: nodeId++, pid: pid, attempts: [attemptIdx], children: [], parent: parentNode || null, loopFrom: [], mergeFrom: [] };
   }
 
   var root = TreeNode(1, 0, null);
@@ -1002,7 +1053,7 @@ function renderOverlayGraph() {
 
       var found = null;
       for (var ci = 0; ci < node.children.length; ci++) {
-        if (node.children[ci].pid === pid && !node.children[ci].isLoop) { found = node.children[ci]; break; }
+        if (node.children[ci].pid === pid) { found = node.children[ci]; break; }
       }
       if (found) {
         if (found.attempts.indexOf(ai) === -1) found.attempts.push(ai);
@@ -1012,11 +1063,8 @@ function renderOverlayGraph() {
 
       var ancestor = isAncestor(node, pid);
       if (ancestor) {
-        var loopNode = TreeNode(pid, ai, node);
-        loopNode.loopTarget = ancestor;
-        loopNode.isLoop = true;
-        node.children.push(loopNode);
-        nodes.push(loopNode);
+        ancestor.loopFrom.push({ from: node, attempt: ai });
+        if (ancestor.attempts.indexOf(ai) === -1) ancestor.attempts.push(ai);
         node = ancestor;
         continue;
       }
@@ -1194,28 +1242,23 @@ function renderOverlayGraph() {
 
   var loopCount = 0;
   (function drawLoops(n) {
-    if (n.isLoop && n.loopTarget) {
+    for (var li = 0; li < n.loopFrom.length; li++) {
+      var fromNode = n.loopFrom[li].from;
       loopCount++;
       var loopOffset = 20 + (loopCount % 3) * 12;
-      var path = "M" + n.x + "," + n.y +
-        " C" + (n.x - loopOffset) + "," + n.y +
-        " " + (n.loopTarget.x - loopOffset) + "," + n.loopTarget.y +
-        " " + n.loopTarget.x + "," + n.loopTarget.y;
+      var path = "M" + fromNode.x + "," + (fromNode.y + 6) +
+        " C" + (fromNode.x - loopOffset) + "," + (fromNode.y + Y_STEP / 2) +
+        " " + (n.x - loopOffset) + "," + (n.y - Y_STEP / 2) +
+        " " + n.x + "," + (n.y - 6);
       svg.appendChild(el("path", {
         d: path, fill: "none", stroke: "#f0883e",
         "stroke-width": 1.5, "stroke-dasharray": "4,3", "stroke-opacity": 0.7
       }));
-      var ax = n.loopTarget.x - 6, ay = n.loopTarget.y;
+      var ax = n.x - 6, ay = n.y - 6;
       svg.appendChild(el("polygon", {
         points: ax + "," + ay + " " + (ax - 5) + "," + (ay - 4) + " " + (ax - 5) + "," + (ay + 4),
         fill: "#f0883e", "fill-opacity": 0.7
       }));
-      var loopSym = el("text", {
-        x: n.x - 14, y: n.y + 4,
-        fill: "#f0883e", "font-size": 10, "font-weight": "bold"
-      });
-      loopSym.textContent = "↺";
-      svg.appendChild(loopSym);
     }
     for (var i = 0; i < n.children.length; i++) drawLoops(n.children[i]);
   })(root);

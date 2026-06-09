@@ -78,6 +78,7 @@ src/
 
 ## Changelog
 
+- [0.23] - Submit button (promote with admin password or email request), modification counter, overlay graph without duplicates
 - [0.22] - Fix overlay graph (loops no longer truncate path), PDF drawer with pageMap, choice reordering in edit mode
 - [0.21] - Sticky header, PDF button, line breaks in paragraphs, DB import update
 - [0.20] - Generic interactive reader, SQLite server, in-db editing, save export/import
