@@ -562,7 +562,7 @@ function submitMod() {
     .then(function(r) { return r.json(); })
     .then(function(data) {
       if (data.error) { alert("Erreur : " + data.error); return; }
-      alert("Promu ! " + data.sections + " sections mises à jour.");
+      alert("Promu ! " + data.modified + " section" + (data.modified > 1 ? "s" : "") + " mise" + (data.modified > 1 ? "s" : "") + " à jour.");
       loadBook(currentIsbn);
     });
   } else {

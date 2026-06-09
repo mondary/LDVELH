@@ -78,6 +78,7 @@ src/
 
 ## Changelog
 
+- [0.24] - Fix promote (sections updated in DB), show only modified section count
 - [0.23] - Submit button (promote with admin password or email request), modification counter, overlay graph without duplicates
 - [0.22] - Fix overlay graph (loops no longer truncate path), PDF drawer with pageMap, choice reordering in edit mode
 - [0.21] - Sticky header, PDF button, line breaks in paragraphs, DB import update

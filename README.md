@@ -78,7 +78,8 @@ src/
 
 ## Changelog
 
-- [0.23] - Bouton Soumettre (promouivre avec password admin ou demande par email), compteur de modifications, graphe overlay sans doublons
+- [0.24] - Fix promote (sections mises à jour dans la DB), compteur de sections modifiées uniquement
+- [0.23] - Bouton Soumettre (promouvoir avec password admin ou demande par email), compteur de modifications, graphe overlay sans doublons
 - [0.22] - Fix graphe overlay (boucles ne coupaient plus le parcours), drawer PDF avec pageMap, réordonnancement des choix en édition
 - [0.21] - Header sticky, bouton PDF, retours à la ligne dans les paragraphes, import DB mis à jour
 - [0.20] - Lecteur interactif générique, serveur SQLite, édition en base, export/import de sauvegardes

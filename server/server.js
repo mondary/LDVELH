@@ -55,7 +55,7 @@ function importJsonFiles() {
     "INSERT OR IGNORE INTO books (isbn, book_id, title, subtitle, metadata) VALUES (?, ?, ?, ?, ?)"
   );
   const stmtSection = db.prepare(
-    "INSERT OR IGNORE INTO sections (isbn, section_id, text_original, choices_original) VALUES (?, ?, ?, ?)"
+    "INSERT OR REPLACE INTO sections (isbn, section_id, text_original, choices_original) VALUES (?, ?, ?, ?)"
   );
 
   let imported = 0;
@@ -278,7 +278,8 @@ const server = http.createServer(async (req, res) => {
       fs.writeFileSync(filePath, JSON.stringify(exportData, null, 2), "utf-8");
       resetBook(isbn);
       importJsonFiles();
-      return json(res, 200, { ok: true, sections: exportData.sections.length });
+      const modified = book.sections.filter((s) => s.modified).length;
+      return json(res, 200, { ok: true, modified: modified });
     }
 
     if (req.method === "POST" && parts[3] === "request-mod") {
