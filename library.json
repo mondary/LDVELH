@@ -68,7 +68,7 @@
     {
       "id": "loup-solitaire",
       "name": "Loup Solitaire",
-      "count": 34
+      "count": 35
     },
     {
       "id": "l-epee-de-legende",
@@ -3549,8 +3549,8 @@
     {
       "id": "defis-fantastiques-les-geants-de-fer",
       "series": "defis-fantastiques",
-      "number": 28,
-      "numero_collection": null,
+      "number": 69,
+      "numero_collection": 28,
       "isbn": "9782075203449",
       "title": "Les Géants de Fer",
       "authors": [],
@@ -3686,8 +3686,8 @@
     {
       "id": "defis-fantastiques-les-mysteres-de-salamonis",
       "series": "defis-fantastiques",
-      "number": 27,
-      "numero_collection": null,
+      "number": 68,
+      "numero_collection": 27,
       "isbn": "9782075190800",
       "title": "Les Mystères de Salamonis",
       "authors": [],
@@ -5642,6 +5642,39 @@
           "date": "2021-06-17",
           "price": 12.78,
           "rating": 4.73
+        }
+      ]
+    },
+    {
+      "id": "loup-solitaire-le-crepuscule-de-la-nuit-eternelle",
+      "series": "loup-solitaire",
+      "number": 31,
+      "numero_collection": null,
+      "isbn": "9782075221030",
+      "title": "Le Crépuscule de la Nuit Éternelle",
+      "authors": [
+        "Ben Dever",
+        "Joe Dever",
+        "Vincent Lazzari"
+      ],
+      "year": 2025,
+      "rating": null,
+      "description": "Une aventure collector de Loup Solitaire publiée pour les 40 ans de la série. Le Sommerlund est menacé par le retour de Vashna et une organisation secrète tente de ramener Agarash le Damné.",
+      "chapters": null,
+      "difficulty": null,
+      "tags": [
+        "Aventure",
+        "Fantasy",
+        "Livre-jeu"
+      ],
+      "editions": [
+        {
+          "universe": "V5",
+          "isbn": "9782075221030",
+          "year": 2025,
+          "date": "2025-06-26",
+          "price": 24.9,
+          "rating": null
         }
       ]
     },

@@ -1,0 +1,995 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audit LDVELH · Liste canonique vs library.json</title>
+<style>
+  :root {
+    --bg: #f4f1ea;
+    --ink: #191713;
+    --muted: #736b5f;
+    --line: #d7cec0;
+    --paper: #fffaf1;
+    --accent: #b33a2f;
+    --good: #28734f;
+    --warn: #9a6a12;
+    --bad: #9b2f34;
+    --shadow: 0 16px 48px rgba(49, 35, 17, 0.12);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    background:
+      linear-gradient(90deg, rgba(25,23,19,0.04) 1px, transparent 1px) 0 0 / 28px 28px,
+      linear-gradient(180deg, #fbf6ec 0%, var(--bg) 100%);
+    font-family: ui-serif, Georgia, "Times New Roman", serif;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 16px;
+    align-items: center;
+    padding: 18px 24px;
+    background: rgba(244, 241, 234, 0.92);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(12px);
+  }
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    line-height: 1;
+  }
+  .sub {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .toolbar {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+  input, select, button {
+    font: inherit;
+  }
+  input, select {
+    height: 36px;
+    border: 1px solid var(--line);
+    background: #fffdf8;
+    color: var(--ink);
+    padding: 0 10px;
+    border-radius: 4px;
+  }
+  input { width: min(320px, 36vw); }
+  button {
+    height: 36px;
+    border: 1px solid var(--line);
+    background: #fffdf8;
+    color: var(--ink);
+    border-radius: 4px;
+    padding: 0 12px;
+    cursor: pointer;
+  }
+  button:hover { border-color: var(--accent); color: var(--accent); }
+  main {
+    padding: 22px 24px 48px;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(130px, 1fr));
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .stat {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    padding: 13px 14px;
+    border-radius: 6px;
+  }
+  .stat strong {
+    display: block;
+    font-size: 24px;
+    line-height: 1;
+  }
+  .stat span {
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  section {
+    min-width: 0;
+  }
+  .panel {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .panel-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--line);
+    background: rgba(255,255,255,0.42);
+  }
+  .panel-head h2 {
+    margin: 0;
+    font-size: 17px;
+  }
+  .count {
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .rows {
+    display: grid;
+  }
+  .table-head,
+  .row {
+    display: grid;
+    grid-template-columns: 42px 72px minmax(240px, 1fr) minmax(300px, 1.15fr) 250px;
+    gap: 12px;
+    padding: 12px 14px;
+    border-bottom: 1px solid rgba(215, 206, 192, 0.72);
+  }
+  .table-head {
+    position: sticky;
+    top: 73px;
+    z-index: 3;
+    background: #f2eadc;
+    color: var(--muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+  }
+  .row:last-child { border-bottom: 0; }
+  .row:hover { background: rgba(179,58,47,0.045); }
+  .row.needs-check { background: rgba(155, 47, 52, 0.045); }
+  .num {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 13px;
+    padding-top: 2px;
+  }
+  .title {
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .key {
+    margin-top: 4px;
+    color: var(--muted);
+    font: 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+    overflow-wrap: anywhere;
+  }
+  .matches {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+  }
+  .match {
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+    padding: 7px 8px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: rgba(255,255,255,0.58);
+    font-size: 13px;
+    line-height: 1.3;
+  }
+  .cover-thumb {
+    width: 46px;
+    aspect-ratio: 2 / 3;
+    border-radius: 3px;
+    object-fit: cover;
+    background: #eadfce;
+    border: 1px solid rgba(25, 23, 19, 0.12);
+    box-shadow: 0 6px 18px rgba(49, 35, 17, 0.12);
+  }
+  .cover-placeholder {
+    display: grid;
+    place-items: center;
+    color: var(--muted);
+    font-size: 10px;
+    text-align: center;
+  }
+  .match small {
+    display: block;
+    margin-top: 3px;
+    color: var(--muted);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .none {
+    color: var(--bad);
+    font-size: 13px;
+    padding-top: 7px;
+  }
+  .actions {
+    display: grid;
+    gap: 8px;
+  }
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    min-height: 28px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(40, 115, 79, 0.12);
+    color: var(--good);
+    border: 1px solid rgba(40, 115, 79, 0.28);
+    font-size: 12px;
+    font-family: ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+  }
+  .decision-buttons {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  .decision-buttons button {
+    height: 30px;
+    padding: 0 7px;
+    font-size: 12px;
+  }
+  .decision-buttons button.active[data-decision="add"] { background: var(--good); border-color: var(--good); color: white; }
+  .decision-buttons button.active[data-decision="skip"] { background: var(--bad); border-color: var(--bad); color: white; }
+  .decision-buttons button.active[data-decision="merge"] { background: var(--warn); border-color: var(--warn); color: white; }
+  .decision-buttons button.active[data-decision="review"] { background: var(--ink); border-color: var(--ink); color: white; }
+  .decision-help {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.25;
+  }
+  textarea {
+    width: 100%;
+    min-height: 42px;
+    resize: vertical;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: #fffdf8;
+    padding: 7px 8px;
+    color: var(--ink);
+    font: 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  .hidden { display: none; }
+  @media (max-width: 1180px) {
+    header { grid-template-columns: 1fr; }
+    .toolbar { justify-content: flex-start; }
+    .stats { grid-template-columns: repeat(2, minmax(130px, 1fr)); }
+    .table-head { display: none; }
+    .row { grid-template-columns: 32px 52px 1fr; }
+    .matches, .actions { grid-column: 3; }
+    input { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Audit des listes LDVELH</h1>
+    <div class="sub">Liste canonique utilisateur vs entrées de <code>library.json</code>. Les décisions sont sauvegardées dans ce navigateur.</div>
+  </div>
+  <div class="toolbar">
+    <input id="search" type="search" placeholder="Filtrer titre, série, note...">
+    <select id="filter">
+      <option value="all">Tous</option>
+      <option value="todo">À décider</option>
+      <option value="ok">OK auto</option>
+      <option value="add">Ajouter</option>
+      <option value="skip">Ne pas ajouter</option>
+      <option value="merge">Fusionner</option>
+      <option value="review">À revoir</option>
+      <option value="nomatch">Sans match</option>
+      <option value="multi">Plusieurs matchs</option>
+    </select>
+    <button id="export">Exporter JSON</button>
+    <button id="reset">Reset filtres</button>
+  </div>
+</header>
+<main>
+  <div class="stats" id="stats"></div>
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Tableau aligné par titre</h2>
+      <div class="count" id="canonicalCount"></div>
+    </div>
+    <div class="table-head">
+      <div>OK</div>
+      <div>N°</div>
+      <div>Liste canonique</div>
+      <div>library.json</div>
+      <div>Note</div>
+    </div>
+    <div class="rows" id="rows"></div>
+  </section>
+</main>
+<script>
+const EXPECTED_RAW = `
+01 : Le Sorcier Majdar
+02 : La Cité Interdite
+03 : Le royaume de l'Oubli
+04 : La Guerre des Sorciers
+01 : La Vengeance d'Althéos
+02 : Le Labyrinthe du Roi Minos
+03 : L'odyssée D'althéos
+01 : Le trésor des pharaons
+02 : La dernière folie de Caligula
+03 : La guerre de Troie aura t-elle lieu ?
+04 : Sacrifice chez les azteques
+01 : Caïthness l'élémentaliste
+02 : Keldrilh le Ménestrel
+03 : Péreim le Chevalier
+04 : Kandjar le Magicien
+05 : Les Héritiers de Dorgan
+06 : Le Sanctuaire des Horlas
+07 : La Huitième Porte
+08 : L'Ultime Réincarnation
+01 : Le Sorcier de la Montagne de Feu
+02 : La Citadelle du Chaos
+03 : La Forêt de la Malédiction
+04 : La Galaxie Tragique
+05 : La Cité des Voleurs
+06 : Le Labyrinthe de la Mort
+07 : L'île Du Roi Lézard
+08 : Le Marais aux Scorpions
+09 : La Sorcière des Neiges
+10 : Le Manoir de l'Enfer
+11 : Le Talisman De La Mort
+12 : Le Mercenaire de l'Espace
+13 : Le Combattant de l'Autoroute
+14 : Le Temple de la Terreur
+15 : Les Trafiquants de Kelter
+16 : Défis sanglants sur l'Océan
+17 : Rendez-vous avec la M.O.R.T.
+18 : La Planète Rebelle
+19 : Les Démons des Profondeurs
+20 : L'épée Du Samouraï
+21 : L'Epreuve des Champions
+22 : La Grande Menace des Robots
+23 : Les Sceaux de la Destruction
+24 : La Créature venue du Chaos
+25 : La Forteresse du Cauchemar
+26 : La Crypte du Sorcier
+27 : Le Chasseur des Etoiles
+28 : Les Spectres de l'Angoisse
+29 : Les Rôdeurs de la Nuit
+30 : Les Gouffres de la Cruauté
+31 : L'Empire des Hommes-Lézards
+32 : Les Esclaves de l'Eternité
+33 : Le Justicier de l'Univers
+34 : Le Voleur d'Ames
+35 : Le Vampire du Château Noir
+36 : La Nuit des Mutants
+37 : Les Sombres Cohortes
+38 : L'Elu des Six Clans
+39 : Le Volcan de Zamarra
+40 : Le Sceptre Noir
+41 : La Vengeance des Démons
+42 : L'Ancienne Prophétie
+43 : Le Repaire des Morts Vivants
+44 : La Légende des Guerriers Fantômes
+45 : La Tour de la Destruction
+46 : L'Arpenteur de la Lune
+47 : Les Mercenaires du Levant
+48 : Les Mondes de l'Aleph
+49 : Le Siège de Sardath
+50 : Retour à la Montagne de Feu
+51 : Les Mages de Solani
+52 : La Légende de Zagor
+53 : Le Sépulcre des Ombres
+54 : Le Voleur de Vie
+55 : Les Chevaliers du Destin
+56 : Le Chasseur de Mages
+57 : La Revanche du Vampire
+58 : Le Dragon de la Nuit
+59 : La malédiction de la Momie
+60 : L'oeil D'émeraude
+61 : Le pirate de l'au-delà
+62 : La nuit du Loup-Garou
+63 : Le Maître Des Tempêtes
+64 : La nuit du nécromancien
+65 : Le sang des zombies
+66 : L'anneau des serpents de feu
+67 : Le fléau de Titan
+01 : Le Pirate des Sept Mers
+02 : L'Étoile de la Destinée
+03 : Le Peuple Maudit
+04 : Le Collier Maléfique
+05 : Heart of Ice
+06 : Twist of Fate
+01 : Issel le Guerrier
+02 : Darian le Magicien
+03 : Coréus le Prince
+04 : Bardik le Voleur
+05 : Lothar le Sorcier
+06 : Clovis le Chevalier
+01 : Le Tombeau du Vampire
+02 : Le Dieu Perdu
+03 : Le Seigneur de l'Ombre
+04 : La Malédiction du Pharaon
+05 : Le Château Des Âmes Damnées
+06 : l'oeil du dragon
+01 : Vous êtes l'As des as
+02 : Les Maitres des dragons
+03 : LE Shérif et le hors-la-loi
+01 : Frankenstein Le Maudit
+02 : Le Château De Dracula
+03 : La malédiction de Baskerville
+01 : L'Ombre de la Guillotine
+02 : A Feu et à Sang
+03 : La Dernière Invasion
+04 : Pour L'indépendance
+05 : Les Vaisseaux de Feu
+01 : Les Treize Mages
+02 : Le Maître Des Rêves
+03 : Le Port des Assassins
+04 : L'Impossible Mission
+05 : Les Murailles de Spyte
+00a : Le Livre des Règles
+00b : Le Livre des Règles II
+00c : Héros, Monstres et Forces Obscures
+00d : L'Aventurie
+00e : Le Livre des Aventures
+00f : Les accessoires du maitre
+01 : L'auberge Du Sanglier Noir
+02 : La Forêt sans Retour
+03 : La Fille du Calife
+04 : Les Sept Coupes Magiques
+05 : La source de Mort
+06 : Le Fleuve du Désastre
+07 : Le Tournoi des Félons
+08 : Le Magicien des Glaces
+09 : L'archipel Des Cyclopes
+10 : Dans les Griffes du Démon
+11 : La Porte des Mondes
+12 : Le Navire des Âmes Perdues
+13 : Le Bourreau de Thalussa
+14 : Les hiéroglyphes de l'horreur
+15 : Les Spectres des Marais
+16 : La Reine des Amazones
+17 : Le Chemin Maudit
+18 : Les Esclaves d’Al’Anfa
+19 : La forêt des Araignées
+20 : La tour pourpre
+21 : Le trésor des Orks
+22 : La Faucille Noire
+23 : Rage noire
+24 : Terreur sur Ranak
+01 : La Vengeance du Ninja
+02 : Les Parchemins de Kettsuin
+03 : L'Usurpateur d'Irsmun
+04 : Le Grand Maître d'Irsmun
+05 : Les Seigneurs de la Guerre
+06 : Les Démons du Manmarch
+01 : La Forêt du Dragon
+02 : Le Maître du Feu
+01 : Le Carillon de la Mort
+02 : Le Masque de Sang
+03 : L'Homme au Cheval de Brume
+04 : Objectif, Apocalypse
+01 : L'Horreur dans la Vallée
+02 : Terreur Hors Du Temps
+01 : Livre Des Règles
+02 : Initiation À La Magie
+03 : Le Secret Des Elfes
+04 : Les Créatures de l'Ombre
+05 : La Puissance des Ténèbres
+06 : Les Terres de Légende
+01 : Les Maîtres des Ténèbres
+02 : La Traversée Infernale
+03 : Les Grottes de Kalte
+04 : Le Gouffre Maudit
+05 : Le Tyran du Désert
+06 : La Pierre de la Sagesse
+07 : La Forteresse Maudite
+08 : Dans l'Enfer de la Jungle
+09 : La Métropole de la Peur
+10 : Dans les Entrailles de Torgar
+11 : Les Prisonniers du Temps
+12 : Le Crépuscule des Maîtres
+13 : Les Druides de Cener
+14 : Le Captif du Roi-Sorcier
+15 : La Croisade du Désespoir
+16 : L'héritage De Vashna
+17 : La Tour de Cristal
+18 : La Porte d'Ombre
+19 : Le Combat des Loups
+20 : La Malédiction de Naar
+21 : Le Voyage de la Pierre de Lune
+22 : Les Pirates de Shadaki
+23 : La Guerre des Runes
+24 : Le Héros de Mynuit
+25 : Sur la Piste du Loup
+26 : Le Démon des Profondeurs
+27 : La Griffe du Vampire
+28 : La Cité de l'Empereur
+29 : L'oeil d'Agarash
+31 : Le crépuscule de la nuit éternelle
+01 : La Horde des Démons
+02 : Les Cryptes de la Terreur
+03 : L'Ultime Combat de la Horde
+04 : Les Maîtres du Mal
+01 : L'homme aux cent Visages
+02 : L'oracle de Balkh
+01 : Le Château des Ténèbres
+02 : L'Antre des Dragons
+03 : Les Portes de l'Au-delà
+04 : Le Voyage de l'Effroi
+05 : Au Royaume De L'épouvante
+06 : Le Temps de la Malédiction
+07 : Le Tombeau des Maléfices
+08 : La Légion des Morts
+01 : Meurtre au Club Diogène
+02 : L'émeraude De La Rivière Noire
+03 : Le Maître Chanteur d'Appledore
+04 : Le crime du Docteur Watson
+05 : La conspiration des Dynamiteurs
+06 : Un Duel Dans le Yorkshire
+07 : Pour l'Honneur de la Reine
+08 : L'Héritier Disparu
+01 : Les Collines Maléfiques
+02 : La Cité des Pièges
+03 : Les Sept Serpents
+04 : La Couronne des Rois
+01 : Le Mystère de Compton
+02 : La Villa des Revenants
+`;
+
+const STORAGE_KEY = "ldvelh-audit-decisions-v1";
+const TITLE_ALIASES = new Map([
+  ["la foret de malediction", "la foret de la malediction"],
+  ["la couronnes des rois", "la couronne des rois"],
+  ["rendez vous avec la mort", "rendez vous avec la m o r t"],
+  ["a l auberge du sanglier noir", "l auberge du sanglier noir"],
+]);
+const EXPECTED_SOURCE_DATA = new Map([
+  ["loup-solitaire#le crepuscule de la nuit eternelle", {
+    isbn: "9782075221030",
+    note: "Gallimard Jeunesse · ISBN 9782075221030 · parution 26/06/2025",
+    url: "https://www.gallimard-jeunesse.fr/9782075221030/le-crepuscule-de-la-nuit-eternelle.html",
+    coverUrl: "https://media.groupe.gallimard.fr/couvHD/J05728.jpg",
+  }],
+]);
+const EXPECTED_SERIES_BLOCKS = [
+  ["astre-d-or", "Astre d'Or", 4],
+  ["chroniques-cretoises", "Chroniques Crétoises", 3],
+  ["defis-de-l-histoire", "Défis de l'Histoire", 4],
+  ["defis-et-sortileges", "Défis et Sortilèges", 8],
+  ["defis-fantastiques", "Défis Fantastiques", 67],
+  ["destins", "Destins", 6],
+  ["double-jeu", "Double Jeu", 6],
+  ["dragon-d-or", "Dragon d'Or", 6],
+  ["as-des-as", "As des As", 3],
+  ["epouvante", "Epouvante!", 3],
+  ["histoire", "Histoire", 5],
+  ["l-epee-de-legende", "L'Epée de Légende", 5],
+  ["l-il-noir", "L'Œil Noir", 30],
+  ["la-voie-du-tigre", "La Voie du Tigre", 6],
+  ["le-maitre-du-destin", "Le Maître du Destin", 2],
+  ["les-messagers-du-temps", "Les Messagers du Temps", 4],
+  ["les-portes-interdites", "Les Portes Interdites", 2],
+  ["les-terres-de-legende", "Les Terres de Légende", 6],
+  ["loup-solitaire", "Loup Solitaire", 30],
+  ["loup-ardent", "Loup*Ardent", 4],
+  ["metamorphose", "Métamorphose", 2],
+  ["quete-du-graal", "Quête du Graal", 8],
+  ["sherlock-holmes", "Sherlock Holmes", 8],
+  ["sorcellerie", "Sorcellerie!", 4],
+  ["super-sherlock", "Super Sherlock", 2],
+];
+let rows = [];
+let actualRows = [];
+let expectedCount = 0;
+let decisions = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+
+function escapeHTML(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function normalizeTitle(title) {
+  const normalized = String(title || "")
+    .replace(/\s*\(([^)]+)\)\s*$/, "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/œ/g, "oe")
+    .replace(/æ/g, "ae")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return TITLE_ALIASES.get(normalized) || normalized;
+}
+
+function matchKey(series, titleKey) {
+  return `${series || ""}#${titleKey || ""}`;
+}
+
+function coverIsbn(book) {
+  return book?.editions?.[0]?.isbn || book?.isbn || "";
+}
+
+function coverHTML(isbn, title) {
+  return coverWithFallbackHTML({
+    title,
+    primaryUrl: isbn ? `assets/covers/small/${isbn}.webp` : "",
+  });
+}
+
+function coverWithFallbackHTML({ title, primaryUrl, fallbackUrl = "" }) {
+  if (!primaryUrl && !fallbackUrl) return `<div class="cover-thumb cover-placeholder">Sans<br>image</div>`;
+  const src = primaryUrl || fallbackUrl;
+  return `<img class="cover-thumb" src="${escapeHTML(src)}" alt="${escapeHTML(title)}" loading="lazy" data-fallback-cover="${escapeHTML(fallbackUrl)}" onerror="swapCoverFallback(this)">`;
+}
+
+function sourceCoverHTML(row) {
+  return coverWithFallbackHTML({
+    title: row.title,
+    primaryUrl: row.sourceIsbn ? `assets/covers/small/${row.sourceIsbn}.webp` : "",
+    fallbackUrl: row.sourceCoverUrl || "",
+  });
+}
+
+function coverSearchHTML(row) {
+  const query = encodeURIComponent(`${row.title} ${row.seriesName} couverture livre dont vous etes le heros`);
+  const gallimardQuery = encodeURIComponent(row.title);
+  return `
+    <div class="match">
+      <div class="cover-thumb cover-placeholder">À<br>chercher</div>
+      <div>
+        <strong>Recherche couverture</strong>
+        <small>
+          <a href="https://www.google.com/search?tbm=isch&q=${query}" target="_blank" rel="noreferrer">Google Images</a>
+          · <a href="https://www.gallimard-jeunesse.fr/search?SearchText=${gallimardQuery}" target="_blank" rel="noreferrer">Gallimard</a>
+        </small>
+      </div>
+    </div>
+  `;
+}
+
+function swapCoverFallback(image) {
+  const fallbackUrl = image.dataset.fallbackCover;
+  if (fallbackUrl && image.src !== fallbackUrl) {
+    image.removeAttribute("data-fallback-cover");
+    image.src = fallbackUrl;
+    return;
+  }
+  image.replaceWith(Object.assign(document.createElement("div"), {
+    className: "cover-thumb cover-placeholder",
+    innerHTML: "Sans<br>image",
+  }));
+}
+
+function parseExpected() {
+  let blockIndex = 0;
+  let blockOffset = 0;
+  const rows = EXPECTED_RAW
+    .split(/\n/)
+    .map(line => line.match(/^\s*([0-9]{2}[a-z]?)\s*:\s*(.+?)\s*$/))
+    .filter(Boolean)
+    .map((match, index) => {
+      const block = EXPECTED_SERIES_BLOCKS[blockIndex];
+      if (!block) throw new Error(`Bloc de série manquant pour la ligne ${index + 1}`);
+      const item = {
+        id: `expected-${index + 1}`,
+        index: index + 1,
+        number: match[1],
+        title: match[2],
+        series: block[0],
+        seriesName: block[1],
+        key: normalizeTitle(match[2]),
+      };
+      const sourceData = EXPECTED_SOURCE_DATA.get(matchKey(item.series, item.key)) || {};
+      item.sourceNote = sourceData.note || "";
+      item.sourceIsbn = sourceData.isbn || "";
+      item.sourceUrl = sourceData.url || "";
+      item.sourceCoverUrl = sourceData.coverUrl || "";
+      blockOffset += 1;
+      if (blockOffset >= block[2]) {
+        blockIndex += 1;
+        blockOffset = 0;
+      }
+      return item;
+    });
+  const expectedTotal = EXPECTED_SERIES_BLOCKS.reduce((sum, block) => sum + block[2], 0);
+  if (rows.length !== expectedTotal) {
+    throw new Error(`Liste canonique incohérente : ${rows.length} titres pour ${expectedTotal} attendus par blocs`);
+  }
+  return rows;
+}
+
+function buildRows(expected, data) {
+  const seriesById = new Map((data.series || []).map(series => [series.id, series.name]));
+  const actual = (data.books || []).map((book, index) => ({
+    id: book.id || `book-${index}`,
+    title: book.title,
+    number: book.number,
+    series: book.series,
+    seriesName: seriesById.get(book.series) || book.series || "",
+    year: book.year,
+    isbn: coverIsbn(book),
+    key: normalizeTitle(book.title),
+    raw: book,
+    expectedMatches: [],
+  }));
+  const actualByKey = new Map();
+  actual.forEach(item => {
+    const key = matchKey(item.series, item.key);
+    if (!actualByKey.has(key)) actualByKey.set(key, []);
+    actualByKey.get(key).push(item);
+  });
+
+  const usedActualIds = new Set();
+  const built = expected.map(item => {
+    const matches = actualByKey.get(matchKey(item.series, item.key)) || [];
+    matches.forEach(match => {
+      match.expectedMatches.push(item);
+      usedActualIds.add(match.id);
+    });
+    return { ...item, matches, kind: "expected" };
+  });
+  const actualOnly = actual
+    .filter(item => !usedActualIds.has(item.id))
+    .map(item => ({
+      id: `actual-only:${item.id}`,
+      index: null,
+      number: "",
+      title: "",
+      key: item.key,
+      sourceNote: "",
+      sourceIsbn: "",
+      sourceUrl: "",
+      sourceCoverUrl: "",
+      matches: [item],
+      kind: "actual-only",
+    }));
+  return { built: [...built, ...actualOnly], actual };
+}
+
+function getDecision(id) {
+  return decisions[id] || { action: "", note: "" };
+}
+
+function saveDecision(id, patch) {
+  decisions[id] = { ...getDecision(id), ...patch };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(decisions));
+  render();
+}
+
+function autoStatus(row) {
+  if (row.kind === "expected" && row.matches.length > 0) return "ok";
+  return "todo";
+}
+
+function rowStatus(row) {
+  const decision = getDecision(row.id);
+  return decision.action || autoStatus(row);
+}
+
+function matchesFilter(row, search, filter) {
+  const decision = getDecision(row.id);
+  const status = rowStatus(row);
+  const haystack = [
+    row.number,
+    row.title,
+    row.key,
+    row.seriesName,
+    row.sourceNote,
+    row.sourceIsbn,
+    row.sourceUrl,
+    decision.note,
+    ...row.matches.flatMap(match => [match.title, match.seriesName, match.id]),
+  ].join(" ").toLowerCase();
+  if (search && !haystack.includes(search)) return false;
+  if (filter === "all") return true;
+  if (filter === "todo") return status === "todo";
+  if (["ok", "add", "skip", "merge", "review"].includes(filter)) return status === filter;
+  if (filter === "nomatch") return row.kind === "actual-only" || row.matches.length === 0;
+  if (filter === "multi") return row.matches.length > 1;
+  return true;
+}
+
+function renderStats() {
+  const counts = rows.reduce((acc, row) => {
+    const status = rowStatus(row);
+    acc[status] = (acc[status] || 0) + 1;
+    if (row.kind === "actual-only" || !row.matches.length) acc.nomatch += 1;
+    if (row.matches.length > 1) acc.multi += 1;
+    return acc;
+  }, { ok: 0, todo: 0, add: 0, skip: 0, merge: 0, review: 0, nomatch: 0, multi: 0 });
+  document.getElementById("stats").innerHTML = `
+    <div class="stat"><strong>${expectedCount}</strong><span>titres référence</span></div>
+    <div class="stat"><strong>${counts.ok}</strong><span>OK auto</span></div>
+    <div class="stat"><strong>${counts.todo}</strong><span>à décider</span></div>
+    <div class="stat"><strong>${actualRows.length}</strong><span>entrées library.json</span></div>
+    <div class="stat"><strong>${counts.add}/${counts.merge}/${counts.skip}</strong><span>ajouter / fusionner / ignorer</span></div>
+  `;
+}
+
+function renderRows() {
+  const search = document.getElementById("search").value.trim().toLowerCase();
+  const filter = document.getElementById("filter").value;
+  const visible = rows.filter(row => matchesFilter(row, search, filter));
+  document.getElementById("canonicalCount").textContent = `${visible.length} lignes affichées / ${rows.length}`;
+  document.getElementById("rows").innerHTML = visible.map(row => {
+    const decision = getDecision(row.id);
+    const status = rowStatus(row);
+    const matchesHTML = row.matches.length
+      ? row.matches.map(match => `
+        <div class="match">
+          ${coverHTML(match.isbn, match.title)}
+          <div>
+            <strong>${escapeHTML(match.title)}</strong>
+            <small>${escapeHTML(match.seriesName)} · n°${escapeHTML(match.number ?? "?")} · ${escapeHTML(match.year ?? "?")} · ${escapeHTML(match.id)}</small>
+          </div>
+        </div>
+      `).join("")
+      : row.sourceIsbn || row.sourceCoverUrl || row.sourceUrl
+        ? `
+          <div class="match">
+            ${sourceCoverHTML(row)}
+            <div>
+              <strong>Couverture candidate</strong>
+              <small>${escapeHTML(row.sourceIsbn ? `ISBN ${row.sourceIsbn}` : "Source externe")}${row.sourceUrl ? ` · <a href="${escapeHTML(row.sourceUrl)}" target="_blank" rel="noreferrer">source</a>` : ""}</small>
+            </div>
+          </div>
+          <div class="none">Aucun match exact dans library.json</div>
+        `
+        : `${coverSearchHTML(row)}<div class="none">Aucun match exact dans library.json</div>`;
+    const canonicalHTML = row.kind === "expected"
+      ? `<div class="title">${escapeHTML(row.title)}</div><div class="key">${escapeHTML(row.seriesName)} · ${escapeHTML(row.key)}</div>${row.sourceNote ? `<div class="key">${escapeHTML(row.sourceNote)}</div>` : ""}${row.sourceUrl ? `<div class="key"><a href="${escapeHTML(row.sourceUrl)}" target="_blank" rel="noreferrer">Voir la source</a></div>` : ""}`
+      : `<div class="none">Absent de la liste canonique</div><div class="key">${escapeHTML(row.key)}</div>`;
+    const rowLabel = row.kind === "expected"
+      ? (row.matches.length ? "Match auto" : "À checker")
+      : "En trop ?";
+    const actionHTML = status === "ok"
+      ? `<div class="status-pill">OK auto</div>`
+      : `
+        <div class="decision-buttons">
+          ${["add", "skip", "merge", "review"].map(action => {
+            const labels = { add: "Ajouter", skip: "Ne pas ajouter", merge: "Fusionner", review: "À revoir" };
+            return `<button data-row-action="${row.id}" data-decision="${action}" class="${decision.action === action ? "active" : ""}">${labels[action]}</button>`;
+          }).join("")}
+        </div>
+        <div class="decision-help">${row.kind === "actual-only" ? "Entrée présente dans library.json mais pas dans ta liste." : "Titre présent dans ta liste mais pas retrouvé dans library.json."}</div>
+      `;
+    return `
+      <article class="row ${status === "ok" ? "" : "needs-check"}">
+        <div>${status === "ok" ? "✓" : ""}</div>
+        <div class="num">${escapeHTML(row.number)}</div>
+        <div>
+          ${canonicalHTML}
+        </div>
+        <div class="matches">${matchesHTML}</div>
+        <div class="actions">
+          ${actionHTML}
+          <div class="key">${escapeHTML(rowLabel)}</div>
+          <textarea data-note="${row.id}" placeholder="Note...">${escapeHTML(decision.note || "")}</textarea>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+function render() {
+  renderStats();
+  renderRows();
+}
+
+function exportDecisions() {
+  const payload = {
+    exportedAt: new Date().toISOString(),
+    storageKey: STORAGE_KEY,
+    rows: rows.map(row => ({
+      number: row.number,
+      title: row.title,
+      series: row.series,
+      seriesName: row.seriesName,
+      key: row.key,
+      sourceNote: row.sourceNote || "",
+      sourceIsbn: row.sourceIsbn || "",
+      sourceUrl: row.sourceUrl || "",
+      sourceCoverUrl: row.sourceCoverUrl || "",
+      matches: row.matches.map(match => ({
+        id: match.id,
+        title: match.title,
+        series: match.series,
+        seriesName: match.seriesName,
+        number: match.number,
+        year: match.year,
+        isbn: match.isbn,
+      })),
+      status: rowStatus(row),
+      decision: getDecision(row.id),
+    })),
+    actualRows: actualRows.map(item => ({
+      id: item.id,
+      title: item.title,
+      series: item.series,
+      seriesName: item.seriesName,
+      number: item.number,
+      year: item.year,
+      isbn: item.isbn,
+      key: item.key,
+      expectedMatches: item.expectedMatches.map(match => ({
+        number: match.number,
+        title: match.title,
+        key: match.key,
+      })),
+      decision: getDecision(`actual:${item.id}`),
+    })),
+  };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "ldvelh-audit-decisions.json";
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+document.addEventListener("click", event => {
+  const actionButton = event.target.closest("[data-row-action][data-decision]");
+  if (!actionButton) return;
+  const current = getDecision(actionButton.dataset.rowAction);
+  const nextAction = current.action === actionButton.dataset.decision ? "" : actionButton.dataset.decision;
+  saveDecision(actionButton.dataset.rowAction, { action: nextAction });
+});
+
+document.addEventListener("input", event => {
+  if (event.target.id === "search") {
+    renderRows();
+  }
+  const note = event.target.closest("[data-note]");
+  if (note) {
+    decisions[note.dataset.note] = { ...getDecision(note.dataset.note), note: note.value };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(decisions));
+    renderStats();
+  }
+});
+
+document.getElementById("filter").addEventListener("change", () => {
+  renderRows();
+});
+document.getElementById("reset").addEventListener("click", () => {
+  document.getElementById("search").value = "";
+  document.getElementById("filter").value = "all";
+  renderRows();
+});
+document.getElementById("export").addEventListener("click", exportDecisions);
+
+async function init() {
+  const res = await fetch("library.json");
+  const data = await res.json();
+  const expected = parseExpected();
+  expectedCount = expected.length;
+  const result = buildRows(expected, data);
+  rows = result.built;
+  actualRows = result.actual;
+  render();
+}
+
+init().catch(error => {
+  document.getElementById("rows").innerHTML = `<div class="row"><div></div><div class="none">Impossible de charger library.json : ${escapeHTML(error.message)}</div></div>`;
+});
+</script>
+</body>
+</html>

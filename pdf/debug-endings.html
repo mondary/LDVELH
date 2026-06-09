@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Debug - Fins de branche</title>
+<style>
+:root{--bg:#0d1117;--bg-panel:#161b22;--bg-card:#1c2129;--bg-hover:#21262d;--text:#e6edf3;--text-dim:#8b949e;--text-muted:#484f58;--accent:#d4a843;--green:#3fb950;--red:#f85149;--blue:#58a6ff;--border:#30363d;--radius:6px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text);padding:24px;max-width:900px;margin:0 auto}
+h1{font-size:20px;color:var(--accent);margin-bottom:8px}
+h2{font-size:14px;color:var(--text-dim);margin-bottom:16px;font-weight:400}
+.stats-bar{margin-bottom:20px;padding:12px 16px;background:var(--bg-panel);border:1px solid var(--border);border-radius:var(--radius);font-size:13px;color:var(--text-dim);display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100}
+.stats-bar strong{color:var(--accent)}
+.stats-bar .btn-export{margin-left:auto;flex-shrink:0}
+.drawer-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200}
+.drawer-overlay.visible{display:flex;align-items:flex-end;justify-content:center}
+.drawer{background:var(--bg-panel);border:1px solid var(--border);border-radius:12px 12px 0 0;width:100%;max-width:900px;max-height:70vh;display:flex;flex-direction:column;animation:slideUp .2s ease-out}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.drawer-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
+.drawer-header h3{font-size:15px;color:var(--accent);font-weight:600}
+.drawer-close{background:transparent;border:none;color:var(--text-dim);font-size:20px;cursor:pointer;padding:4px 8px;border-radius:var(--radius)}
+.drawer-close:hover{color:var(--text);background:var(--bg-hover)}
+.drawer-body{padding:16px 20px;overflow-y:auto;flex:1}
+.drawer-body p{font-size:13px;color:var(--text-dim);margin-bottom:12px;line-height:1.6}
+.drawer-body code{background:var(--bg-card);padding:2px 6px;border-radius:3px;font-size:12px;color:var(--accent)}
+.drawer-body textarea{width:100%;min-height:200px;background:var(--bg-card);border:1px solid var(--border);color:var(--text);font-size:12px;padding:12px;border-radius:var(--radius);font-family:monospace;resize:vertical;outline:none}
+.drawer-body textarea:focus{border-color:var(--accent)}
+.drawer-copy{margin-top:10px;background:var(--accent);border:none;color:#000;padding:8px 16px;border-radius:var(--radius);cursor:pointer;font-size:13px;font-weight:600}
+.drawer-copy:hover{opacity:0.85}
+.btn-export{background:var(--bg-card);border:1px solid var(--blue);color:var(--blue);padding:6px 14px;border-radius:var(--radius);cursor:pointer;font-size:12px;font-weight:600;transition:all .15s}
+.btn-export:hover{background:rgba(88,166,255,0.1)}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:12px;overflow:hidden}
+.card[data-status="ok"]{border-color:var(--green);opacity:0.6}
+.card[data-status="ko"]{border-color:var(--red)}
+.card-header{display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--bg-panel);border-bottom:1px solid var(--border)}
+.para-id{font-size:14px;font-weight:700;color:var(--accent);min-width:40px}
+.card-actions{margin-left:auto;display:flex;gap:6px}
+.btn-ok{background:transparent;border:1px solid var(--green);color:var(--green);padding:4px 14px;border-radius:var(--radius);cursor:pointer;font-size:12px;font-weight:600}
+.btn-ok:hover{background:rgba(63,185,80,0.15)}
+.btn-ok[data-active="1"]{background:var(--green);color:#000}
+.btn-ko{background:transparent;border:1px solid var(--red);color:var(--red);padding:4px 14px;border-radius:var(--radius);cursor:pointer;font-size:12px;font-weight:600}
+.btn-ko:hover{background:rgba(248,81,73,0.15)}
+.btn-ko[data-active="1"]{background:var(--red);color:#fff}
+.btn-retour{background:transparent;border:1px solid var(--blue);color:var(--blue);padding:4px 14px;border-radius:var(--radius);cursor:pointer;font-size:12px;font-weight:600}
+.btn-retour:hover{background:rgba(88,166,255,0.15)}
+.btn-retour[data-active="1"]{background:var(--blue);color:#fff}
+.card[data-status="retour"]{border-color:var(--blue)}
+.card-body{padding:12px 16px}
+.card-text{font-size:14px;line-height:1.7;color:var(--text-dim)}
+.ko-fix{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.ko-fix.visible{display:flex;align-items:center;gap:8px}
+.ko-fix label{font-size:12px;color:var(--text-muted)}
+.ko-fix input{background:var(--bg);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:var(--radius);width:60px;font-size:13px;text-align:center;outline:none}
+.ko-fix input:focus{border-color:var(--accent)}
+.badge{font-size:10px;padding:2px 8px;border-radius:8px;font-weight:600}
+.badge-ok{background:rgba(63,185,80,0.15);color:var(--green)}
+.badge-ko{background:rgba(248,81,73,0.15);color:var(--red)}
+.badge-pending{background:rgba(139,148,158,0.15);color:var(--text-muted)}
+.filter-bar{margin-bottom:16px;display:flex;gap:6px}
+.filter-btn{background:var(--bg-card);border:1px solid var(--border);color:var(--text-muted);padding:4px 12px;border-radius:var(--radius);cursor:pointer;font-size:11px}
+.filter-btn:hover{border-color:var(--accent);color:var(--text)}
+.filter-btn.active{background:rgba(212,168,67,0.12);border-color:var(--accent);color:var(--accent)}
+</style>
+</head>
+<body>
+<h1>Debug — Fins de branche</h1>
+<h2>OK = vraie fin | Erreur = redirection manquée (indiquez le § de destination)</h2>
+<div class="stats-bar" id="stats">Chargement...<button class="btn-export" id="btnExport">Exporter JSON</button></div>
+<div class="filter-bar" id="filters"></div>
+<div id="cards"></div>
+<div class="drawer-overlay" id="drawerOverlay">
+  <div class="drawer">
+    <div class="drawer-header">
+      <h3>Corrections JSON</h3>
+      <button class="drawer-close" id="drawerClose">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <p>Copiez le JSON ci-dessous et collez-le dans le fichier <code>data/endings-corrections.json</code> pour appliquer les corrections.</p>
+      <textarea id="exportJson" readonly></textarea>
+      <button class="drawer-copy" id="btnCopy">Copier dans le presse-papier</button>
+    </div>
+  </div>
+</div>
+
+<script type="application/json" id="endingsdata">[{"id": 9, "text": "Vous vous battez courageusement contre la Reine Mantize, mais la partie est inégale: en quelques minutes à peine, toute la colonie est sur vous, et ce sont des centaines de pinces qui vous cisaillent et vous déchiquettent... Vous vous défendez vaillamment, mais hélas! la vie vous est bientôt arrachée et avec elle tous vos espoirs de ramener la paix aux hommes."}, {"id": 14, "text": "Vous dormez d'un sommeil dont vous ne vous réveillerez pas. Les vapeurs empoisonnées du brouillard vous submergent et vous glissez dans un coma létal. Le boyau s'est fait tombe, et nul ne trouvera jamais votre dépouille. Votre mission prend fin dans un silence mortel."}, {"id": 17, "text": "A peine vous laissez-vous glisser dans les eaux épaisses et boueuses qu'une douleur intolérable vous transperce. Tout votre corps est en feu, et vous hurlez tant et plus sous la brûlure du limon empoisonné. Très rapidement, la fange du lac Chen-Wu vous emplit la bouche, le nez, les oreilles, vous rongeant comme un acide. Vous périssez en quelques minutes, noyé et empoisonné à la fois. Inutile de préciser que votre mission, elle aussi, est tombée à l'eau..."}, {"id": 20, "text": "Vous avez tout juste le temps de jauger l'immensité de votre fatale erreur: s'il y a bien une chose qui ne pose pas de problème de conscience aux Chadaki-nés, c'est d'abattre un homme dans le dos... Criblé de flèches, vous vous écroulez à terre, pauvre pantin désarticulé et sanglant. Votre vie et votre mission trouvent ici un triste terme."}, {"id": 21, "text": "Vous gagnez rapidement la route de Shuni qui est complètement déserte, à la plus grande stupéfaction de Chan. « Ça alors! s'exclame-t-il, l'air hébété. Je ne comprends pas ce qu'il y a! D'habitude cette route fourmille de commerçants... » Vous marchez trois longues heures sans rencontrer âme qui vive. Enfin, vous apercevez un chariot rangé sur le bas-côté et, à peu de distance, un groupe d'hommes assis en cercle autour d'un petit feu de camp. « Attendez-moi, dit Chan, je vais aller voir si ces hommes sont au courant de ce qui se passe. » A peine quelques minutes plus tard, Chan revient, un poignard à la main. Un sourire béat lui fend le visage: « L'affaire du siècle! s'écrie-t- il. Je l'ai eu pour 5 Lukats seulement! Vous rendez-vous compte? Une arme pareille, ça en vaut au moins 20! Ah, des transactions de ce genre, je veux bien en faire tous les jours! » Il semble bien parti pour une longue tirade sur les joies du marchandage mais Tanid, excédée, l'interrompt sèchement: « Et la route, hein? Pourquoi n'y a-t-il personne » « Ah, ça! répond Chan avec une pointe de déception dans la voix. Eh bien, voilà: les Chadakines nous cherchent partout. Les routes et les ponts sont tous barrés, et nul ne peut passer. Ces marchands se sont trouvés bloqués, c'est pourquoi ils campent ici. » « Aïe, aïe, aïe, répondez-vous avec à-propos, voilà qui est bien fâcheux... Je crois que nous avons intérêt à quitter la route et à continuer par la forêt. Qu'en pensez-vous? » Chan et Tanid étant — pour une fois — d'accord, vous vous enfoncez tous trois dans le bois et vous reprenez votre périple avec une vigilance accrue. Rendez- vous au 39."}, {"id": 31, "text": "Vous êtes à bout de forces. Dans un dernier effort, vous fermez les yeux et vous entreprenez d'invoquer les Éléments en récitant des mélopées incantatoires. La dernière note du chant rituel s'éteint. Rien ne semble se produire. Quelques minutes s'écoulent, lourdes d'anxiété. Soudain, un raz de marée déchire l'air: une immense vague s'est levée en amont du fleuve et vient surplomber le pont telle une gigantesque main d'eau. La main se referme pour former un poing et s'abat sur le pont avec violence. L'eau jaillit en trombe, et le pont s'écroule comme un château de cartes. Trempés jusqu'aux os, vous contemplez le prodige. Tanid est la première à rompre le silence: « Quelle force! » s'exclame- t-elle, les yeux brillant d'une joie tout enfantine. Ce sortilège spectaculaire ne vous a coûté que 1 point de VOLONTÉ. Rendez- vous au 75."}, {"id": 63, "text": "assister au massacre! » Sur ces mots, elle quitte la pièce ronde en courant, et une nuée de soldats Chadakines vous encerclent aussitôt. Toutes les issues sont barrées et vous n'avez même pas votre Baguette de sorcier pour vous défendre. Que peut votre courage face à la cruauté des Chadakines? Vous voici rapidement taillé en pièces. Votre mission s'achève ici."}, {"id": 67, "text": "Vous voyant vous précipiter sur elle, Tanid a un triste sourire. « Pauvre imbécile, dit-elle, tu viens de signer ton arrêt de mort. » Elle s'éclipse avant même que vous ayez pu l'atteindre. Vous voulez vous lancer à sa poursuite, mais il est déjà trop tard: s'in- filtrant par la porte et par la trappe, une marée de soldats Chadakines envahit la pièce. Le dernier son que vous entendrez est la voix glaciale de Mère Magri ordonnant votre mise à mort. Vous avez échoué dans votre mission, et il ne vous reste que quelques secondes à vivre..."}, {"id": 69, "text": "Vous vous rendormez, mais cette fois-ci pour de bon. Vous ne vous réveillerez jamais, hélas!... car une forme noire et terrifiante jaillit soudain du feu et se jette sur vous, s'emparant à la fois de votre âme et de votre vie. Votre aventure s'achève ici: vous avez échoué dans votre mission."}, {"id": 76, "text": "Vous n'avez pas fait trois pas que vous sentez le froid contact de la lame d'un couteau sur votre gorge. Au prix de 1 point de VOLONTÉ, vous envoyez aussitôt une décharge d'énergie de votre Baguette de sorcier, manquant de peu votre agresseur, qui détale sans demander son reste. Vous vous rendez compte que vous êtes en danger dans ce passage obscur et vous regagnez la ruelle. Vous apercevez alors un individu disparaître au coin d'une rue. Bientôt le silence se referme sur le bruit de ses pas. Rendez- vous au 195."}, {"id": 92, "text": "Votre don de Voyance vous permet de déterminer qu'il vous faut prendre à gauche. Le recours à ce Pouvoir Magique vous a coûté 1 point de VOLONTÉ. Maintenant, retournez au paragraphe d'où vous venez."}, {"id": 103, "text": "Vous êtes venu à bout d'une Mantize, mais le reste de la colonie vous rattrape en grouillant. Dites adieu à vos rêves de réussite, car il est trop tard pour fuir: en quelques secondes, les insectes géants vous déchiquettent. Votre mission s'achève ici."}, {"id": 122, "text": "Redoublant de précautions, vous reprenez votre marche à tâtons dans les ténèbres. Au bout de quelques minutes, le tunnel prend fin et vous trébuchez dans le vide. A peine vous relevez-vous qu'une douleur fulgurante vous déchire la jambe droite: vous vous sentez happé par une pince qui vous étreint avec la force de tenailles d'acier. Vous voici traîné au sol jusqu'au repaire de l'ennemi que vous ne verrez jamais... Dans le silence et l'obscurité la plus opaque, la bête se met à déchiqueter votre mollet. La douleur vous fait défaillir, et vous ne vous réveillerez jamais: votre vie et votre mission sont anéanties en quelques coups de mandibule."}, {"id": 123, "text": "Vous vous félicitez d'avoir votre Baguette de sorcier à portée de main et vous lui insufflez 1 point de VOLONTÉ avant d'en frapper violemment Mère Magri. Mais votre coup ne rencontre que le vide: cette figure qui vous regarde en ricanant de plus belle n'est qu'une hallucination, créée par les pouvoirs psychiques de la sorcière. Elle se met maintenant à chanter une incantation: Mundi Klaysha — Sorti Magri, Charatchak Chinto, Gordus Shando... Peu à peu, le visage de Mère Magri se dissout dans les flammes pour laisser place à une forme d'une noirceur extrême. La chose s'élance soudain du feu, et vous avez à peine le temps d'apercevoir deux yeux et une bouche béante qu'elle s'abat vers vous. Ren-dez-vous au 149."}, {"id": 138, "text": "De toutes vos forces, vous tendez les doigts vers la cavité. Hélas! l'effort vous fait déraper; vos pieds cèdent sous la paroi lisse, et c'est la chute: vous tournoyez dans le vide, l'estomac renversé et le cœur battant la chamade avant de vous fracasser contre le sol. Le choc vous tue instantanément. Votre mission s'achève ici."}, {"id": 141, "text": "Au bout de quelques minutes, vous débouchez sur une croisée de tunnels, encore plus larges et plus sinueux que celui d'où vous venez. Perplexe, vous vous demandez s'il vaut mieux tourner à gauche ou à droite, quand un bruit suspect vous tire de vos pensées: une sorte de grattement... Et, tout à coup, du tunnel de droite surgit une immense Mantize des Antres, qui se rue vers vous en faisant claquer ses pinces comme des tenailles. Rendez- vous au 197."}, {"id": 155, "text": "Votre offensive est téméraire, mais inconsidérée. Vous avez à peine le temps de décocher une mortelle déflagration au conducteur du char que les chevaux vous renversent. Que ne vous êtes-vous souvenu des paroles de Mateyra... De puissants sabots vous piétinent, brisant tous les os de votre corps, bientôt sans vie. Vous avez échoué dans votre mission."}, {"id": 164, "text": "Les trois Chadakines gisent morts à vos pieds. Vous fouillez leurs cadavres et trouvez 10 Lukats et suffisamment de provisions pour 2 Repas. Quant à Chan, il vous adresse un clin d'œil malicieux et s'empare de l'épée d'un des guerriers. « Ça me fera un souvenir! » dit-il en riant. Si vous le souhaitez, vous pouvez prendre l'autre épée, mais n'oubliez pas, dans ce cas, de l'inscrire sur votre Feuille d'Aventure. Tournant le dos au théâtre de ce sanglant combat, vous reprenez votre route vers l'Azane. Rendez- vous au 39."}, {"id": 177, "text": "Vous êtes trop faible pour résister au fantôme des ténèbres qui dévore votre âme avec appétit. Vous vous écroulez sur le sol, corps sans vie dont le triste destin vient rejoindre celui des milliers de victimes de Mère Magri et de ses lugubres acolytes au service du roi démon. C'est ici que s'achèvent votre vie et votre mission."}, {"id": 188, "text": "Le cœur plein de regrets, vous vous mettez à redescendre la paroi rocheuse en prenant appui sur les moindres aspérités. Votre progression se révèle périlleuse et épuisante. Vous atteignez enfin la petite grotte et vous vous hissez à l'intérieur. Rendez- vous au 8."}, {"id": 207, "text": "Comble de malheur, la flamme de votre torche se met à vaciller et s'éteint brusquement, vous pion-géant dans l'obscurité la plus totale. Vous n'avez pas le temps de la rallumer, aussi avancez- vous bravement à tâtons dans le noir en brandissant votre Haguette de sorcier. Hélas! vous n'êtes pas de taille à affronter quatre Mantizes des Antres, créatures des ténèbres, sans y voir goutte... Les insectes géants se jettent sur vous dans un horrible cliquetis de mandibules et vous déchiquettent sans pitié. Votre vie et votre mission s'achèvent ici."}, {"id": 216, "text": "Dans un effort désespéré, vous vous rapprochez du cœur du Yaku, la dague à la main. Vous brandissez l'arme... et vous manquez votre cible! Il s'en faut de très peu, mais hélas! vous n'avez pas le temps de renouveler votre tentative: le cœur du Yaku, dont vous vous êtes dangereusement rapproché, vous engloutit d'une bouchée avide. A la douleur de centaines de piquants hérissés qui lacèrent votre visage succède bientôt l'inconscience rassurante de la mort. Vous avez échoué dans votre mission, et le Yaku gardera à jamais les traces de votre existence dans ses entrailles vénéneuses."}, {"id": 218, "text": "I )ans l'après-midi du troisième jour, vous parvenez.m confluent du Shuni et de l'Azane. Chan s'est révélé un excellent guide et vous avez pu, grâce à lui, progresser sans perdre de temps ni faire fausse route. « Le village d'Iwo se trouve à quelques kilomètres au sud, explique-t-il, et c'est là que la Grande Route de Shuni enjambe l'Azane. Nous allons nous y rendre, mais il faudra redoubler de prudence aux abords du pont. » Rendez- vous au 39."}, {"id": 220, "text": "En reniant les morts, vous vous êtes parjuré. Vous sentez soudain une main invisible qui arrache votre âme de votre corps et la précipite dans les fosses abyssales de l'Empire des Ténèbres, où elle deviendra le jouet des Maîtres du Supplice... Votre mission s'achève ici, mais vos tourments ne font que commencer..."}, {"id": 225, "text": "Vous vous élancez dans l'escalier, mais vous vous arrêtez à mi- hauteur: en haut des marches, une porte s'est ouverte sur la silhouette redoutable d'un garde Chadakine. Dès qu'il vous aperçoit, l'homme appelle ses compagnons à la rescousse. Vous comprenez alors votre fatale erreur: cette porte que vous aviez hâte d'atteindre est celle de la salle de repos des soldats... Une nuée de gardes armés jusqu'aux dents en surgit. Entre-temps, vos poursuivants se sont rapprochés et les voici sur vos talons: Chadakines devant, Chadakines derrière, vous êtes pris au piège. Dans un dernier regard, vous apercevez le visage résigné de Chan qui succombe sous l'épée d'un Chadakine. Vous ne tardez pas à partager le sort de votre infortuné compagnon. Ainsi, s'achèvent votre vie et votre mission."}, {"id": 237, "text": "Soudain quelque chose claque dans votre tête: la pierre angulaire de votre cerveau a éclaté, et c'est tout l'édifice mental de votre esprit qui s'écroule comme un château de cartes. La Pierre de Kazim vous a détruit, et vous voici condamné à errer tout le restant de vos jours, tel un idiot de village, brandissant une Baguette de sorcier dont vous ne saurez plus jamais vous servir. Vous vivrez de la charité des bonnes gens, qui vous prendront encore plus en pitié quand, parfois, vous évoquerez une incompréhensible mission par bribes incohérentes. Vous avez echoué dans votre quête."}, {"id": 262, "text": "Votre arme rate sa cible et vous glisse des mains. Vous avez gâché votre dernière chance: lentement, le cœur du Yaku se referme sur vous, déchirant votre chair de ses piquants pourpres et acérés. Une douleur aiguë vous traverse et c'est avec reconnaissance que vous accueillez la mort qui vient vous délivrer. C'est ainsi que s'achèvent votre vie et votre mission."}, {"id": 276, "text": "« Kktysha Tanid, Mundi Gudro », se met-elle à répéter, de plus en plus en vite. Soudain, le voile noir s'élève, et Tanid se jette dans les flammes. Comme le Klaysha s'apprête à engloutir son corps dévoré par le feu, Tanid pousse un grand cri: « Il faut triompher, Astre d'Or! » Le feu éclate alors en une immense gerbe d'étincelles et retombe: il ne reste plus trace ni du Klaysha ni de Tanid; seules quelques braises témoignent de l'horrible scène qui vient de se dérouler. Vous vous évanouissez. Rendez- vous au 52."}, {"id": 299, "text": "« C'est toi qui l'auras voulu, Sorcier! persifle la vieille mégère d'une voix lourde de menaces. Adieu! » Une fois de plus, elle parvient à absorber la force de votre Assaut et vous le renvoie décuplé par sa propre énergie maléfique. Comme un raz de marée dévastateur, une coulée de flammes blanches s'abat sur votre âme et la déchiquette sans pitié. Vous vous écroulez au sol pour ne plus jamais vous réveiller. Votre mission s'achève ici."}, {"id": 306, "text": "Brusquement, le rocher en surplomb se détache et tombe dans le vide, vous entraînant tous deux dans sa chute. Vous battez vainement l'air de vos bras, à jamais prisonnier du gouffre... C'est ainsi que s'achèvent votre vie et votre mission."}, {"id": 312, "text": "Malheureux que vous êtes! Vous voici dans la Salle des Gardes! Se remettant rapidement de leur surprise, six imposants guerriers Chadakines se jettent sur vous et vous tailladent à grands coups d'épée. Vous ne sortirez jamais de la Halle aux Corrections... C'est par cette fatale erreur que se concluent votre vie et votre mission."}, {"id": 315, "text": "Courageusement, vous vous préparez à attaquer de nouveau, mais il est, hélas! déjà trop tard: les Mantizes ouvrières déchaînées vous ont rattrapé et se jettent sur vous, assoiffées de vengeance. Vous tombez et, aussitôt, des centaines de pinces acérées vous déchiquettent, vous arrachant des cris de douleur que nul n'entend... C'est par cette mort horrible et cruelle que se concluent votre vie et votre mission."}, {"id": 316, "text": "Soudain vous dérapez, et il vous semble plonger dans un bain d'huile bouillante, tant les eaux corrosives attaquent votre peau. Vous voulez hurler, mais aucun son ne sort de votre gorge; l'eau s'engouffre dans vos narines et dans vos yeux,- tout est perdu. Vous perdez conscience et vous coulez, mortellement empoisonné par le lac Chen-Wu. C'est ici que s'achève votre mission."}, {"id": 317, "text": "Vous déployez des efforts considérables pour tenter de soulever le cadavre du Kraku mais, au bout de quelques secondes, une étrange torpeur vous gagne. Vos gestes se font de plus en plus lents, tout votre corps semble s'alourdir et se figer. Vous vous écroulez bientôt à terre, complètement paralysé. Vous avez été contaminé par le poison mortel qui suinte des pustules du Kraku et vous ne saurez jamais si Chan a survécu: une mort lente mais certaine vient mettre un terme à votre mission."}, {"id": 318, "text": "Vous plongez dans le lac. A peine avez-vous fait quelques brasses que vous sentez votre peau brûler, comme rongée par un acide. Les forces vous manquent. Vous coulez. Les eaux du lac Chen- Wu sont toxiques, et même ses vapeurs sont mortelles si on les respire plusieurs heures; vous vous noyez avant même de comprendre ce qui vous arrive. C'est ici que s'achève votre mission."}, {"id": 324, "text": "Vous comprenez trop tard que vous êtes au seuil de la Salle des Gardes. Une nuée de Chadakines surgit de la pièce, brandissant leurs épées, et se jette sur vous. Comment pourriez-vous résister à tant de féroces guerriers? Vous voilà rapidement lacéré de coups d'épée impitoyables, et c'en est bientôt fini de vous et de votre mission."}, {"id": 350, "text": "Annonçant leur attaque d'un chœur de cris stridents, une longues queues quarantaine d'Hommes-Singes pourvus de recourbées envahissent soudain le feuillage vert tendre des cimes, brandissant des bâtons au bout desquels brûlent des feuilles séchées. Une fumée pestilentielle s'en dégage faisant courir un vent de panique dans les rangs des Mantizes. Apparemment asphyxiés, les insectes géants prennent la fuite, dévalant les troncs à toute allure, certains même tombant des branches dans la débandade. Les yeux embués de larmes, vous contemplez ces étranges acrobates qui naviguent d'arbre en arbre avec une agilité surprenante et qui massacrent les Mantizes comme si de rien n'était. Ce sont des Kundis. Vous avez retrouvé la Tribu Perdue de Lara. Comme vous regardez le combat inégal prendre fin, savourant la déroute des créatures des Antres, deux paires de bras velus vous empoignent sans ménagement et vous hissent dans les airs. Bondissant de branche en branche, les Hommes-Singes vous entraînent vers des hauteurs vertigineuses, vous ballottant comme un vulgaire sac de son. Ils vous font traverser le nuage de léger brouillard où les Azabois puisent leur humidité et vous atteignez les plus hautes cimes de la forêt. Ce que vous apercevez alors vous coupe le souffle: un village entier, fait de terrasses et de maisonnettes en bois, domine le faîte des arbres. On vous porte vers la plus grande des huttes, de toute évidence celle du roi, et l'on vous jette brutalement au sol. Le vieux roi vous toise avec un mécontentement manifeste. « Je suis Okosa, le roi des Kundis, dit-il. Qui es-tu? Qu'es-tu venu faire ici? » Vous expliquez posément au roi que vous êtes en quête de la Pierre-de-Lune des Majdars, que vous cherchez la Porte de l'Ombre et que vous avez besoin de la vision magique des Kundis pour vous y mener. « Tu n'es pas un Majdar, réplique le roi d'un ton soupçonneux. Tu as amené la mort rampante d'en bas, les Kundis ne te guideront nulle part. » Sur ce, il s'enferme dans un silence réprobateur et têtu. Vous avez beau faire, vous ne parvenez pas à le convaincre que vous êtes un Sorcier Majdar et que vous ne meniez pas la horde de Mantizes, bien au contraire. Le vieux roi ne veut rien entendre. A bout d'arguments, vous vous exclamez soudain: « Je connais la magie Majdar! » « Le roi démon pratique la magie, les Chadakines aussi! Ça ne veut rien dire! » répond le roi avec dédain, balayant tous vos espoirs d'un geste de la main. Découragé, vous baissez les bras. « Mais alors, demandez-vous, comment te prouver que je dis vrai? » « Prouver, prouver... répète le roi en vous décochant un regard en biais, les sourcils froncés. Ah! oui... tu vas pouvoir prouver beaucoup de choses quand Urik, le doyen des sages Kundis, viendra te parler! Attends-toi à voir de la vraie magie, de la sorcellerie Kundi! C'est autre chose que les ridicules tours de passe-passe des Chadakines! » Vous décidez de prendre votre mal en patience et d'attendre. Un certain temps s'écoule ainsi. Vous entendez soudain, se rapprochant lentement, de faibles grelots et une voix éraillée qui chantonne un air monotone et dépourvue de mélodie. Au bout d'un moment, un vieux Kundi tout plissé de rides est introduit dans la pièce. Le vieillard est couvert de plumes et de clochettes, et ses yeux roulent furieusement dans leurs orbites. Le roi et sa suite l'accueillent avec la déférence qui lui est due: il est, en effet, le sorcier et le maître spirituel de la Tribu. En votre for intérieur cependant vous trouvez un peu ridicule ce petit homme qui s'agite en sautillant d'un pied sur l'autre autour de vous, secouant un drôle de talisman couvert de fourrure sous votre nez et psalmodiant inlassablement ses discordantes litanies. Sûr de votre savoir en la matière, vous estimez qu'il n'y a là aucune trace de magie et vous regardez le sorcier avec intérêt, impatient de voir ce qui va se passer. Brusquement, le vieillard se tait. Il est à bout de souffle et l'air s'échappe en sifflant de ses poumons. Découvrant d'horribles chicots, il approche tellement son visage du vôtre qu'une vague d'haleine fétide vous submerge tandis qu'il vous parle. « Tu n'as pas l'air d'un Majdar! » vous dit-il en vous jaugeant avec de grands gestes théâtraux. « Sorcier Majdar », corrigez-vous, sans récolter la moindre réaction. Urik se met à palper de ses doigts noueux les haillons de votre robe. « Pas très Majdar, cet accoutrement! » Plissant alors le nez avec dégoût, il ajoute: « Et tu n'as pas l'odeur d'un Majdar, tu sens plutôt le bourbier! » Sur ce, le vieillard part d'un grand rire éraillé, battant des mains avec ravissement. « Tu dis que tu as vu des Majdars? » vous demande-t-il, soudain sérieux. Vous hochez affirmativement la tête. « Eh bien, tu vas pouvoir le prouver, dit Urik. Même le plus jeune de nos enfants connaît la Devinette du Majdar; si tu dis vrai, tu trouveras la réponse. » Stupéfait, vous comprenez que l'avenir de votre mission dépend de votre promptitude à interpréter une comptine. En effet, Okosa, le roi des Kundis, s'engage à vous faire guider jusqu'à la Porte de l'Ombre à condition que vous trouviez la solution de la devinette. Nerveux et inquiet, vous écoutez les paroles que récite le vieux sage, essayant de les graver dans votre esprit: Majdar et Kundi Face à face, Yeux dans les yeux. Majdar voit Kundi, mais Kundi, que voit-il? Pouvez-vous répondre? Réfléchissez bien avant d'aller vérifier la solution que vous trouverez dans le deuxième volume de la série Astre d'Or: La Cité Interdite"}]</script>
+<script>
+"use strict";
+var endings = JSON.parse(document.getElementById("endingsdata").textContent);
+var verdicts = {};
+var currentFilter = "all";
+
+try { verdicts = JSON.parse(localStorage.getItem("sm_debug_v3") || "{}"); } catch(e) {}
+
+function esc(s) {
+  var d = document.createElement("div");
+  d.textContent = s;
+  return d.innerHTML;
+}
+function save() { localStorage.setItem("sm_debug_v3", JSON.stringify(verdicts)); }
+
+function getStatus(id) {
+  var v = verdicts[id];
+  if (v && (v.status === "ok" || v.status === "ko")) return v.status;
+  return "pending";
+}
+function getTarget(id) {
+  var v = verdicts[id];
+  return (v && v.target) ? v.target : 0;
+}
+
+function updateStats() {
+  var ok = 0, ko = 0, pending = 0;
+  endings.forEach(function(e) {
+    var s = getStatus(e.id);
+    if (s === "ok") ok++;
+    else if (s === "ko") ko++;
+    else pending++;
+  });
+  var statsEl = document.getElementById("stats");
+  var btn = statsEl.querySelector(".btn-export");
+  statsEl.innerHTML = "";
+  var span = document.createElement("span");
+  span.innerHTML =
+    "<strong>" + endings.length + "</strong> fins de branche \u00b7 " +
+    "<strong>" + ok + "</strong> OK \u00b7 " +
+    "<strong>" + ko + "</strong> Erreur \u00b7 " +
+    "<strong>" + pending + "</strong> en attente";
+  statsEl.appendChild(span);
+  statsEl.appendChild(btn);
+}
+
+function render() {
+  var container = document.getElementById("cards");
+  container.innerHTML = "";
+
+  var filtered = endings.filter(function(e) {
+    if (currentFilter === "all") return true;
+    return getStatus(e.id) === currentFilter;
+  });
+
+  filtered.forEach(function(e) {
+    var status = getStatus(e.id);
+    var target = getTarget(e.id);
+
+    var card = document.createElement("div");
+    card.className = "card";
+    card.dataset.status = status;
+    card.dataset.id = e.id;
+
+    // Header
+    var header = document.createElement("div");
+    header.className = "card-header";
+
+    var pid = document.createElement("span");
+    pid.className = "para-id";
+    pid.textContent = "§" + e.id;
+
+    var badge = document.createElement("span");
+    badge.className = "badge " + (status === "ok" ? "badge-ok" : status === "ko" ? "badge-ko" : "badge-pending");
+    badge.textContent = status === "ok" ? "OK" : (status === "ko" ? ("Erreur" + (getTarget(e.id) === -1 ? " \u2192 \u00a7 pr\u00e9c\u00e9dent" : getTarget(e.id) > 0 ? " \u2192 \u00a7" + getTarget(e.id) : "")) : "?");
+
+    var actions = document.createElement("div");
+    actions.className = "card-actions";
+
+    var btnOk = document.createElement("button");
+    btnOk.className = "btn-ok";
+    btnOk.textContent = "OK";
+    btnOk.dataset.active = status === "ok" ? "1" : "0";
+    btnOk.addEventListener("click", function() {
+      if (!verdicts[e.id]) verdicts[e.id] = {};
+      verdicts[e.id].status = "ok";
+      save(); render(); updateStats();
+    });
+
+    var btnKo = document.createElement("button");
+    btnKo.className = "btn-ko";
+    btnKo.textContent = "Erreur";
+    btnKo.dataset.active = (status === "ko" || status === "retour") ? "1" : "0";
+    btnKo.addEventListener("click", function() {
+      if (!verdicts[e.id]) verdicts[e.id] = {};
+      verdicts[e.id].status = "ko";
+      save(); render(); updateStats();
+    });
+
+    actions.appendChild(btnOk);
+    actions.appendChild(btnKo);
+    header.appendChild(pid);
+    header.appendChild(badge);
+    header.appendChild(actions);
+
+    // Body
+    var body = document.createElement("div");
+    body.className = "card-body";
+
+    var textDiv = document.createElement("div");
+    textDiv.className = "card-text";
+    textDiv.textContent = e.text;
+
+    var fixDiv = document.createElement("div");
+    fixDiv.className = "ko-fix" + (status === "ko" || status === "retour" ? " visible" : "");
+
+    var label = document.createElement("label");
+    label.textContent = "Rediriger vers ";
+
+    var select = document.createElement("select");
+    select.style.cssText = "background:var(--bg);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:var(--radius);font-size:12px;outline:none";
+
+    var optPrev = document.createElement("option");
+    optPrev.value = "prev";
+    optPrev.textContent = "\u00a7 paragraphe pr\u00e9c\u00e9dent";
+    if (getTarget(e.id) === -1) optPrev.selected = true;
+
+    var optFix = document.createElement("option");
+    optFix.value = "fix";
+    optFix.textContent = "\u00a7 un num\u00e9ro fixe :";
+    if (getTarget(e.id) > 0) optFix.selected = true;
+
+    select.appendChild(optPrev);
+    select.appendChild(optFix);
+
+    var input = document.createElement("input");
+    input.type = "number";
+    input.value = getTarget(e.id) > 0 ? getTarget(e.id) : "";
+    input.min = 1;
+    input.max = 350;
+    input.placeholder = "16";
+    input.style.display = optFix.selected ? "inline-block" : "none";
+    input.addEventListener("change", function() {
+      if (!verdicts[e.id]) verdicts[e.id] = {};
+      verdicts[e.id].target = parseInt(this.value) || 0;
+      save(); render(); updateStats();
+    });
+
+    select.addEventListener("change", function() {
+      if (!verdicts[e.id]) verdicts[e.id] = {};
+      if (this.value === "prev") {
+        verdicts[e.id].target = -1;
+        input.style.display = "none";
+      } else {
+        verdicts[e.id].target = parseInt(input.value) || 0;
+        input.style.display = "inline-block";
+        input.focus();
+      }
+      save(); render(); updateStats();
+    });
+
+    fixDiv.appendChild(label);
+    fixDiv.appendChild(select);
+    fixDiv.appendChild(input);
+    body.appendChild(textDiv);
+    body.appendChild(fixDiv);
+
+    card.appendChild(header);
+    card.appendChild(body);
+    container.appendChild(card);
+  });
+}
+
+// Filters
+var filterNames = ["all", "pending", "ok", "ko"];
+var filterLabels = ["Tous", "En attente", "OK", "Erreur"];
+var filtersDiv = document.getElementById("filters");
+filterNames.forEach(function(f, idx) {
+  var btn = document.createElement("button");
+  btn.className = "filter-btn" + (f === currentFilter ? " active" : "");
+  btn.textContent = filterLabels[idx];
+  btn.addEventListener("click", function() {
+    currentFilter = f;
+    filtersDiv.querySelectorAll(".filter-btn").forEach(function(b) { b.classList.remove("active"); });
+    btn.classList.add("active");
+    render();
+  });
+  filtersDiv.appendChild(btn);
+});
+
+// Export
+document.getElementById("btnExport").addEventListener("click", function() {
+  var corrections = {};
+  endings.forEach(function(e) {
+    var v = verdicts[e.id];
+    if (v && v.status === "ko" && v.target === -1) {
+      corrections[e.id] = {action: "go_back"};
+    } else if (v && v.status === "ko" && v.target) {
+      corrections[e.id] = {action: "redirect", target: v.target};
+    } else if (v && v.status === "ok") {
+      corrections[e.id] = {action: "confirmed_ending"};
+    }
+  });
+  document.getElementById("exportJson").value = JSON.stringify(corrections, null, 2);
+  document.getElementById("drawerOverlay").classList.add("visible");
+});
+
+// Drawer close
+document.getElementById("drawerClose").addEventListener("click", function() {
+  document.getElementById("drawerOverlay").classList.remove("visible");
+});
+document.getElementById("drawerOverlay").addEventListener("click", function(e) {
+  if (e.target === this) this.classList.remove("visible");
+});
+
+// Copy to clipboard
+document.getElementById("btnCopy").addEventListener("click", function() {
+  var textarea = document.getElementById("exportJson");
+  textarea.select();
+  navigator.clipboard.writeText(textarea.value).then(function() {
+    var btn = document.getElementById("btnCopy");
+    btn.textContent = "Copie !";
+    setTimeout(function() { btn.textContent = "Copier dans le presse-papier"; }, 1500);
+  });
+});
+
+render();
+updateStats();
+</script>
+</body>
+</html>

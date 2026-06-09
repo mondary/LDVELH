@@ -695,6 +695,250 @@
     line-height: 1.6;
   }
 
+  /* ===== READER ===== */
+  .reader-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.3s var(--ease);
+  }
+  .reader-backdrop.open { display: flex; }
+  .reader-shell {
+    width: min(1360px, 96vw);
+    height: min(90vh, 980px);
+    background: linear-gradient(180deg, rgba(17, 20, 29, 0.98), rgba(10, 12, 18, 0.98));
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.75);
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
+  .reader-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+  }
+  .reader-title {
+    min-width: 0;
+  }
+  .reader-title .eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 5px;
+    font-weight: 700;
+  }
+  .reader-title h2 {
+    font-size: 22px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .reader-title .meta {
+    margin-top: 6px;
+    color: var(--text-dim);
+    font-size: 12px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .reader-close {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 18px;
+    flex: 0 0 auto;
+  }
+  .reader-close:hover { background: var(--accent); border-color: var(--accent); }
+  .reader-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+    min-height: 0;
+  }
+  .reader-main,
+  .reader-tree {
+    min-height: 0;
+    overflow: auto;
+  }
+  .reader-main {
+    padding: 28px 28px 30px;
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+  .reader-section {
+    max-width: 820px;
+  }
+  .reader-section-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+  .reader-section-number {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+  .reader-section-title {
+    font-size: 34px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 6px;
+  }
+  .reader-section-count {
+    color: var(--text-faint);
+    font-size: 12px;
+    white-space: nowrap;
+    padding-top: 4px;
+  }
+  .reader-text {
+    font-size: 16px;
+    line-height: 1.78;
+    color: #d5d9e2;
+  }
+  .reader-text p {
+    margin-bottom: 14px;
+  }
+  .reader-choices {
+    margin-top: 26px;
+    display: grid;
+    gap: 10px;
+  }
+  .reader-choice {
+    appearance: none;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: var(--text);
+    border-radius: 14px;
+    padding: 14px 16px;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .reader-choice:hover {
+    transform: translateY(-1px);
+    border-color: rgba(229, 9, 20, 0.45);
+    background: rgba(229, 9, 20, 0.08);
+  }
+  .reader-choice .label {
+    display: block;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .reader-choice .to {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .reader-empty {
+    margin-top: 26px;
+    padding: 16px;
+    border-radius: 14px;
+    border: 1px dashed rgba(255,255,255,0.16);
+    color: var(--text-faint);
+    font-size: 13px;
+  }
+  .reader-tree {
+    padding: 24px 18px 24px 18px;
+    background: rgba(255,255,255,0.015);
+  }
+  .reader-tree-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding: 0 6px;
+  }
+  .reader-tree-head h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-dim);
+  }
+  .reader-tree-head .hint {
+    color: var(--text-faint);
+    font-size: 11px;
+  }
+  .reader-tree-scroll {
+    overflow: auto;
+    max-height: calc(90vh - 108px);
+    padding-right: 6px;
+  }
+  .reader-node {
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin-left: calc(var(--depth) * 18px);
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.03);
+    color: var(--text);
+    border-radius: 14px;
+    padding: 12px 12px 11px;
+    cursor: pointer;
+  }
+  .reader-node.active {
+    border-color: rgba(229, 9, 20, 0.58);
+    background: rgba(229, 9, 20, 0.12);
+    box-shadow: 0 0 0 1px rgba(229, 9, 20, 0.18) inset;
+  }
+  .reader-node .section {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-faint);
+    margin-bottom: 6px;
+  }
+  .reader-node .excerpt {
+    display: block;
+    font-size: 13px;
+    line-height: 1.45;
+    color: #d5d9e2;
+  }
+  .reader-branch {
+    margin: 8px 0 14px;
+  }
+  .reader-branch-label {
+    margin: 0 0 8px calc(var(--depth) * 18px + 10px);
+    padding-left: 10px;
+    border-left: 1px solid rgba(255,255,255,0.08);
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .reader-loading,
+  .reader-error {
+    padding: 36px;
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+  .reader-error strong {
+    display: block;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
   .empty {
     padding: 160px var(--pad-x) 80px;
     text-align: center;
@@ -725,6 +969,23 @@
     .editions-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
     .stats-panel { padding: 80px var(--pad-x) 40px; }
     .stats-universe-grid { grid-template-columns: 1fr; }
+    .reader-shell {
+      width: 96vw;
+      height: 92vh;
+    }
+    .reader-body {
+      grid-template-columns: 1fr;
+    }
+    .reader-main {
+      border-right: none;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .reader-tree {
+      max-height: 34vh;
+    }
+    .reader-section-title {
+      font-size: 28px;
+    }
   }
 
   /* ===== STATS PANEL ===== */
@@ -792,8 +1053,28 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }
-  .stat-card.accent .stat-value { color: var(--accent); }
-  .stat-card.gold .stat-value { color: var(--gold); }
+.stat-card.accent .stat-value { color: var(--accent); }
+.stat-card.gold .stat-value { color: var(--gold); }
+.stat-card.is-button {
+  appearance: none;
+  width: 100%;
+  text-align: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.stat-card.is-button .stat-value {
+  pointer-events: none;
+}
+.stat-mini {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--text-faint);
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+}
+.stat-mini:hover { color: var(--text); }
 
   .stats-universe-grid {
     display: grid;
@@ -958,19 +1239,8 @@
       <option value="rating">Note</option>
       <option value="title">Titre (A-Z)</option>
     </select>
-    <button class="icon-btn" id="viewToggle" title="Formats séparés / éditions regroupées">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <rect x="4" y="4" width="7" height="7" rx="1"></rect>
-        <rect x="13" y="4" width="7" height="7" rx="1"></rect>
-        <rect x="4" y="13" width="7" height="7" rx="1"></rect>
-        <rect x="13" y="13" width="7" height="7" rx="1"></rect>
-      </svg>
-    </button>
     <button class="icon-btn" id="statsToggle" title="Statistiques">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>
-    </button>
-    <button class="icon-btn" id="gridToggle" title="Vue grille">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
     </button>
   </div>
 </header>
@@ -1000,6 +1270,10 @@
   <div class="modal" id="modalInner"></div>
 </div>
 
+<div class="reader-backdrop" id="reader">
+  <div class="reader-shell" id="readerInner"></div>
+</div>
+
 <script>
 const COVER = (isbn) => `assets/covers/small/${isbn}.webp`;
 const COVER_BIG = (isbn) => `assets/covers/medium/${isbn}.webp`;
@@ -1008,12 +1282,17 @@ let DATA = null;
 let activeFilter = "all";
 let activeCategory = "none";
 let activeUniverse = null;
-let activeCatalogView = "formats";
+let activeUniverseMode = "all";
 let searchTerm = "";
 let sortBy = "default";
-let gridView = false;
 let heroBook = null;
 let currentDisplayItemsById = new Map();
+const READER_MANIFEST = {
+  "astre-dor-le-sorcier-majdar": "assets/readers/astre-dor-le-sorcier-majdar.json"
+};
+const readerCache = new Map();
+let readerState = null;
+let readerNodeSeq = 0;
 
 const UNIVERSE_LABELS = {
   V1: "V1", V2: "V2", V3: "V3", V4: "V4", V5: "V5"
@@ -1027,10 +1306,21 @@ const CATEGORIES = [
   { id: "hidden",     label: "Pépites cachées",    ico: "✦", filter: b => b.rating >= 4.0 && b.rating < 4.4, sort: (a,b) => b.rating - a.rating },
 ];
 
+const UNIVERSE_ORDER = ["V1", "V2", "V3", "V4", "V5"];
+
+function universeRank(universe) {
+  const idx = UNIVERSE_ORDER.indexOf(universe);
+  return idx === -1 ? UNIVERSE_ORDER.length : idx;
+}
+
 function getEditionIsbn(b, universe) {
   if (!b.editions || !b.editions.length) return b.isbn;
   if (universe) {
     const ed = b.editions.find(e => e.universe === universe);
+    if (ed) return ed.isbn;
+  }
+  for (const u of UNIVERSE_ORDER) {
+    const ed = b.editions.find(e => e.universe === u);
     if (ed) return ed.isbn;
   }
   return b.editions[0]?.isbn || b.isbn;
@@ -1041,24 +1331,103 @@ function getEditionData(b, universe) {
   if (universe) {
     return b.editions.find(e => e.universe === universe) || null;
   }
+  for (const u of UNIVERSE_ORDER) {
+    const ed = b.editions.find(e => e.universe === u);
+    if (ed) return ed;
+  }
   return b.editions[0];
 }
 
 function isVisible(b) {
   if (!activeUniverse) return true;
-  return b.editions && b.editions.some(e => e.universe === activeUniverse);
+  const editions = b.editions || [];
+  if (activeUniverseMode === "exclusive") {
+    return editions.length === 1 && editions[0].universe === activeUniverse;
+  }
+  return editions.some(e => e.universe === activeUniverse);
 }
 
 function getVisibleBooks() {
   return DATA.books.filter(isVisible);
 }
 
-function isGroupedView() {
-  return activeCatalogView === "editions";
-}
-
 function stripVariantSuffix(title) {
   return (title || "").replace(/\s*\(([^)]+)\)\s*$/, "").trim();
+}
+
+const TITLE_ALIASES = new Map([
+  ["la foret de malediction", "la foret de la malediction"],
+  ["la couronnes des rois", "la couronne des rois"],
+  ["rendez vous avec la mort", "rendez vous avec la m o r t"],
+]);
+
+const CANONICAL_NUMBERS = new Map([
+  ["defis-fantastiques#rendez vous avec la m o r t", 17],
+  ["defis-fantastiques#la malediction de la momie", 59],
+  ["defis-fantastiques#l oeil d emeraude", 60],
+  ["defis-fantastiques#le pirate de l au dela", 61],
+  ["defis-fantastiques#la nuit du loup garou", 62],
+  ["defis-fantastiques#le maitre des tempetes", 63],
+  ["defis-fantastiques#la nuit du necromancien", 64],
+  ["defis-fantastiques#le sang des zombies", 65],
+  ["defis-fantastiques#l anneau des serpents de feu", 66],
+  ["defis-fantastiques#le fleau de titan", 67],
+  ["defis-fantastiques#les mysteres de salamonis", 68],
+  ["defis-fantastiques#les geants de fer", 69],
+  ["loup-solitaire#la guerre des runes", 23],
+  ["loup-solitaire#le heros de mynuit", 24],
+]);
+
+function canonicalBookTitle(title) {
+  const normalized = stripVariantSuffix(title)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/œ/g, "oe")
+    .replace(/æ/g, "ae")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return TITLE_ALIASES.get(normalized) || normalized;
+}
+
+function canonicalBookKey(book) {
+  return `${book.series}#${canonicalBookTitle(book.title)}`;
+}
+
+function getCatalogNumber(book) {
+  return CANONICAL_NUMBERS.get(canonicalBookKey(book)) || book.number;
+}
+
+function numberSortValue(number) {
+  if (number == null) return Number.POSITIVE_INFINITY;
+  const match = String(number).match(/\d+/);
+  return match ? Number(match[0]) : Number.POSITIVE_INFINITY;
+}
+
+function compareCatalogNumber(a, b) {
+  const an = getCatalogNumber(a);
+  const bn = getCatalogNumber(b);
+  const diff = numberSortValue(an) - numberSortValue(bn);
+  if (diff !== 0) return diff;
+  return String(an || "").localeCompare(String(bn || ""), "fr", { sensitivity: "base" });
+}
+
+function displayBookTitle(title) {
+  return stripVariantSuffix(title || "").trim();
+}
+
+function titleSortScore(title) {
+  const variant = /\([^)]*\)\s*$/.test(title || "") ? 1 : 0;
+  return [variant, canonicalBookTitle(title).length, title || ""];
+}
+
+function compareTitlePriority(a, b) {
+  const as = titleSortScore(a);
+  const bs = titleSortScore(b);
+  if (as[0] !== bs[0]) return as[0] - bs[0];
+  if (as[1] !== bs[1]) return as[1] - bs[1];
+  return String(as[2]).localeCompare(String(bs[2]), "fr", { sensitivity: "base" });
 }
 
 function bookSearchText(book) {
@@ -1072,22 +1441,268 @@ function bookSearchText(book) {
   ].join(" ").toLowerCase();
 }
 
+function escapeHTML(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function hasInteractiveReader(bookId) {
+  return !!READER_MANIFEST[bookId];
+}
+
+function normalizeReaderChoiceLabel(label) {
+  return String(label || "")
+    .replace(/\s+/g, " ")
+    .replace(/^Aller à\s+\d+\s*/i, "")
+    .replace(/^Rendez-vous au\s+\d+\s*/i, "")
+    .trim();
+}
+
+function readerChoiceLabel(choice) {
+  const cleaned = normalizeReaderChoiceLabel(choice?.label || "");
+  if (!cleaned) return `Aller à ${choice?.to ?? "?"}`;
+  if (/^aller à\s*\d+$/i.test(cleaned)) return `Aller à ${choice?.to ?? "?"}`;
+  if (/^rendez-vous au\s*\d+$/i.test(cleaned)) return `Aller à ${choice?.to ?? "?"}`;
+  return cleaned;
+}
+
+function readerExcerpt(text, limit = 180) {
+  const clean = String(text || "").replace(/\s+/g, " ").trim();
+  if (!clean) return "";
+  if (clean.length <= limit) return clean;
+  return `${clean.slice(0, limit - 1).trim()}…`;
+}
+
+function readerSectionMap(data) {
+  return new Map((data.sections || []).map(section => [section.id, section]));
+}
+
+function createReaderNode(sectionId, viaChoice = null, parent = null) {
+  const node = {
+    id: `reader-node-${++readerNodeSeq}`,
+    sectionId,
+    viaChoice,
+    parent,
+    children: []
+  };
+  if (readerState?.nodeIndex) readerState.nodeIndex.set(node.id, node);
+  return node;
+}
+
+function buildReaderTrail(node) {
+  const trail = [];
+  let cur = node;
+  while (cur) {
+    trail.push(cur.sectionId);
+    cur = cur.parent;
+  }
+  return trail.reverse();
+}
+
+function findReaderNodeById(node, id) {
+  if (!node) return null;
+  if (node.id === id) return node;
+  for (const child of node.children || []) {
+    const found = findReaderNodeById(child, id);
+    if (found) return found;
+  }
+  return null;
+}
+
+function getReaderSection(sectionId) {
+  return readerState?.sectionMap?.get(sectionId) || null;
+}
+
+async function loadReaderData(bookId) {
+  if (readerCache.has(bookId)) return readerCache.get(bookId);
+  const src = READER_MANIFEST[bookId];
+  if (!src) return null;
+  const res = await fetch(src);
+  if (!res.ok) throw new Error(`Impossible de charger ${src}`);
+  const data = await res.json();
+  data.sectionMap = readerSectionMap(data);
+  readerCache.set(bookId, data);
+  return data;
+}
+
+function renderReaderNode(node, depth = 0) {
+  const section = getReaderSection(node.sectionId);
+  const active = readerState?.currentNode?.id === node.id ? " active" : "";
+  const viaLabel = node.viaChoice ? readerChoiceLabel(node.viaChoice) : "Départ";
+  let html = `
+    <div class="reader-branch" style="--depth:${depth}">
+      ${node.viaChoice ? `<div class="reader-branch-label">${escapeHTML(viaLabel)}</div>` : ""}
+      <button type="button" class="reader-node${active}" data-reader-node="${node.id}" style="--depth:${depth}">
+        <span class="section">Section ${node.sectionId}</span>
+        <span class="excerpt">${escapeHTML(readerExcerpt(section?.text || ""))}</span>
+      </button>
+    </div>
+  `;
+  if (node.children.length) {
+    html += `<div class="reader-children">`;
+    node.children.forEach(child => {
+      html += renderReaderNode(child, depth + 1);
+    });
+    html += `</div>`;
+  }
+  return html;
+}
+
+function renderReader() {
+  const inner = document.getElementById("readerInner");
+  if (!readerState) {
+    inner.innerHTML = `<div class="reader-loading">Chargement du lecteur…</div>`;
+    return;
+  }
+  const { book, currentNode, sectionMap } = readerState;
+  const section = sectionMap.get(currentNode.sectionId);
+  const choices = section?.choices || [];
+  const trail = buildReaderTrail(currentNode);
+  const textHTML = section?.text
+    ? String(section.text)
+        .split(/\n+/)
+        .map(p => `<p>${escapeHTML(p.trim())}</p>`)
+        .join("")
+    : `<p>Section introuvable.</p>`;
+  const choiceHTML = choices.length
+    ? choices.map((choice, index) => `
+        <button type="button" class="reader-choice" data-reader-choice="${index}">
+          <span class="label">${escapeHTML(readerChoiceLabel(choice))}</span>
+          <span class="to">Section ${choice.to}</span>
+        </button>
+      `).join("")
+    : section?.go_back && currentNode.parent
+    ? `<button type="button" class="reader-choice" data-reader-goback="1">
+          <span class="label">Retourner au paragraphe d'où vous venez</span>
+          <span class="to">Section ${currentNode.parent.sectionId}</span>
+        </button>`
+    : `<div class="reader-empty">Cette section termine l'aventure. Vous pouvez revenir en arrière dans l'arbre à droite pour explorer une autre branche.</div>`;
+
+  inner.innerHTML = `
+    <div class="reader-topbar">
+      <div class="reader-title">
+        <div class="eyebrow">Lecture interactive</div>
+        <h2>${escapeHTML(book.title)}</h2>
+        <div class="meta">
+          <span>${escapeHTML((DATA.series.find(s => s.id === book.series)?.name) || "")}</span>
+          <span>·</span>
+          <span>${escapeHTML(`Section ${currentNode.sectionId}`)}</span>
+          <span>·</span>
+          <span>${trail.length} noeud${trail.length > 1 ? "s" : ""} exploré${trail.length > 1 ? "s" : ""}</span>
+        </div>
+      </div>
+      <button type="button" class="reader-close" data-reader-close aria-label="Fermer le lecteur">✕</button>
+    </div>
+    <div class="reader-body">
+      <main class="reader-main">
+        <div class="reader-section">
+          <div class="reader-section-header">
+            <div>
+              <div class="reader-section-number">Chapitre ${currentNode.sectionId}</div>
+              <div class="reader-section-title">${escapeHTML(book.title)}</div>
+            </div>
+            <div class="reader-section-count">${choices.length} choix${choices.length > 1 ? " possibles" : " possible"}</div>
+          </div>
+          <div class="reader-text">${textHTML}</div>
+          <div class="reader-choices">${choiceHTML}</div>
+        </div>
+      </main>
+      <aside class="reader-tree">
+        <div class="reader-tree-head">
+          <h3>Arborescence</h3>
+          <div class="hint">Clique sur un noeud pour revenir dessus</div>
+        </div>
+        <div class="reader-tree-scroll">
+          ${renderReaderNode(readerState.root, 0)}
+        </div>
+      </aside>
+    </div>
+  `;
+  document.getElementById("reader").classList.add("open");
+}
+
+function closeReader() {
+  document.getElementById("reader").classList.remove("open");
+}
+
+async function openReader(bookId) {
+  const book = DATA.books.find(x => x.id === bookId);
+  if (!book) return;
+  const manifest = READER_MANIFEST[bookId];
+  if (!manifest) {
+    openModal(bookId);
+    return;
+  }
+
+  closeModal();
+  const backdrop = document.getElementById("reader");
+  const inner = document.getElementById("readerInner");
+  inner.innerHTML = `<div class="reader-loading">Chargement du lecteur interactif…</div>`;
+  backdrop.classList.add("open");
+
+  try {
+    const data = await loadReaderData(bookId);
+    readerNodeSeq = 0;
+    const sectionMap = data.sectionMap || readerSectionMap(data);
+    readerState = {
+      book,
+      data,
+      sectionMap,
+      nodeIndex: new Map()
+    };
+    const root = createReaderNode(1, null, null);
+    readerState.root = root;
+    readerState.currentNode = root;
+    readerState.nodeIndex.set(root.id, root);
+    renderReader();
+  } catch (err) {
+    inner.innerHTML = `
+      <div class="reader-error">
+        <strong>Impossible d'ouvrir le lecteur interactif.</strong>
+        <div>${escapeHTML(err.message || "Erreur inconnue")}</div>
+      </div>
+    `;
+  }
+}
+
+function readerNavigateToChoice(choice) {
+  if (!readerState || !choice) return;
+  const current = readerState.currentNode;
+  let child = current.children.find(node => {
+    const via = node.viaChoice || {};
+    return node.sectionId === choice.to && normalizeReaderChoiceLabel(via.label) === normalizeReaderChoiceLabel(choice.label);
+  });
+  if (!child) {
+    child = createReaderNode(choice.to, choice, current);
+    current.children.push(child);
+  }
+  readerState.currentNode = child;
+  renderReader();
+}
+
+function readerJumpToNode(nodeId) {
+  if (!readerState || !nodeId) return;
+  const node = readerState.nodeIndex.get(nodeId) || findReaderNodeById(readerState.root, nodeId);
+  if (!node) return;
+  readerState.currentNode = node;
+  renderReader();
+}
+
 function groupKeyForBook(book) {
-  if (book.number != null) return `${book.series}#${book.number}`;
-  return `${book.series}#${stripVariantSuffix(book.title).toLowerCase()}`;
+  return `${book.series}#${canonicalBookTitle(book.title)}`;
 }
 
 function pickGroupTitle(books) {
   const sorted = [...books].sort((a, b) => {
-    const aVariant = /\([^)]*\)\s*$/.test(a.title || "") ? 1 : 0;
-    const bVariant = /\([^)]*\)\s*$/.test(b.title || "") ? 1 : 0;
-    if (aVariant !== bVariant) return aVariant - bVariant;
-    const aClean = stripVariantSuffix(a.title || "");
-    const bClean = stripVariantSuffix(b.title || "");
-    if (aClean.length !== bClean.length) return aClean.length - bClean.length;
+    const priority = compareTitlePriority(a.title, b.title);
+    if (priority !== 0) return priority;
     return (b.year || 0) - (a.year || 0);
   });
-  return stripVariantSuffix(sorted[0]?.title || books[0]?.title || "");
+  return displayBookTitle(sorted[0]?.title || books[0]?.title || "");
 }
 
 function mergeEditions(books) {
@@ -1108,7 +1723,11 @@ function mergeEditions(books) {
       });
     });
   });
-  return merged.sort((a, b) => (a.year || 0) - (b.year || 0) || String(a.universe || "").localeCompare(String(b.universe || "")));
+  return merged.sort((a, b) =>
+    universeRank(a.universe) - universeRank(b.universe) ||
+    (a.year || 0) - (b.year || 0) ||
+    String(a.sourceTitle || "").localeCompare(String(b.sourceTitle || ""), "fr", { sensitivity: "base" })
+  );
 }
 
 function buildGroupedBooks(books) {
@@ -1155,7 +1774,11 @@ function buildGroupedBooks(books) {
 }
 
 function getCatalogBooks(books) {
-  return isGroupedView() ? buildGroupedBooks(books) : books;
+  return buildGroupedBooks(books);
+}
+
+function countLabel(n, singular, plural) {
+  return `${n} ${n > 1 ? plural : singular}`;
 }
 
 async function init() {
@@ -1270,7 +1893,7 @@ function renderHero() {
   if (activeFilter !== "all") {
     const series = DATA.series.find(s => s.id === activeFilter);
     if (!series) return;
-    const books = getCatalogBooks(getVisibleBooks().filter(b => b.series === series.id)).sort((a,b)=>(a.number||0)-(b.number||0));
+    const books = getCatalogBooks(getVisibleBooks().filter(b => b.series === series.id)).sort(compareCatalogNumber);
     heroEl.className = "hero compact";
     const coverIsbn = books[0] ? getEditionIsbn(books[0], activeUniverse) : null;
     bg.style.backgroundImage = coverIsbn ? `url(${COVER_BIG(coverIsbn)})` : "none";
@@ -1300,7 +1923,7 @@ function renderHero() {
   bg.style.backgroundImage = `url(${COVER_BIG(coverIsbn)})`;
   const editionCount = b.editions ? b.editions.length : 1;
   content.innerHTML = `
-    <div class="hero-eyebrow">${series?.name || ""} · Tome ${b.number || "?"}</div>
+    <div class="hero-eyebrow">${series?.name || ""} · Tome ${getCatalogNumber(b) || "?"}</div>
     <h1 class="hero-title">${b.title}</h1>
     <div class="hero-meta">
       <span>${authors || "Auteur inconnu"}</span>
@@ -1325,7 +1948,6 @@ function renderHero() {
 
 function renderLibrary() {
   const lib = document.getElementById("library");
-  lib.classList.toggle("grid-view", gridView);
   lib.innerHTML = "";
 
   let base = activeFilter === "all" ? getVisibleBooks() : getVisibleBooks().filter(b => b.series === activeFilter);
@@ -1395,7 +2017,7 @@ function renderLibrary() {
     const cat = CATEGORIES.find(c => c.id === activeCategory);
     if (cat) {
       let list = [...base].filter(cat.filter);
-      if (isGroupedView()) list = getCatalogBooks(list);
+      list = getCatalogBooks(list);
       list.sort(cat.sort);
       rows.push({
         title: `${cat.ico} ${cat.label}`,
@@ -1412,8 +2034,8 @@ function renderLibrary() {
       const editionTotal = list.reduce((sum, b) => sum + (b.editions ? b.editions.length : 1), 0);
       rows.push({
         title: s?.name || "",
-        subtitle: isGroupedView() ? `${editionTotal} éditions` : `L'intégrale · ${s ? visibleCount(s.id) : 0} tomes`,
-        books: list.sort((a,b)=>(a.number||0)-(b.number||0)),
+        subtitle: `${countLabel(list.length, "livre", "livres")} / ${countLabel(editionTotal, "édition", "éditions")}`,
+        books: list.sort(compareCatalogNumber),
         forceGrid: true,
       });
     } else {
@@ -1423,13 +2045,14 @@ function renderLibrary() {
         a.name.localeCompare(b.name, "fr", { sensitivity: "base" })
       );
       orderedSeries.forEach(s => {
-        const sBooks = visible.filter(b => b.series === s.id).sort((a,b)=>(a.number||0)-(b.number||0));
+        const sBooks = visible.filter(b => b.series === s.id).sort(compareCatalogNumber);
         if (sBooks.length) {
           const editionTotal = sBooks.reduce((sum, b) => sum + (b.editions ? b.editions.length : 1), 0);
           rows.push({
             title: s.name,
-            subtitle: isGroupedView() ? `${editionTotal} éditions` : `${sBooks.length} tomes`,
-            books: sBooks
+            subtitle: `${countLabel(sBooks.length, "livre", "livres")} / ${countLabel(editionTotal, "édition", "éditions")}`,
+            books: sBooks,
+            forceGrid: true
           });
         }
       });
@@ -1468,16 +2091,17 @@ function cardHTML(b) {
   const isTop = b.rating >= 4.5;
   const coverIsbn = getEditionIsbn(b, activeUniverse);
   const editionCount = b.editions ? b.editions.length : 1;
+  const catalogNumber = getCatalogNumber(b);
   return `
     <article class="card" data-id="${b.id}">
       <div class="cover">
         <img src="${COVER(coverIsbn)}" alt="${b.title}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
         <div class="cover-fallback" style="display:none;">
-          <div class="num">${String(b.number || 0).padStart(2,"0")}</div>
+          <div class="num">${String(catalogNumber || 0).padStart(2,"0")}</div>
           <div class="ttl">${b.title}</div>
           <div>${series?.name || ""}</div>
         </div>
-        ${b.number ? `<div class="badge ${isTop ? "top" : ""}">N°${b.number}</div>` : ""}
+        ${catalogNumber ? `<div class="badge ${isTop ? "top" : ""}">N°${catalogNumber}</div>` : ""}
         ${editionCount > 1 ? `<div class="badge-editions">${editionCount} éd.</div>` : ""}
         <div class="card-overlay">
           <div class="ov-title">${b.title}</div>
@@ -1500,6 +2124,7 @@ function cardHTML(b) {
 }
 
 function openModal(id) {
+  closeReader();
   const item = currentDisplayItemsById.get(id) || DATA.books.find(x => x.id === id);
   if (!item) return;
   const books = item.books || [item];
@@ -1509,7 +2134,9 @@ function openModal(id) {
   const editions = item.editions && item.editions.length
     ? item.editions
     : [{ universe: "V1", isbn: item.isbn, year: item.year, date: null, price: item.price, rating: item.rating, sourceTitle: item.title }];
+  editions.sort((a, b) => universeRank(a.universe) - universeRank(b.universe) || (a.year || 0) - (b.year || 0));
   const isGrouped = !!item.books;
+  const catalogNumber = getCatalogNumber(item);
 
   const editionsHTML = editions.map(e => `
     <div class="edition-card">
@@ -1536,7 +2163,7 @@ function openModal(id) {
       <div class="modal-hero-content">
         <h2>${item.title}</h2>
         <div class="meta">
-          <span>${series?.name || ""} · Tome ${item.number || "?"}</span>
+          <span>${series?.name || ""} · Tome ${catalogNumber || "?"}</span>
           <span>·</span>
           <span>${authors}</span>
           ${item.year ? `<span>·</span><span>${item.year}</span>` : ""}
@@ -1558,7 +2185,7 @@ function openModal(id) {
         <div class="stat"><span>Note moyenne</span><span>${item.rating ? "★ " + item.rating.toFixed(2) : "—"}</span></div>
         <div class="stat"><span>Éditions</span><span>${editions.length}</span></div>
         <div class="stat"><span>Série</span><span>${series?.name || "—"}</span></div>
-        <button class="btn btn-primary" style="margin-top:18px;width:100%;justify-content:center;">▶ Lire ce livre</button>
+        ${hasInteractiveReader(item.id) ? `<button class="btn btn-primary" id="modalReaderBtn" style="margin-top:18px;width:100%;justify-content:center;">▶ Lire ce livre</button>` : `<button class="btn btn-primary" disabled style="margin-top:18px;width:100%;justify-content:center;opacity:0.55;cursor:not-allowed;">Lecture interactive bientôt</button>`}
       </aside>
     </div>
     ${editions.length > 1 ? `
@@ -1570,6 +2197,13 @@ function openModal(id) {
   `;
   document.getElementById("modal").classList.add("open");
   document.getElementById("modalClose").onclick = closeModal;
+  const readerBtn = document.getElementById("modalReaderBtn");
+  if (readerBtn) {
+    readerBtn.onclick = () => {
+      closeModal();
+      openReader(item.id);
+    };
+  }
 }
 function closeModal() { document.getElementById("modal").classList.remove("open"); }
 
@@ -1580,11 +2214,26 @@ function fullRender() {
   renderLibrary();
 }
 
+function isTypingTarget(el) {
+  if (!el) return false;
+  const tag = (el.tagName || "").toUpperCase();
+  return tag === "INPUT" || tag === "TEXTAREA" || el.isContentEditable;
+}
+
+function commitSearchText(value) {
+  const searchEl = document.getElementById("search");
+  searchEl.value = value;
+  searchTerm = value.toLowerCase().trim();
+  renderHero();
+  renderLibrary();
+}
+
 function bindEvents() {
   document.getElementById("navUniverses").addEventListener("click", e => {
     const a = e.target.closest("a[data-universe]");
     if (!a) return;
     activeUniverse = a.dataset.universe || null;
+    activeUniverseMode = "all";
     activeCategory = "none";
     fullRender();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1627,34 +2276,79 @@ function bindEvents() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-  document.getElementById("gridToggle").addEventListener("click", e => {
-    gridView = !gridView;
-    e.currentTarget.classList.toggle("active", gridView);
-    renderLibrary();
-  });
-
-  document.getElementById("viewToggle").addEventListener("click", e => {
-    activeCatalogView = activeCatalogView === "formats" ? "editions" : "formats";
-    e.currentTarget.classList.toggle("active", activeCatalogView === "editions");
-    fullRender();
-  });
-
   document.getElementById("statsToggle").addEventListener("click", toggleStats);
   document.getElementById("statsClose").addEventListener("click", toggleStats);
+  document.getElementById("statsContent").addEventListener("click", e => {
+    const btn = e.target.closest("[data-universe-filter]");
+    if (!btn) return;
+    applyUniverseFilter(btn.dataset.universeFilter, btn.dataset.universeMode);
+  });
 
   document.addEventListener("click", e => {
     const actionBtn = e.target.closest("[data-action]");
-    if (actionBtn) { openModal(actionBtn.dataset.id); return; }
+    if (actionBtn) {
+      if (actionBtn.dataset.action === "read") {
+        if (hasInteractiveReader(actionBtn.dataset.id)) {
+          openReader(actionBtn.dataset.id);
+        } else {
+          openModal(actionBtn.dataset.id);
+        }
+      } else {
+        openModal(actionBtn.dataset.id);
+      }
+      return;
+    }
     const card = e.target.closest(".card");
     if (card) openModal(card.dataset.id);
     if (e.target.id === "modal") closeModal();
+    if (e.target.id === "reader") closeReader();
+    const readerChoice = e.target.closest("[data-reader-choice]");
+    if (readerChoice && readerState) {
+      const section = getReaderSection(readerState.currentNode.sectionId);
+      const choice = section?.choices?.[Number(readerChoice.dataset.readerChoice)];
+      if (choice) readerNavigateToChoice(choice);
+      return;
+    }
+    if (e.target.closest("[data-reader-goback]") && readerState?.currentNode?.parent) {
+      readerJumpToNode(readerState.currentNode.parent.id);
+      return;
+    }
+    const readerNode = e.target.closest("[data-reader-node]");
+    if (readerNode) {
+      readerJumpToNode(readerNode.dataset.readerNode);
+      return;
+    }
+    if (e.target.closest("[data-reader-close]")) {
+      closeReader();
+      return;
+    }
   });
 
   document.addEventListener("keydown", e => {
     if (e.key === "Escape") {
+      if (document.getElementById("reader").classList.contains("open")) {
+        closeReader();
+        return;
+      }
       closeModal();
       const panel = document.getElementById("statsPanel");
       if (panel.classList.contains("open")) toggleStats();
+      return;
+    }
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (isTypingTarget(e.target)) return;
+    const searchEl = document.getElementById("search");
+    if (e.key === "Backspace") {
+      if (!searchEl.value) return;
+      commitSearchText(searchEl.value.slice(0, -1));
+      searchEl.focus();
+      e.preventDefault();
+      return;
+    }
+    if (e.key === " " || e.key.length === 1) {
+      commitSearchText(searchEl.value + e.key);
+      searchEl.focus();
+      e.preventDefault();
     }
   });
 
@@ -1672,26 +2366,25 @@ function bindEvents() {
 function renderStatsPanel() {
   const el = document.getElementById("statsContent");
   const books = DATA.books;
+  const groupedBooks = buildGroupedBooks(books);
+  const groupedCount = groupedBooks.length;
   const totalEditions = books.reduce((s, b) => s + (b.editions ? b.editions.length : 1), 0);
   const multiEd = books.filter(b => b.editions && b.editions.length > 1).length;
 
   // Universe counts
   const univCounts = {};
+  const exclusiveCounts = {};
   ["V1","V2","V3","V4","V5"].forEach(u => univCounts[u] = 0);
+  ["V1","V2","V3","V4","V5"].forEach(u => exclusiveCounts[u] = 0);
   books.forEach(b => {
-    (b.editions || []).forEach(e => { univCounts[e.universe] = (univCounts[e.universe] || 0) + 1; });
+    const univs = (b.editions || []).map(e => e.universe);
+    univs.forEach(u => { univCounts[u] = (univCounts[u] || 0) + 1; });
+    if (univs.length === 1) {
+      const only = univs[0];
+      if (only) exclusiveCounts[only] = (exclusiveCounts[only] || 0) + 1;
+    }
   });
   const maxUniv = Math.max(...Object.values(univCounts));
-
-  // Combination groups
-  const combos = {};
-  books.forEach(b => {
-    const univs = (b.editions || []).map(e => e.universe).sort().join(",");
-    if (!combos[univs]) combos[univs] = [];
-    combos[univs].push(b);
-  });
-  const sortedCombos = Object.entries(combos).sort((a, b) => b[1].length - a[1].length);
-  const maxCombo = sortedCombos[0] ? sortedCombos[0][1].length : 1;
 
   // Series per universe
   const seriesPerUniv = {};
@@ -1706,53 +2399,39 @@ function renderStatsPanel() {
   // Overview cards
   let html = `
     <div class="stats-overview">
-      <div class="stat-card accent"><div class="stat-value">${books.length}</div><div class="stat-label">Livres uniques</div></div>
-      <div class="stat-card"><div class="stat-value">${totalEditions}</div><div class="stat-label">Éditions totales</div></div>
+      <div class="stat-card accent"><div class="stat-value">${groupedCount}</div><div class="stat-label">Livres regroupés</div></div>
+      <div class="stat-card"><div class="stat-value">${totalEditions}</div><div class="stat-label">Parutions</div></div>
       <div class="stat-card gold"><div class="stat-value">${multiEd}</div><div class="stat-label">Multi-éditions</div></div>
       <div class="stat-card"><div class="stat-value">${DATA.series.length}</div><div class="stat-label">Séries</div></div>
-      <div class="stat-card"><div class="stat-value">${sortedCombos.length}</div><div class="stat-label">Combinaisons</div></div>
     </div>
+    <div style="margin:-8px 0 24px;color:var(--text-faint);font-size:12px;letter-spacing:0.02em;">${groupedCount} = affichage par défaut sur la page d'accueil. ${totalEditions} = parutions totales.</div>
   `;
 
   // Bar chart: editions per universe
-  html += `<div class="stats-section"><h3>Éditions par univers</h3>`;
+  html += `<div class="stats-section"><h3>Tomes uniques par version</h3>`;
   html += `<div class="stats-bar-chart">`;
   ["V1","V2","V3","V4","V5"].forEach(u => {
     const count = univCounts[u];
     const pct = maxUniv ? (count / maxUniv * 100) : 0;
     html += `
       <div class="bar-col">
-        <div class="bar ${u}" style="height:${pct}%">
+        <button class="bar ${u} stat-card is-button" data-universe-filter="${u}" data-universe-mode="all" style="height:${pct}%">
           <div class="bar-value">${count}</div>
-        </div>
-        <div class="bar-label">${u}<br><span style="font-size:10px;opacity:.6">${seriesPerUniv[u]} séries</span></div>
+        </button>
+        <div class="bar-label">${u}<br><button class="stat-mini" data-universe-filter="${u}" data-universe-mode="exclusive">${exclusiveCounts[u]} exclusifs</button></div>
       </div>
     `;
   });
   html += `</div></div>`;
 
-  // Combination breakdown
-  html += `<div class="stats-section"><h3>Combinaisons d'univers <span class="count">${sortedCombos.length} groupes</span></h3>`;
-  html += `<div class="stats-universe-grid">`;
-  sortedCombos.forEach(([combo, comboBooks]) => {
-    const univs = combo.split(",");
-    const tags = univs.map(u => `<span class="univ-tag ${u}">${u}</span>`).join("");
-    const pct = maxCombo ? (comboBooks.length / maxCombo * 100) : 0;
-    const bookLines = comboBooks.slice(0, 20).map(b => {
-      const series = DATA.series.find(s => s.id === b.series);
-      const isbn = b.editions ? b.editions[0].isbn : b.isbn;
-      return `<div class="book-line"><img class="book-cover" src="${COVER(isbn)}" alt="" onerror="this.style.display='none'"/><span class="book-title">${b.title}</span><span class="book-series">${series?.name || ""}</span></div>`;
-    }).join("");
-    const more = comboBooks.length > 20 ? `<div style="margin-top:4px;color:var(--text-faint)">+ ${comboBooks.length - 20} autres...</div>` : "";
+  html += `<div class="stats-section"><h3>Lecture rapide</h3>`;
+  html += `<div class="stats-overview" style="grid-template-columns: repeat(5, 1fr);">`;
+  ["V1","V2","V3","V4","V5"].forEach(u => {
     html += `
-      <div class="combo-card">
-        <div class="combo-header">
-          <div class="combo-label">${tags}</div>
-          <div class="combo-count">${comboBooks.length}</div>
-        </div>
-        <div class="combo-bar"><div class="combo-bar-fill" style="width:${pct}%"></div></div>
-        <div class="combo-books">${bookLines}${more}</div>
-      </div>
+      <button class="stat-card is-button" data-universe-filter="${u}" data-universe-mode="all">
+        <div class="stat-value">${univCounts[u]}</div>
+        <div class="stat-label">${u} · ${exclusiveCounts[u]} exclusifs</div>
+      </button>
     `;
   });
   html += `</div></div>`;
@@ -1781,10 +2460,23 @@ function renderStatsPanel() {
   el.innerHTML = html;
 }
 
+function applyUniverseFilter(universe, mode) {
+  activeUniverse = universe || null;
+  activeUniverseMode = mode || "all";
+  activeFilter = "all";
+  activeCategory = "none";
+  closeModal();
+  toggleStats(false);
+  fullRender();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 function toggleStats() {
   const panel = document.getElementById("statsPanel");
   const btn = document.getElementById("statsToggle");
-  const isOpen = panel.classList.toggle("open");
+  const forceClose = arguments.length > 0 && arguments[0] === false;
+  const isOpen = forceClose ? false : panel.classList.toggle("open");
+  if (forceClose) panel.classList.remove("open");
   btn.classList.toggle("active", isOpen);
   if (isOpen) renderStatsPanel();
 }
