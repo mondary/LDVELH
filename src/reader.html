@@ -136,6 +136,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
     <button class="btn" onclick="jumpTo()">Aller au §</button>
     <button class="btn" onclick="resetGame()">Recommencer</button>
     <button class="btn" onclick="showResetModal()">Réinitialiser</button>
+    <button class="btn" id="pdfBtn" onclick="openPDF()" style="display:none">📄 PDF</button>
     <button class="btn" id="exportBtn" onclick="exportBookData()" style="display:none">⬇ JSON</button>
     <button class="btn" onclick="exportSave()">💾 Sauvegarde</button>
     <label class="btn" style="cursor:pointer">📂 Restaurer<input type="file" accept=".json" onchange="importSave(event)" style="display:none"></label>
@@ -218,6 +219,8 @@ function loadBook(isbn) {
       if (json.title) document.getElementById("bookTitle").textContent = json.title;
       if (json.subtitle) document.getElementById("bookSubtitle").textContent = json.subtitle;
       if (json.intro) renderIntro(json.intro);
+      var pdfBtn = document.getElementById("pdfBtn");
+      if (pdfBtn) pdfBtn.style.display = json.pdf ? "inline-block" : "none";
       else renderDefaultIntro(json);
       restoreState();
       renderParagraph(currentPara);
@@ -369,7 +372,11 @@ function splitWords(text) {
   while ((m = re.exec(text)) !== null) {
     var tok = m[0];
     if (/^\s+$/.test(tok)) {
-      html += esc(tok);
+      var nl = tok.split("\n");
+      for (var i = 0; i < nl.length; i++) {
+        if (i > 0) html += "<br>";
+        html += esc(nl[i]);
+      }
     } else if (/\d/.test(tok)) {
       html += '<span class="w num" data-start="' + m.index + '" data-end="' + (m.index + tok.length) + '">' + esc(tok) + '</span>';
     } else {
@@ -479,6 +486,10 @@ function toggleEditMode() {
 
 function exportBookData() {
   apiExportBook();
+}
+
+function openPDF() {
+  if (BOOK_META.pdf) window.open(encodeURI(BOOK_META.pdf), "_blank");
 }
 
 function autoResize(el) {

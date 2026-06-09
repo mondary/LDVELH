@@ -74,6 +74,19 @@ function importJsonFiles() {
       JSON.stringify(meta)
     );
 
+    db.prepare(
+      "UPDATE books SET book_id=?, title=?, subtitle=?, metadata=? WHERE isbn=? AND (book_id IS DISTINCT FROM ? OR title IS DISTINCT FROM ? OR subtitle IS DISTINCT FROM ? OR metadata IS DISTINCT FROM ?)"
+    ).run(
+      json.bookId || isbn,
+      json.title || isbn,
+      json.subtitle || "",
+      JSON.stringify(meta),
+      isbn,
+      json.bookId || isbn,
+      json.title || isbn,
+      json.subtitle || ""
+    );
+
     if (json.sections) {
       for (const s of json.sections) {
         stmtSection.run(
@@ -148,7 +161,7 @@ function resetBook(isbn) {
 }
 
 function serveStatic(req, res) {
-  const urlPath = req.url.split("?")[0];
+  const urlPath = decodeURIComponent(req.url.split("?")[0]);
   let fp = path.join(SRC, urlPath === "/" ? "/index.html" : urlPath);
   fp = path.resolve(fp);
   if (!fp.startsWith(SRC)) {

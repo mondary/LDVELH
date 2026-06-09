@@ -18,10 +18,13 @@ Lecteur intégré avec arbre décisionnel, synthèse vocale, mode édition, et s
 - Lecture interactive avec arbre décisionnel SVG.
 - Synthèse vocale (TTS) en français avec choix de la voix et de la vitesse.
 - Mode édition : modification du texte et des choix, sauvegarde en base.
+- Header sticky (numéro de paragraphe, TTS, éditer) toujours visible au scroll.
+- Support des retours à la ligne dans les paragraphes.
 - Graphique des sessions (tentatives multiples, branches, fusions, boucles).
 - Breadcrumb de navigation et retour arrière.
 - Notes générales et notes par paragraphe.
 - Export/import de sauvegarde de partie (JSON).
+- Bouton d'ouverture directe du PDF du livre.
 - Bouton retour vers la bibliothèque.
 
 ### Serveur (`server/`)
@@ -63,17 +66,19 @@ src/
       9782070333707.json
   assets/
     covers/           Couvertures
+    pdf/              PDF des livres
 ```
 
 ## Ajouter un livre
 
 1. Créer un JSON dans `src/data/readers/` nommé par ISBN (ex: `9782070333707.json`).
-2. Format : `{ "bookId": "...", "title": "...", "sections": [{ "id": 1, "text": "...", "choices": [{ "to": 2, "label": "..." }] }] }`.
+2. Format : `{ "bookId": "...", "title": "...", "pdf": "/assets/pdf/chemin/vers/fichier.pdf", "sections": [{ "id": 1, "text": "...", "choices": [{ "to": 2, "label": "..." }] }] }`. Le champ `pdf` est optionnel et permet d'ouvrir le PDF depuis le lecteur.
 3. Relancer le serveur : il importe automatiquement les nouveaux JSON.
 4. Le livre est accessible via `reader.html?book=ISBN`.
 
 ## Changelog
 
+- [0.21] - Header sticky, bouton PDF, retours à la ligne dans les paragraphes, import DB mis à jour
 - [0.20] - Lecteur interactif générique, serveur SQLite, édition en base, export/import de sauvegardes
 - [0.11] - Arbre décisionnel fusionné
 - [0.10] - 2026-06-09 : Initial project scaffold

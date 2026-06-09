@@ -2,51 +2,83 @@
 
 [🇬🇧 EN](README_en.md) · [🇫🇷 FR](README.md)
 
-Static web library for gamebook titles.
-The current version highlights a merged decision tree for cleaner navigation across branches.
-The site is served from `src/`.
+Interactive web library for gamebooks (LDVELH).
+Built-in reader with decision tree, text-to-speech, edit mode, and save/restore.
 
-## ✅ Features
+## Features
+
+### Library (`src/index.html`)
 - Browse by series, universe, and category.
 - Full-text search.
 - Sort by default order, year, rating, or title.
-- Separate formats view and grouped editions view.
-- Merged decision tree for clearer navigation.
 - Detailed item view with cover, metadata, and all editions.
+- Direct link to the interactive reader.
 
-## 🧠 Usage
-- Open `src/index.html` in a browser through a local server.
-- Or run a simple local server from `src/`.
+### Reader (`src/reader.html`)
+- Interactive reading with SVG decision tree.
+- Text-to-speech (TTS) in French with voice and speed controls.
+- Edit mode: modify text and choices, saved to database.
+- Sticky header (paragraph number, TTS, edit) always visible on scroll.
+- Line breaks supported in paragraphs.
+- Session graph (multiple attempts, branches, merges, loops).
+- Breadcrumb navigation and back button.
+- General notes and per-paragraph notes.
+- Save/export and import game state (JSON).
+- Direct PDF opening button.
+- Back to library button.
+
+### Server (`server/`)
+- Node.js server with built-in SQLite (`node:sqlite`, zero dependencies).
+- Original and modified data stored separately.
+- REST API for section CRUD.
+
+## Usage
 
 ```bash
-cd src
-python3 -m http.server 8000
+node server/server.js
 ```
 
-Then open `http://127.0.0.1:8000/`.
+Then open `http://localhost:5432`.
 
-## ⚙️ Settings
-- `src/data/library.json` contains the book, series, and edition catalog.
-- `src/assets/covers/` contains the catalog covers.
-- Covers are loaded from `src/assets/covers/small/` and `src/assets/covers/medium/`.
-- In grouped view, cards use the first available edition to display an image.
+## API
 
-## 🧾 Files
-- `src/index.html` : rendering interface and logic.
-- `src/data/library.json` : book, series, and edition catalog.
-- `src/assets/covers/` : catalog covers.
+| Method | Route | Description |
+|--------|-------|-------------|
+| GET | `/api/books/:isbn` | Full book (modified text if exists, else original) |
+| PUT | `/api/books/:isbn/sections/:id` | Save a modified section |
+| PUT | `/api/books/:isbn/reset-section/:id` | Restore original section |
+| POST | `/api/books/:isbn/reset` | Restore entire book |
+| GET | `/api/books/:isbn/export` | Export modified book as JSON |
 
-## 📦 Build & Package
-- No build step is required for local use.
+## Structure
 
-## 🧪 Install (Antigravity)
-- Open the project in the workspace environment.
-- Check that `src/index.html` renders correctly.
-- Verify that covers and metadata load from `src/data/library.json`.
+```
+server/
+  server.js          Node.js server + SQLite
+  ldvelh.db          Database (auto-created)
+  package.json
+src/
+  index.html          Library
+  reader.html         Interactive reader
+  data/
+    library.json      Book catalog
+    readers/          Per-book JSON (imported on first launch)
+      9782070333707.json
+  assets/
+    covers/           Covers
+    pdf/              Book PDFs
+```
 
-## 🧾 Changelog
-- [0.10] - 2026-06-09 : initial project scaffold.
-- [0.11] - merged decision tree.
+## Adding a book
 
-## 🔗 Links
-- FR README : [README.md](README.md)
+1. Create a JSON file in `src/data/readers/` named by ISBN (e.g. `9782070333707.json`).
+2. Format: `{ "bookId": "...", "title": "...", "pdf": "/assets/pdf/path/to/file.pdf", "sections": [{ "id": 1, "text": "...", "choices": [{ "to": 2, "label": "..." }] }] }`. The `pdf` field is optional and enables the PDF button in the reader.
+3. Restart the server: it auto-imports new JSON files.
+4. The book is accessible via `reader.html?book=ISBN`.
+
+## Changelog
+
+- [0.21] - Sticky header, PDF button, line breaks in paragraphs, DB import update
+- [0.20] - Generic interactive reader, SQLite server, in-db editing, save export/import
+- [0.11] - Merged decision tree
+- [0.10] - 2026-06-09 : Initial project scaffold
