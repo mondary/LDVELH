@@ -3,12 +3,14 @@
 [🇫🇷 FR](README.md) · [🇬🇧 EN](README_en.md)
 
 Bibliothèque web statique pour les livres dont vous êtes le héros.
+La version actuelle met en avant un arbre décisionnel fusionné pour naviguer plus proprement entre les branches.
 
 ## ✅ Fonctionnalités
 - Navigation par séries, univers et catégories.
 - Recherche plein texte.
 - Tri par défaut, année, note ou titre.
 - Vue `formats séparés` et vue `éditions regroupées`.
+- Arbre décisionnel fusionné pour une navigation plus lisible.
 - Fiche détaillée avec couverture, métadonnées et toutes les parutions.
 
 ## 🧠 Utilisation
@@ -42,6 +44,7 @@ Puis ouvrir `http://127.0.0.1:8000`.
 
 ## 🧾 Changelog
 - [0.10] - 2026-06-09 : initial project scaffold.
+- [0.11] - arbre décisionnel fusionné.
 
 ## 🔗 Liens
 - EN README : [README_en.md](README_en.md)

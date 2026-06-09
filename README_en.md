@@ -3,12 +3,14 @@
 [🇬🇧 EN](README_en.md) · [🇫🇷 FR](README.md)
 
 Static web library for gamebook titles.
+The current version highlights a merged decision tree for cleaner navigation across branches.
 
 ## ✅ Features
 - Browse by series, universe, and category.
 - Full-text search.
 - Sort by default order, year, rating, or title.
 - Separate formats view and grouped editions view.
+- Merged decision tree for clearer navigation.
 - Detailed item view with cover, metadata, and all editions.
 
 ## 🧠 Usage
@@ -42,6 +44,7 @@ Then open `http://127.0.0.1:8000`.
 
 ## 🧾 Changelog
 - [0.10] - 2026-06-09 : initial project scaffold.
+- [0.11] - merged decision tree.
 
 ## 🔗 Links
 - FR README : [README.md](README.md)
