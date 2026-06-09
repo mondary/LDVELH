@@ -1,0 +1,21 @@
+{
+  "name": "ldvelh3",
+  "version": "1.0.0",
+  "description": "[🇫🇷 FR](README.md) · [🇬🇧 EN](README_en.md)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mondary/LDVELH.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mondary/LDVELH/issues"
+  },
+  "homepage": "https://github.com/mondary/LDVELH#readme"
+}

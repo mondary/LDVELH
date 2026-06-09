@@ -1288,7 +1288,7 @@ let sortBy = "default";
 let heroBook = null;
 let currentDisplayItemsById = new Map();
 const READER_MANIFEST = {
-  "astre-dor-le-sorcier-majdar": "assets/readers/astre-dor-le-sorcier-majdar.json"
+  "astre-dor-le-sorcier-majdar": "data/readers/astre-dor-le-sorcier-majdar.json"
 };
 const readerCache = new Map();
 let readerState = null;
@@ -1788,7 +1788,7 @@ function countLabel(n, singular, plural) {
 
 async function init() {
   try {
-    const res = await fetch("library.json");
+    const res = await fetch("data/library.json");
     DATA = await res.json();
   } catch (e) {
     document.body.innerHTML = `<div class="empty">Impossible de charger library.json. Lancez un serveur local (ex: <code>python3 -m http.server</code>).</div>`;
@@ -1939,7 +1939,7 @@ function renderHero() {
     </div>
     <p class="hero-desc">${b.description || ""}</p>
     <div class="hero-actions">
-      <button class="btn btn-primary" data-action="read" data-id="${b.id}">
+      <button class="btn btn-primary" data-action="read" data-isbn="${b.isbn}">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
         Commencer l'aventure
       </button>
@@ -2190,7 +2190,7 @@ function openModal(id) {
         <div class="stat"><span>Note moyenne</span><span>${item.rating ? "★ " + item.rating.toFixed(2) : "—"}</span></div>
         <div class="stat"><span>Éditions</span><span>${editions.length}</span></div>
         <div class="stat"><span>Série</span><span>${series?.name || "—"}</span></div>
-        ${hasInteractiveReader(item.id) ? `<button class="btn btn-primary" id="modalReaderBtn" style="margin-top:18px;width:100%;justify-content:center;">▶ Lire ce livre</button>` : `<button class="btn btn-primary" disabled style="margin-top:18px;width:100%;justify-content:center;opacity:0.55;cursor:not-allowed;">Lecture interactive bientôt</button>`}
+        <a class="btn btn-primary" href="reader.html?book=${encodeURIComponent((item.books ? item.books[0] : item).isbn)}" style="margin-top:18px;width:100%;justify-content:center;display:inline-flex;text-decoration:none;">▶ Lire ce livre</a>
       </aside>
     </div>
     ${editions.length > 1 ? `
@@ -2202,13 +2202,6 @@ function openModal(id) {
   `;
   document.getElementById("modal").classList.add("open");
   document.getElementById("modalClose").onclick = closeModal;
-  const readerBtn = document.getElementById("modalReaderBtn");
-  if (readerBtn) {
-    readerBtn.onclick = () => {
-      closeModal();
-      openReader(item.id);
-    };
-  }
 }
 function closeModal() { document.getElementById("modal").classList.remove("open"); }
 
@@ -2293,11 +2286,7 @@ function bindEvents() {
     const actionBtn = e.target.closest("[data-action]");
     if (actionBtn) {
       if (actionBtn.dataset.action === "read") {
-        if (hasInteractiveReader(actionBtn.dataset.id)) {
-          openReader(actionBtn.dataset.id);
-        } else {
-          openModal(actionBtn.dataset.id);
-        }
+        window.location.href = "reader.html?book=" + encodeURIComponent(actionBtn.dataset.isbn);
       } else {
         openModal(actionBtn.dataset.id);
       }

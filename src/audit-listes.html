@@ -977,7 +977,7 @@ document.getElementById("reset").addEventListener("click", () => {
 document.getElementById("export").addEventListener("click", exportDecisions);
 
 async function init() {
-  const res = await fetch("library.json");
+  const res = await fetch("data/library.json");
   const data = await res.json();
   const expected = parseExpected();
   expectedCount = expected.length;
