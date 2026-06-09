@@ -792,7 +792,7 @@ function renderGraph() {
       if (step.para && step.para.choices && step.para.choices.length === 0) {
         var skull = el("text", {
           x: MAIN_X + 18 + msg.length * 7 + 6, y: y + 4,
-          fill: "#f85149", "font-size": 13
+          fill: "#f85149", "font-size": 39
         });
         skull.textContent = "☠";
         svg.appendChild(skull);
@@ -800,10 +800,10 @@ function renderGraph() {
 
       if (isCur) {
         var playerIcon = el("text", {
-          x: MAIN_X + 18 + msg.length * 7 + 20, y: y + 4,
-          fill: "#58a6ff", "font-size": 13
+          x: MAIN_X + 18 + msg.length * 7 + 26, y: y + 8,
+          fill: "#58a6ff", "font-size": 39
         });
-        playerIcon.textContent = "☞";
+        playerIcon.textContent = "✞";
         svg.appendChild(playerIcon);
       }
 
@@ -1060,7 +1060,7 @@ function renderOverlayGraph() {
     if (isDeath) {
       var skull = el("text", {
         x: n.x + 12 + ("§" + n.pid).length * 6.5 + 4, y: n.y + 4,
-        fill: "#f85149", "font-size": 12
+        fill: "#f85149", "font-size": 36
       });
       skull.textContent = "☠";
       svg.appendChild(skull);
