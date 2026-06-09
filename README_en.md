@@ -78,6 +78,7 @@ src/
 
 ## Changelog
 
+- [0.22] - Fix overlay graph (loops no longer truncate path), PDF drawer with pageMap, choice reordering in edit mode
 - [0.21] - Sticky header, PDF button, line breaks in paragraphs, DB import update
 - [0.20] - Generic interactive reader, SQLite server, in-db editing, save export/import
 - [0.11] - Merged decision tree

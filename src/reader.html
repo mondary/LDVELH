@@ -92,6 +92,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .modal p{font-size:13px;color:var(--text-dim);margin-bottom:20px;line-height:1.5}
 .modal-actions{display:flex;gap:8px;justify-content:flex-end}
 .modal-actions .btn-danger{background:var(--red);border:none;color:#fff;padding:8px 16px;border-radius:var(--radius);cursor:pointer;font-size:13px;font-weight:600}
+.pdf-drawer{position:fixed;top:0;right:0;width:50%;height:100%;z-index:500;background:var(--bg-panel);border-left:1px solid var(--border);transform:translateX(100%);transition:transform .25s ease;display:flex;flex-direction:column}
+.pdf-drawer.open{transform:translateX(0)}
+.pdf-drawer-hint{font-size:11px;color:var(--text-muted);padding:4px 14px 8px;flex-shrink:0;background:var(--bg-panel)}
+.pdf-drawer-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--bg-panel)}
+.pdf-drawer-bar .title{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pdf-drawer iframe{flex:1;border:none;width:100%}
 .modal-actions .btn-danger:hover{opacity:0.85}
 .modal-actions .btn-cancel{background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);padding:8px 16px;border-radius:var(--radius);cursor:pointer;font-size:13px}
 .modal-actions .btn-cancel:hover{border-color:var(--accent);color:var(--text)}
@@ -108,6 +114,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .edit-choice input[type=number]{width:60px;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:6px;text-align:center;border-radius:var(--radius);font-size:13px;outline:none}
 .edit-choice input[type=number]:focus{border-color:var(--accent)}
 .edit-choice .btn-del{background:none;border:none;color:var(--red);cursor:pointer;font-size:16px;padding:4px}
+.edit-choice .btn-move{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:12px;padding:4px 2px;transition:color .15s}
+.edit-choice .btn-move:hover{color:var(--accent)}
 .edit-actions{display:flex;gap:8px;margin-top:10px}
 .edit-actions .btn-save{background:var(--green);border:none;color:#fff;padding:6px 14px;border-radius:var(--radius);cursor:pointer;font-size:12px;font-weight:600}
 .edit-actions .btn-save:hover{opacity:0.85}
@@ -189,6 +197,7 @@ var currentIsbn = "";
 var currentPara = 1, hist = [1], visited = new Set([1]);
 var nodeNotes = {}, generalNotes = "";
 var attempts = [], currentAttemptIdx = 0;
+var pageMap = {};
 
 function getSaveKey() { return "ldvelh_save_" + currentIsbn; }
 
@@ -325,6 +334,7 @@ function restoreState() {
     if (s.visited) visited = new Set(s.visited);
     else visited = new Set(hist);
     if (s.nodeNotes) nodeNotes = s.nodeNotes;
+    if (s.pageMap) pageMap = s.pageMap;
     if (s.generalNotes) { generalNotes = s.generalNotes; document.getElementById("generalNotes").value = generalNotes; }
   } catch (e) {
     attempts = [{ hist: [1], ts: Date.now() }];
@@ -335,7 +345,7 @@ function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").
 function saveState() {
   if (!attempts[currentAttemptIdx]) attempts[currentAttemptIdx] = { hist: [1], ts: Date.now() };
   attempts[currentAttemptIdx] = { hist: hist.slice(), ts: attempts[currentAttemptIdx].ts };
-  localStorage.setItem(getSaveKey(), JSON.stringify({ attempts: attempts, currentAttemptIdx: currentAttemptIdx, visited: Array.from(visited), nodeNotes: nodeNotes, generalNotes: generalNotes }));
+  localStorage.setItem(getSaveKey(), JSON.stringify({ attempts: attempts, currentAttemptIdx: currentAttemptIdx, visited: Array.from(visited), nodeNotes: nodeNotes, generalNotes: generalNotes, pageMap: pageMap }));
   updateAttemptUI();
 }
 function getPara(id) { return BOOK_DATA[id]; }
@@ -400,6 +410,8 @@ function renderParagraph(id) {
     var choicesHtml = '<div id="editChoicesList">';
     p.choices.forEach(function(c, i) {
       choicesHtml += '<div class="edit-choice">' +
+        '<button class="btn-move" onclick="moveChoice(this,-1)" title="Monter">▲</button>' +
+        '<button class="btn-move" onclick="moveChoice(this,1)" title="Descendre">▼</button>' +
         '<input type="text" value="' + esc(c.label || '') + '" placeholder="Label">' +
         '<input type="number" value="' + (c.go_to === -1 ? '' : c.go_to) + '" placeholder="§">' +
         '<button class="btn-del" onclick="this.parentElement.remove()" title="Supprimer">×</button>' +
@@ -489,7 +501,34 @@ function exportBookData() {
 }
 
 function openPDF() {
-  if (BOOK_META.pdf) window.open(encodeURI(BOOK_META.pdf), "_blank");
+  if (!BOOK_META.pdf) return;
+  var drawer = document.getElementById("pdfDrawer");
+  var frame = document.getElementById("pdfFrame");
+  document.getElementById("pdfDrawerTitle").textContent = BOOK_META.title || "PDF";
+  document.getElementById("pdfDrawerPara").textContent = currentPara;
+  document.getElementById("pdfHintPara").textContent = "§" + currentPara;
+  var input = document.getElementById("pdfPageInput");
+  var page = pageMap[currentPara] || currentPara;
+  input.value = page;
+  var url = encodeURI(BOOK_META.pdf);
+  if (pageMap[currentPara]) url += "#page=" + pageMap[currentPara];
+  frame.src = url;
+  drawer.classList.add("open");
+}
+
+function setPdfPage() {
+  var input = document.getElementById("pdfPageInput");
+  var pg = parseInt(input.value);
+  if (!pg || pg < 1) return;
+  pageMap[currentPara] = pg;
+  saveState();
+  document.getElementById("pdfFrame").src = encodeURI(BOOK_META.pdf) + "#page=" + pg;
+}
+
+function closePDF() {
+  var drawer = document.getElementById("pdfDrawer");
+  document.getElementById("pdfFrame").src = "about:blank";
+  drawer.classList.remove("open");
 }
 
 function autoResize(el) {
@@ -528,10 +567,22 @@ function addChoice(id) {
   var list = document.getElementById("editChoicesList");
   var div = document.createElement("div");
   div.className = "edit-choice";
-  div.innerHTML = '<input type="text" value="" placeholder="Label">' +
+  div.innerHTML = '<button class="btn-move" onclick="moveChoice(this,-1)" title="Monter">▲</button>' +
+    '<button class="btn-move" onclick="moveChoice(this,1)" title="Descendre">▼</button>' +
+    '<input type="text" value="" placeholder="Label">' +
     '<input type="number" value="" placeholder="§">' +
     '<button class="btn-del" onclick="this.parentElement.remove()" title="Supprimer">×</button>';
   list.appendChild(div);
+}
+
+function moveChoice(btn, dir) {
+  var row = btn.parentElement;
+  var list = row.parentElement;
+  if (dir === -1 && row.previousElementSibling) {
+    list.insertBefore(row, row.previousElementSibling);
+  } else if (dir === 1 && row.nextElementSibling) {
+    list.insertBefore(row.nextElementSibling, row);
+  }
 }
 
 var ttsUtterance = null;
@@ -966,8 +1017,8 @@ function renderOverlayGraph() {
         loopNode.isLoop = true;
         node.children.push(loopNode);
         nodes.push(loopNode);
-        node = loopNode;
-        break;
+        node = ancestor;
+        continue;
       }
 
       var existing = pidMap[pid];
@@ -1288,6 +1339,19 @@ document.getElementById("jumpInput").addEventListener("keydown", function(e) { i
       <button class="btn-danger" onclick="confirmReset()">Tout supprimer</button>
     </div>
   </div>
+</div>
+<div class="pdf-drawer" id="pdfDrawer">
+  <div class="pdf-drawer-bar">
+    <span class="title" id="pdfDrawerTitle">PDF</span>
+    <div style="display:flex;align-items:center;gap:6px">
+      <span style="font-size:11px;color:var(--text-muted)">§<span id="pdfDrawerPara"></span> → page</span>
+      <input type="number" class="jump-input" id="pdfPageInput" placeholder="n°" min="1" style="width:45px" onkeydown="if(event.key==='Enter'){setPdfPage();event.preventDefault()}">
+      <button class="btn" onclick="setPdfPage()" style="padding:3px 8px;font-size:11px">OK</button>
+      <button class="btn" onclick="closePDF()">✕</button>
+    </div>
+  </div>
+  <div class="pdf-drawer-hint" id="pdfHint">Utilisez Ctrl+F et cherchez le paragraphe <strong id="pdfHintPara"></strong></div>
+  <iframe id="pdfFrame" src="about:blank"></iframe>
 </div>
 </body>
 </html>

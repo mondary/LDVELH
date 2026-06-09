@@ -78,6 +78,7 @@ src/
 
 ## Changelog
 
+- [0.22] - Fix graphe overlay (boucles ne coupaient plus le parcours), drawer PDF avec pageMap, réordonnancement des choix en édition
 - [0.21] - Header sticky, bouton PDF, retours à la ligne dans les paragraphes, import DB mis à jour
 - [0.20] - Lecteur interactif générique, serveur SQLite, édition en base, export/import de sauvegardes
 - [0.11] - Arbre décisionnel fusionné
