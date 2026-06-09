@@ -116,6 +116,11 @@
       "count": 8
     },
     {
+      "id": "as-des-as",
+      "name": "As des As",
+      "count": 3
+    },
+    {
       "id": "l-il-noir",
       "name": "L'Œil Noir",
       "count": 21
@@ -925,6 +930,100 @@
           "date": "2002-06-30",
           "price": 5.8476,
           "rating": 4.08
+        }
+      ]
+    },
+    {
+      "id": "as-des-as-vous-etes-l-as-des-as",
+      "series": "as-des-as",
+      "number": 1,
+      "numero_collection": null,
+      "isbn": "9782070337019",
+      "title": "Vous êtes l'As des As",
+      "authors": [
+        "Alfred Leonardi"
+      ],
+      "year": 1986,
+      "rating": null,
+      "description": "Un duel aérien pour deux joueurs inspiré d'Ace of Aces : chaque joueur dispose de son livret et choisit ses manoeuvres pour tenter d'abattre son adversaire.",
+      "chapters": null,
+      "difficulty": null,
+      "tags": [
+        "Duel",
+        "Jeu à deux",
+        "Simulation"
+      ],
+      "editions": [
+        {
+          "universe": "V1",
+          "isbn": "9782070337019",
+          "year": 1986,
+          "date": "1986-06-01",
+          "price": null,
+          "rating": null
+        }
+      ]
+    },
+    {
+      "id": "as-des-as-les-maitres-des-dragons",
+      "series": "as-des-as",
+      "number": 2,
+      "numero_collection": null,
+      "isbn": "9782070337026",
+      "title": "Les Maîtres des Dragons",
+      "authors": [
+        "Alfred Leonardi"
+      ],
+      "year": 1986,
+      "rating": null,
+      "description": "Un duel pour deux joueurs dans lequel chacun chevauche un dragon et tente de prendre l'avantage grâce à des manoeuvres simultanées.",
+      "chapters": null,
+      "difficulty": null,
+      "tags": [
+        "Duel",
+        "Jeu à deux",
+        "Dragons"
+      ],
+      "editions": [
+        {
+          "universe": "V1",
+          "isbn": "9782070337026",
+          "year": 1986,
+          "date": "1986-01-01",
+          "price": null,
+          "rating": null
+        }
+      ]
+    },
+    {
+      "id": "as-des-as-le-sherif-et-le-hors-la-loi",
+      "series": "as-des-as",
+      "number": 3,
+      "numero_collection": null,
+      "isbn": "9782070337033",
+      "title": "Le Shérif et le Hors-la-loi",
+      "authors": [
+        "Mike Vitale",
+        "Joe Angiolillo"
+      ],
+      "year": 1986,
+      "rating": null,
+      "description": "Un duel pour deux joueurs dans une ville du Far West : l'un incarne le shérif, l'autre le hors-la-loi.",
+      "chapters": null,
+      "difficulty": null,
+      "tags": [
+        "Duel",
+        "Jeu à deux",
+        "Western"
+      ],
+      "editions": [
+        {
+          "universe": "V1",
+          "isbn": "9782070337033",
+          "year": 1986,
+          "date": "1986-06-01",
+          "price": null,
+          "rating": null
         }
       ]
     },
@@ -4492,7 +4591,7 @@
       ],
       "year": null,
       "rating": null,
-      "description": "Contenu de l'ouvrageMatérielBoîte contenant :Le livre des règles II, livret à couverture souple de 64 pagesL'aventurie, livret à couverture souple de 64 pagesDes feuilles de plan à cases hexagonales au format A3Trois dés à 6 faces et un dé à 20 facesUne carte plastifiée au format A2 de l'AventurieUn écran en 3 volets à la découpe particulièreDescriptionBien que vendu dans un boîtier plastique de grande taille, sensé représenter un grimoire, les deux livres sont au format poche standard de la collection Folio et peuvent prendre place dans la bibliothèque aux côtés des autresLivres dont vous êtes le hérosde la collection.Le corpus de règles est identique à celui de la versionSchmidt. On y retrouve les mêmes règles optionnelles, les mêmes descriptions de l'univers. Seuls les chapitres de présentation du jeu et de l'éditeur changent.Le matériel fourni, comme les dés et l'écran, est lui aussi identique.Seule l'illustration de couverture du coffret est différente et dédiée à cette édition.",
+      "description": "Contenu de l'ouvrageMatérielBoîte contenant :Le livre des règles II, livret à couverture souple de 64 pagesL'aventurie, livret à couverture souple de 64 pagesDes feuilles de plan à cases hexagonales au format A3Trois dés à 6 faces et un dé à 20 facesUne carte plastifiée au format A2 de l'AventurieUn écran en 3 volets à la découpe particulièreDescriptionBien que vendu dans un boîtier plastique de grande taille, sensé représenter un grimoire, les deux livres sont au format poche standard de la collection Folio et peuvent prendre place dans la bibliothèque aux côtés des autres�Livres dont vous êtes le héros�de la collection.Le corpus de règles est identique à celui de la version�Schmidt. On y retrouve les mêmes règles optionnelles, les mêmes descriptions de l'univers. Seuls les chapitres de présentation du jeu et de l'éditeur changent.Le matériel fourni, comme les dés et l'écran, est lui aussi identique.Seule l'illustration de couverture du coffret est différente et dédiée à cette édition.",
       "chapters": 300,
       "difficulty": 3,
       "tags": [
@@ -4521,7 +4620,7 @@
       ],
       "year": 1985,
       "rating": 4.13,
-      "description": "Contenu de l'ouvrageMatérielLivre des Règles à couverture soupleLivre des Aventures à couverture soupleÉcran du MaîtreUn bloc de feuilles de personnageUn bloc de feuilles de combatUn bloc de feuilles de plan quadrilléesTrois dés à 6 faces et un dé à 20 faces.DescriptionLe coffret se veut un kit de démarrage pour commencer à jouer au jeu de rôle. Comme son nom l'indique, on parle ici d'initiation au jeu d'aventure. Dans la logique de découverte du jeu de rôle, la boîte contient un peu plus que des livres. Sont fournis avec le jeu tous les dés nécessaires à la résolution des actions, mais aussi tout ce qu'il faut pour créer un personnage, dessiner un plan et gérer un combat. En somme, on achète le coffret, on lit les livres, on se trouve des joueurs et on s'attable pour commencer une carrière de rôliste.Le premier livret s'intituleLe livre des aventures. Il est préconisé de le lire en premier, car il prend en main le lecteur et le fait passer en douceur de l'autre côté du mirroir.Aussitôt après leSommaire, la préface de l'éditeur souhaite la bienvenue au nouveau joueur et lui annonce que ce jeu n'est pas un simple jeu, mais bien un jeu de rôle. Vient ensuite l'Introduction, plus orientée vers une description des concepts du jeu de rôle et, en particulier, de l'univers de l'Oeil Noir. Une fois ces formalités expédiées, on entre dans le vif du sujet, avecL'histoire. L'histoire se déroule à Havena et se présente comme un conte que raconterait un ami. À la dernière page, le narrateur explique que l'ami est en fait un maître de jeu. Dans une aventure de l'Oeil Noir, le joueur peut grâce à son personnage, intervenir sur le déroulement de celle ci.Le déroulement du jeuexplicite la façon dont se joue un JDR, en parlant de caractéristiques, de plans etc. Une scène entre un MJ et un PJ est décrite, dialogues et plan à l'appuis. Au moment de faire intervenir les dés, un nouveau chapitre est ouvert :Les dés. Puis, vient le tour ducombat.Ces bases posées,L'aventure commence. Cette première aventure en solo n'est ni plus ni moins qu'un petit ”Livre dont vous êtes le héros”, qui récapitule tous les points abordés précédemment tout en continuant l'histoire racontée par l'ami dans les pages précédentes.Une nouvelle aventure commence aborde la notion d'expérience puis propose, grâce à une transition racontée, de poursuivre l'aventure en groupe avec le scénario ”La libération de Silvana”. Mais avant, il faut se référer au livre des règles.Le scénario ”La libération de Silvana” lance le groupe et son meneur dans le grand bain, tout en mettant en place la formule qu'on retrouve dans tous les scénarios du commerce de l'Oeil Noir : Les informations générales et les informations particulières à lire au joueurs et les informations réservées au maître. Le livret se conclut parUn mot de maître à maître, où l'auteur donne quelques conseils au meneur débutant.Le second livret estLe livre des règles. Après leSommaire, l'Avant-propos reprend la préface duLivre des aventures. L'Introductionprésente ce qui se trouve dans ce livret et ses 5 parties.La première partie,La naissance du héros, décrit tout le corpus de règles pour la création d'un aventurier (le terme générique pour personnage débutant), le combat, les épreuves (résolution d'action), les tours de jeu, les déplacements et la description des caractéristiques.La deuxième partie se concentre surL'évolution du héroset explique les bonus et pénalités, ainsi que comment utiliser les points d'expérience pour améliorer ses caractéristiques et monter de niveau.La troisième partie donne de l'épaisseur au personnage grâce àL'équipement du héros. On y trouve pêle-mêle la monnaie, le poids, les armes et leurs règles spécifiques, l'habillement, les bijoux et tout ce qui touche aux provisions. Étrangement, les règles concernant les armes de tir et de jet concluent cette partie.La quatrième partie revient surLes héros de l'Oeil Noir. C'est un fourre-tout qui décrit les 5 classes de personnages disponibles (aventurier, magicien, guerrier, elfe et nain) et leurs règles dédiées. Ainsi, toutes les règles de magie, les sorts et les objets magiques se trouvent ici.La cinquième et dernière partie présenteSix monstres d'Aventurie. Ces six monstres sont l'ork, le gobelin, l'ogre, le troll, le kobold et le dragon volant.Quel que soit le livret, les illustrations sont en noir et blanc et de toutes tailles. Il y a un nombre non négligeable d'illustrations pleine page, voire en double page.L'écran du maître reprent toutes les règles sous forme de tableau. Il est noir et n'est décoré que d'un oeil stylisé et le logo de l'Oeil Noir.Fidèle à sa volonté d'être un jeu de découverte, le système de jeu est simple. Chaque personnage est caractérisé par 5 termes : COurage, INtelligence, CHarisme, ADresse et FOrce. Les lettres en majuscule sont les abréviations. Lors de la création le hasard détermine les valeurs de chacune selon la formule 1d6+7. L'énergie vitale (abrégé PV, pour Point de Vie) et l'énergie astrale (abrégée PA pour Point Astral) sont définies par la classe à la création, de même que l'ATtaque et la PaRaDe.Pour réussir un jet, il suffit que le résultat d'un lancer de d20 (modifié par les circonstances) soit inférieur ou égal à la caractéristique.",
+      "description": "Contenu de l'ouvrageMatérielLivre des Règles à couverture soupleLivre des Aventures à couverture soupleÉcran du MaîtreUn bloc de feuilles de personnageUn bloc de feuilles de combatUn bloc de feuilles de plan quadrilléesTrois dés à 6 faces et un dé à 20 faces.DescriptionLe coffret se veut un kit de démarrage pour commencer à jouer au jeu de rôle. Comme son nom l'indique, on parle ici d'initiation au jeu d'aventure. Dans la logique de découverte du jeu de rôle, la boîte contient un peu plus que des livres. Sont fournis avec le jeu tous les dés nécessaires à la résolution des actions, mais aussi tout ce qu'il faut pour créer un personnage, dessiner un plan et gérer un combat. En somme, on achète le coffret, on lit les livres, on se trouve des joueurs et on s'attable pour commencer une carrière de rôliste.Le premier livret s'intitule�Le livre des aventures. Il est préconisé de le lire en premier, car il prend en main le lecteur et le fait passer en douceur de l'autre côté du mirroir.Aussitôt après le�Sommaire, la préface de l'éditeur souhaite la bienvenue au nouveau joueur et lui annonce que ce jeu n'est pas un simple jeu, mais bien un jeu de rôle. Vient ensuite l'Introduction, plus orientée vers une description des concepts du jeu de rôle et, en particulier, de l'univers de l'Oeil Noir. Une fois ces formalités expédiées, on entre dans le vif du sujet, avec�L'histoire. L'histoire se déroule à Havena et se présente comme un conte que raconterait un ami. À la dernière page, le narrateur explique que l'ami est en fait un maître de jeu. Dans une aventure de l'Oeil Noir, le joueur peut grâce à son personnage, intervenir sur le déroulement de celle ci.�Le déroulement du jeu�explicite la façon dont se joue un JDR, en parlant de caractéristiques, de plans etc. Une scène entre un MJ et un PJ est décrite, dialogues et plan à l'appuis. Au moment de faire intervenir les dés, un nouveau chapitre est ouvert :�Les dés�. Puis, vient le tour du�combat.Ces bases posées,�L'aventure commence. Cette première aventure en solo n'est ni plus ni moins qu'un petit ”Livre dont vous êtes le héros”, qui récapitule tous les points abordés précédemment tout en continuant l'histoire racontée par l'ami dans les pages précédentes.�Une nouvelle aventure commence aborde la notion d'expérience puis propose, grâce à une transition racontée, de poursuivre l'aventure en groupe avec le scénario ”La libération de Silvana”. Mais avant, il faut se référer au livre des règles.Le scénario ”La libération de Silvana” lance le groupe et son meneur dans le grand bain, tout en mettant en place la formule qu'on retrouve dans tous les scénarios du commerce de l'Oeil Noir : Les informations générales et les informations particulières à lire au joueurs et les informations réservées au maître. Le livret se conclut par�Un mot de maître à maître, où l'auteur donne quelques conseils au meneur débutant.Le second livret est�Le livre des règles. Après le�Sommaire, l'Avant-propos reprend la préface du�Livre des aventures. L'Introduction�présente ce qui se trouve dans ce livret et ses 5 parties.La première partie,�La naissance du héros, décrit tout le corpus de règles pour la création d'un aventurier (le terme générique pour personnage débutant), le combat, les épreuves (résolution d'action), les tours de jeu, les déplacements et la description des caractéristiques.La deuxième partie se concentre sur�L'évolution du héros�et explique les bonus et pénalités, ainsi que comment utiliser les points d'expérience pour améliorer ses caractéristiques et monter de niveau.La troisième partie donne de l'épaisseur au personnage grâce à�L'équipement du héros. On y trouve pêle-mêle la monnaie, le poids, les armes et leurs règles spécifiques, l'habillement, les bijoux et tout ce qui touche aux provisions. Étrangement, les règles concernant les armes de tir et de jet concluent cette partie.La quatrième partie revient sur�Les héros de l'Oeil Noir. C'est un fourre-tout qui décrit les 5 classes de personnages disponibles (aventurier, magicien, guerrier, elfe et nain) et leurs règles dédiées. Ainsi, toutes les règles de magie, les sorts et les objets magiques se trouvent ici.La cinquième et dernière partie présente�Six monstres d'Aventurie. Ces six monstres sont l'ork, le gobelin, l'ogre, le troll, le kobold et le dragon volant.Quel que soit le livret, les illustrations sont en noir et blanc et de toutes tailles. Il y a un nombre non négligeable d'illustrations pleine page, voire en double page.L'écran du maître reprent toutes les règles sous forme de tableau. Il est noir et n'est décoré que d'un oeil stylisé et le logo de l'Oeil Noir.Fidèle à sa volonté d'être un jeu de découverte, le système de jeu est simple. Chaque personnage est caractérisé par 5 termes : COurage, INtelligence, CHarisme, ADresse et FOrce. Les lettres en majuscule sont les abréviations. Lors de la création le hasard détermine les valeurs de chacune selon la formule 1d6+7. L'énergie vitale (abrégé PV, pour Point de Vie) et l'énergie astrale (abrégée PA pour Point Astral) sont définies par la classe à la création, de même que l'ATtaque et la PaRaDe.Pour réussir un jet, il suffit que le résultat d'un lancer de d20 (modifié par les circonstances) soit inférieur ou égal à la caractéristique.",
       "chapters": 300,
       "difficulty": 3,
       "tags": [
@@ -4899,7 +4998,7 @@
       ],
       "year": 1985,
       "rating": 4.77,
-      "description": "Contenu de l'ouvrageMatérielBoite contenant :Le livre des héros, monstres et forces obscures128 figurines en carton à découper, accompagnées de socles en plastique pour les enficher4 plans de sol : des feuilles en carton souple quadrillées1 planche de mobilier à découper1 planche de murs, murets, portes et portails à découper1 bloc de feuilles de personnage1 bloc de feuilles de combat1 bloc de feuilles de plan quadrillées3 dés à six faces et 1 dé à vingt faces1 stylo-billeDescriptionToujours dans la logique d’apprentissage du jeu de rôle, le coffret desAccessoires du Maîtrepropose du matériel pour ce dernier. Ce sont essentiellement des accessoires pour représenter l’action qu’on trouve dans ce coffret: des planches cartonnées à découper représentant du mobilier, des pièges, des monstres et des aventuriers, le tout en couleurs. Quatre éléments de sol quadrillés servent de base où poser ce matériel. Des socles plastiques permettent d’ailleurs de les faire tenir debout. Ils sont entièrement en couleurs et imprimés de façon à montrer la face et le dos des monstres et des personnages.Comme dans chaque coffret, un stylo et des dés sont fournis. Cette fois, on trouve en plus de nouveaux blocs imprimés de feuilles de personnage, de fonds de plan et de combat.Le seul livret du coffret s’intituleHéros, monstres et forces obscures. Il est explicitement réservé au Maître de l’Oeil Noir, comme indiqué sous le titre.Après lesommaire vientl’introductionoù est expliquée l’utilité du présent coffret, suivie de ce quele jeu comprend. Une page supplémentaire, non titrée, explique comment préparer le terrain de jeu avec tout ce nouveau matériel et comment l’utiliser en cours de partie. Ladescription des personnages reprend toutes les illustrations, mais en noir et blanc, des personnages et monstres imprimés sur les cartons. Chacun est décrit d’un court paragraphe.L’appendiceprésente quelques pièges, objets magiques et énigmes, avec leurs réponses. Un tableau A3 à détacher résume toutes les caractéristiques des monstres du coffret.",
+      "description": "Contenu de l'ouvrageMatérielBoite contenant :Le livre des héros, monstres et forces obscures128 figurines en carton à découper, accompagnées de socles en plastique pour les enficher4 plans de sol : des feuilles en carton souple quadrillées1 planche de mobilier à découper1 planche de murs, murets, portes et portails à découper1 bloc de feuilles de personnage1 bloc de feuilles de combat1 bloc de feuilles de plan quadrillées3 dés à six faces et 1 dé à vingt faces1 stylo-billeDescriptionToujours dans la logique d’apprentissage du jeu de rôle, le coffret des�Accessoires du Maître�propose du matériel pour ce dernier. Ce sont essentiellement des accessoires pour représenter l’action qu’on trouve dans ce coffret�: des planches cartonnées à découper représentant du mobilier, des pièges, des monstres et des aventuriers, le tout en couleurs. Quatre éléments de sol quadrillés servent de base où poser ce matériel. Des socles plastiques permettent d’ailleurs de les faire tenir debout. Ils sont entièrement en couleurs et imprimés de façon à montrer la face et le dos des monstres et des personnages.Comme dans chaque coffret, un stylo et des dés sont fournis. Cette fois, on trouve en plus de nouveaux blocs imprimés de feuilles de personnage, de fonds de plan et de combat.Le seul livret du coffret s’intitule�Héros, monstres et forces obscures. Il est explicitement réservé au Maître de l’Oeil Noir, comme indiqué sous le titre.Après le�sommaire vient�l’introduction�où est expliquée l’utilité du présent coffret, suivie de ce que�le jeu comprend. Une page supplémentaire, non titrée, explique comment préparer le terrain de jeu avec tout ce nouveau matériel et comment l’utiliser en cours de partie. La�description des personnages reprend toutes les illustrations, mais en noir et blanc, des personnages et monstres imprimés sur les cartons. Chacun est décrit d’un court paragraphe.L’appendice�présente quelques pièges, objets magiques et énigmes, avec leurs réponses. Un tableau A3 à détacher résume toutes les caractéristiques des monstres du coffret.",
       "chapters": 300,
       "difficulty": 3,
       "tags": [

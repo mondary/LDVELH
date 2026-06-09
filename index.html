@@ -1307,6 +1307,7 @@ const CATEGORIES = [
 ];
 
 const UNIVERSE_ORDER = ["V1", "V2", "V3", "V4", "V5"];
+const COVER_FALLBACK = (isbn) => `https://covers.openlibrary.org/b/isbn/${encodeURIComponent(isbn)}-L.jpg?default=false`;
 
 function universeRank(universe) {
   const idx = UNIVERSE_ORDER.indexOf(universe);
@@ -1336,6 +1337,10 @@ function getEditionData(b, universe) {
     if (ed) return ed;
   }
   return b.editions[0];
+}
+
+function coverSrc(isbn) {
+  return COVER(isbn);
 }
 
 function isVisible(b) {
@@ -2095,7 +2100,7 @@ function cardHTML(b) {
   return `
     <article class="card" data-id="${b.id}">
       <div class="cover">
-        <img src="${COVER(coverIsbn)}" alt="${b.title}" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <img src="${coverSrc(coverIsbn)}" alt="${b.title}" loading="lazy" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='${COVER_FALLBACK(coverIsbn)}';return;} this.style.display='none';this.nextElementSibling.style.display='flex';" />
         <div class="cover-fallback" style="display:none;">
           <div class="num">${String(catalogNumber || 0).padStart(2,"0")}</div>
           <div class="ttl">${b.title}</div>
@@ -2141,7 +2146,7 @@ function openModal(id) {
   const editionsHTML = editions.map(e => `
     <div class="edition-card">
       <div class="edition-cover">
-        <img src="${COVER(e.isbn)}" alt="${e.universe}" loading="lazy" onerror="this.style.display='none';" />
+        <img src="${coverSrc(e.isbn)}" alt="${e.universe}" loading="lazy" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='${COVER_FALLBACK(e.isbn)}';return;} this.style.display='none';" />
         <div class="universe-label">${e.universe}</div>
       </div>
       <div class="edition-info">

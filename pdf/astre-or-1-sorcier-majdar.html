@@ -49,20 +49,49 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
 .tab-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
 .tab-content{flex:1;overflow:hidden;display:none;flex-direction:column}
 .tab-content.active{display:flex}
+.intro-wrap{flex:1;overflow:auto;padding:16px}
+.intro-card{background:linear-gradient(180deg, rgba(28,33,41,0.96), rgba(22,27,34,0.96));border:1px solid var(--border);border-radius:12px;padding:16px 16px 18px;box-shadow:0 10px 30px rgba(0,0,0,0.18)}
+.intro-card + .intro-card{margin-top:14px}
+.intro-kicker{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);margin-bottom:6px}
+.intro-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px}
+.intro-text{font-size:13px;line-height:1.75;color:var(--text-dim)}
+.stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.stat{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:10px 12px}
+.stat .label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.stat .value{font-size:15px;font-weight:700;color:var(--text)}
+.rule-list{margin-top:10px;display:grid;gap:8px}
+.rule-item{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px}
+.rule-item .num{min-width:22px;height:22px;border-radius:999px;background:var(--accent-dim);color:var(--accent);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.rule-item .txt{font-size:13px;line-height:1.55;color:var(--text-dim)}
 .graph-toolbar{padding:6px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0;background:var(--bg-panel)}
 .graph-toolbar .stats{font-size:11px;color:var(--text-muted)}
+.graph-tooltip{display:none;position:fixed;max-width:360px;padding:10px 14px;background:#1c2129;border:1px solid var(--border);border-radius:6px;font-size:12px;line-height:1.6;color:var(--text-dim);z-index:1000;pointer-events:none;box-shadow:0 4px 12px rgba(0,0,0,0.4)}
+.graph-tooltip .tt-id{font-weight:700;color:var(--accent);margin-bottom:4px;font-size:13px}
+.graph-tooltip.visible{display:block}
 #overlayBtn.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
 .graph-scroll{flex:1;overflow-y:auto;overflow-x:auto;position:relative;background:var(--bg)}
 .graph-scroll svg{cursor:pointer!important}
 .graph-scroll svg text{cursor:pointer!important}
-.notes-container{flex:1;overflow:auto;padding:14px}
+.notes-container{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden;padding:14px}
 .notes-general{width:100%;min-height:180px;background:var(--bg-card);border:1px solid var(--border);color:var(--text);font-size:13px;padding:10px;border-radius:var(--radius);resize:vertical;font-family:inherit;outline:none;line-height:1.6}
 .notes-general:focus{border-color:var(--accent)}
-.notes-section{margin-bottom:14px}
+.notes-section{margin-bottom:14px;display:flex;flex-direction:column;min-height:0}
 .notes-section h3{font-size:12px;color:var(--text-dim);margin-bottom:6px}
+.notes-section:last-child{flex:1;overflow:hidden;margin-bottom:0}
+#notesList{flex:1;overflow:auto;min-height:0;padding-right:2px}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 .jump-input{background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:5px 8px;border-radius:var(--radius);width:50px;font-size:12px;text-align:center;outline:none}
 .jump-input:focus{border-color:var(--accent)}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg-panel);border:1px solid var(--border);border-radius:8px;padding:24px;max-width:400px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,0.5)}
+.modal h2{font-size:16px;color:var(--text);margin-bottom:8px}
+.modal p{font-size:13px;color:var(--text-dim);margin-bottom:20px;line-height:1.5}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end}
+.modal-actions .btn-danger{background:var(--red);border:none;color:#fff;padding:8px 16px;border-radius:var(--radius);cursor:pointer;font-size:13px;font-weight:600}
+.modal-actions .btn-danger:hover{opacity:0.85}
+.modal-actions .btn-cancel{background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);padding:8px 16px;border-radius:var(--radius);cursor:pointer;font-size:13px}
+.modal-actions .btn-cancel:hover{border-color:var(--accent);color:var(--text)}
 @media(max-width:900px){.main{flex-direction:column}.panel-left{border-right:none;border-bottom:1px solid var(--border)}.panel-right{width:100%;max-height:45vh}.reader{padding:20px}}
 </style>
 </head>
@@ -72,7 +101,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
   <div class="controls">
     <input type="number" class="jump-input" id="jumpInput" placeholder="§" min="1" max="350">
     <button class="btn" onclick="jumpTo()">Aller au §</button>
-    <button class="btn" onclick="resetGame()">Recommencer</button>
+    <button class="btn" onclick="resetGame()"> recommencer</button>
+    <button class="btn" onclick="showResetModal()">Réinitialiser</button>
   </div>
 </div>
 <div class="main">
@@ -85,6 +115,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
   </div>
   <div class="panel-right">
     <div class="tabs">
+      <button class="tab-btn" onclick="switchTab('intro')">Début</button>
       <button class="tab-btn active" onclick="switchTab('graph')">Arbre</button>
       <button class="tab-btn" onclick="switchTab('notes')">Notes</button>
     </div>
@@ -97,6 +128,91 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;b
         <span class="stats" id="graphStats" style="margin-left:auto"></span>
       </div>
       <div class="graph-scroll" id="graphScroll"><div id="graphContainer"></div></div>
+    </div>
+    <div class="tab-content" id="tab-intro">
+      <div class="intro-wrap">
+        <div class="intro-card">
+          <div class="intro-kicker">Règles du jeu</div>
+          <div class="intro-title">Départ et feuille d'aventure</div>
+          <div class="intro-text">
+            Vous trouverez au début de ce livre une Feuille d'aventure sur laquelle vous inscrirez tous les détails de votre quête.
+            Il est conseillé d'en faire des photocopies qui vous permettront de jouer plusieurs fois.
+          </div>
+        </div>
+        <div class="intro-card">
+          <div class="intro-kicker">Caractéristiques</div>
+          <div class="intro-title">Habileté, Volonté, Endurance</div>
+          <div class="intro-text">
+            Au cours de l'initiation qui vous a permis de devenir un sorcier Majdar, vous avez acquis une force exceptionnelle ;
+            les trois éléments essentiels de cette force ont représentés par votre HABILETÉ AU COMBAT, votre VOLONTÉ et votre ENDURANCE.
+            Avant d'entreprendre votre mission, il vous faudra mesurer exactement le degré d'efficacité de votre entraînement.
+          </div>
+          <div class="rule-list">
+            <div class="rule-item"><div class="num">H</div><div class="txt">Le premier chiffre de la Table de Hasard donne votre HABILITÉ AU COMBAT. Ajoutez 10 à ce chiffre et inscrivez le total obtenu dans la case HABILITÉ.</div></div>
+            <div class="rule-item"><div class="num">V</div><div class="txt">Le deuxième chiffre représente votre force de VOLONTÉ. Ajoutez 20 à ce chiffre et inscrivez le total obtenu dans la case VOLONTÉ.</div></div>
+            <div class="rule-item"><div class="num">E</div><div class="txt">Le troisième chiffre représente votre capacité d'ENDURANCE. Ajoutez 20 à ce chiffre et inscrivez le total obtenu dans la case ENDURANCE.</div></div>
+          </div>
+        </div>
+        <div class="intro-card">
+          <div class="intro-kicker">Pouvoirs magiques</div>
+          <div class="intro-title">Les sept techniques</div>
+          <div class="intro-text">
+            À l'heure où il vous faut entreprendre votre mission, votre apprentissage de sorcier Majdar n'est pas encore achevé.
+            En effet vous n'avez été initié jusqu'à présent qu'à cinq des sept techniques de sorcellerie que les Majdars appellent les « magies mineures ».
+            Vos maîtres vous ont clairement exposé les possibilités offertes par chaque technique, et c'est donc en toute connaissance de cause que vous allez choisir les cinq techniques qui vous semblent les plus précieuses.
+          </div>
+          <div class="rule-list">
+            <div class="rule-item"><div class="num">1</div><div class="txt">La Sorcellerie transforme pensées ou désirs en énergie magique. Elle absorbe bien plus de points de VOLONTÉ que les autres magies mineures.</div></div>
+            <div class="rule-item"><div class="num">2</div><div class="txt">L'Envoûtement permet de charmer, illusionner, lire les pensées et influencer les autres.</div></div>
+            <div class="rule-item"><div class="num">3</div><div class="txt">La Communication avec les Éléments confère un certain contrôle sur l'Air, le Feu, la Terre et l'Eau.</div></div>
+            <div class="rule-item"><div class="num">4</div><div class="txt">L'Alchimie sert à préparer des potions et à transformer la matière. Elle demande des ingrédients et du matériel.</div></div>
+            <div class="rule-item"><div class="num">5</div><div class="txt">La Voyance prédit l'avenir, localise des personnes ou objets déjà vus et décrypte leur vraie nature.</div></div>
+            <div class="rule-item"><div class="num">6</div><div class="txt">La Psychomancie révèle des événements en touchant des objets liés à ceux-ci.</div></div>
+            <div class="rule-item"><div class="num">7</div><div class="txt">L'Évocation permet d'entrer en contact avec le royaume des esprits, mais il faut se méfier des esprits mauvais.</div></div>
+          </div>
+        </div>
+        <div class="intro-card">
+          <div class="intro-kicker">Équipement</div>
+          <div class="intro-title">Baguette, sac à dos, objets et combats</div>
+          <div class="intro-text">
+            Votre Baguette de sorcier est votre bien le plus précieux. Elle constitue votre arme principale.
+            Vous portez un Sac à Dos contenant 4 Repas et une carte de l'Empire Chadakine.
+            Si l'Alchimie fait partie de vos pouvoirs, vous disposez aussi d'une pochette à herbes et potions.
+          </div>
+          <div class="rule-list">
+            <div class="rule-item"><div class="num">A</div><div class="txt">La Baguette de sorcier vous permet de libérer un rayon destructeur. Chaque utilisation coûte 1 point de VOLONTÉ.</div></div>
+            <div class="rule-item"><div class="num">B</div><div class="txt">Le Sac à Dos contient votre nourriture et vos objets utiles. Vous ne pouvez pas y mettre plus de huit objets.</div></div>
+            <div class="rule-item"><div class="num">C</div><div class="txt">En combat, votre HABILETÉ varie selon l'arme utilisée. Sans Baguette, vous perdez 6 points ; à mains nues, 8 points.</div></div>
+            <div class="rule-item"><div class="num">D</div><div class="txt">Si votre ENDURANCE tombe à zéro, vous êtes tué et l'aventure se termine. La nourriture est indispensable au long de la quête.</div></div>
+          </div>
+        </div>
+        <div class="intro-card">
+          <div class="intro-kicker">Préface</div>
+          <div class="intro-title">Conseil d'un sage à un sage</div>
+          <div class="intro-text">
+            Vous voici prêt à entreprendre une quête extrêmement périlleuse, qui vous fera sillonner des terres hostiles et inconnues, subjuguées par des Forces Maléfiques.
+            Étudiez bien la carte qui figure au début de ce livre et prenez des notes au cours de vos pérégrinations.
+            Il vous faudra également garder la tête froide pour faire un usage judicieux de vos points de VOLONTÉ.
+          </div>
+        </div>
+        <div class="intro-card">
+          <div class="intro-kicker">Légende</div>
+          <div class="intro-title">L'avènement d'Astre d'Or</div>
+          <div class="intro-text">
+            Au commencement était le Chaos, au commencement étaient les Majdars. C'est dans cette trame que naît votre destin,
+            et que la quête prend son sens : retrouver la Pierre-de-Lune, localiser la Porte de l'Ombre et mettre fin au règne de Charatchak.
+          </div>
+        </div>
+        <div class="intro-card">
+          <div class="intro-kicker">Mission</div>
+          <div class="intro-title">Votre mission</div>
+          <div class="intro-text">
+            Vous êtes Astre d'Or, sorcier Majdar initié aux techniques secrètes de la Haute Sorcellerie.
+            Votre mission consiste à retrouver la Tribu Perdue de Lara, convaincre ses chefs de vous mener à la Porte de l'Ombre,
+            puis poursuivre la quête de la Pierre-de-Lune.
+          </div>
+        </div>
+      </div>
     </div>
     <div class="tab-content" id="tab-notes">
       <div class="notes-container">
@@ -170,11 +286,14 @@ function switchAttempt(dir) {
 }
 
 function splitWords(text) {
-  var parts = text.split(/(\s+)/), wi = 0, html = "";
-  for (var i = 0; i < parts.length; i++) {
-    if (parts[i].length === 0) continue;
-    if (/^\s+$/.test(parts[i])) { html += parts[i]; }
-    else { html += '<span class="w" data-i="' + wi + '">' + esc(parts[i]) + '</span>'; wi++; }
+  var re = /(\S+|\s+)/g, m, html = "";
+  while ((m = re.exec(text)) !== null) {
+    var tok = m[0];
+    if (/^\s+$/.test(tok)) {
+      html += esc(tok);
+    } else {
+      html += '<span class="w" data-start="' + m.index + '" data-end="' + (m.index + tok.length) + '">' + esc(tok) + '</span>';
+    }
   }
   return html;
 }
@@ -193,24 +312,47 @@ function renderParagraph(id) {
     '<div class="tts-controls">' +
       '<select class="tts-select" id="ttsRate" title="Vitesse">' +
         '<option value="0.6">0.6x</option><option value="0.75">0.75x</option>' +
-        '<option value="0.85">0.85x</option><option value="0.95" selected>0.95x</option>' +
-        '<option value="1">1x</option><option value="1.15">1.15x</option>' +
+        '<option value="0.85">0.85x</option><option value="0.95">0.95x</option>' +
+        '<option value="1.15" selected>1.15x</option>' +
+        '<option value="1">1x</option>' +
         '<option value="1.3">1.3x</option><option value="1.5">1.5x</option>' +
       '</select>' +
       '<select class="tts-select" id="ttsVoice" title="Voix"></select>' +
     '</div>' +
     '<div class="para-text">' + splitWords(p.text) + '</div>' +
-    (p.choices.length > 0 ? '<div class="choices">' + ch + '</div>' : '<div class="choices"><div style="color:var(--text-muted);font-style:italic;padding:10px;font-size:14px">Fin de cette branche.</div></div>');
+    (p.choices.length > 0 ? '<div class="choices">' + ch + '</div>' : '<div class="choices"><div style="color:var(--red);font-style:italic;padding:10px;font-size:14px">☠ Fin de cette branche.</div></div>');
 }
 
 var ttsUtterance = null;
 var ttsVoices = [];
 var ttsActive = false;
-var ttsSavedRate = parseFloat(localStorage.getItem("sm_tts_rate") || "0.95");
+var ttsSavedRate = parseFloat(localStorage.getItem("sm_tts_rate") || "1.15");
 var ttsSavedVoice = localStorage.getItem("sm_tts_voice") || "";
 
 function loadTTSVoices() {
-  ttsVoices = speechSynthesis.getVoices().filter(function(v) { return v.lang.startsWith("fr"); });
+  ttsVoices = speechSynthesis.getVoices().filter(function(v) {
+    var lang = (v.lang || "").toLowerCase();
+    var name = (v.name || "").toLowerCase();
+    if (!lang.startsWith("fr")) return false;
+    if (lang.indexOf("ca") !== -1) return false;
+    if (name.indexOf("canad") !== -1) return false;
+    return true;
+  }).sort(function(a, b) {
+    var score = function(v) {
+      var lang = (v.lang || "").toLowerCase();
+      var name = (v.name || "").toLowerCase();
+      var s = 0;
+      if (lang === "fr-fr") s += 30;
+      if (lang.indexOf("fr") === 0) s += 10;
+      if (name.indexOf("enhanced") !== -1) s += 12;
+      if (name.indexOf("premium") !== -1) s += 8;
+      if (name.indexOf("siri") !== -1) s += 10;
+      if (name.indexOf("google") !== -1) s -= 2;
+      if (name.indexOf("microsoft") !== -1) s -= 2;
+      return s;
+    };
+    return score(b) - score(a);
+  });
   if (ttsVoices.length === 0) ttsVoices = speechSynthesis.getVoices();
   var sel = document.getElementById("ttsVoice");
   if (!sel) return;
@@ -224,6 +366,7 @@ function loadTTSVoices() {
     if (v.name === ttsSavedVoice) opt.selected = true;
     sel.appendChild(opt);
   });
+  if (!sel.value && sel.options.length > 0) sel.selectedIndex = 0;
 }
 if (typeof speechSynthesis !== "undefined") {
   speechSynthesis.onvoiceschanged = loadTTSVoices;
@@ -248,17 +391,16 @@ function stopTTS() {
 
 function highlightWord(charIndex) {
   var spans = document.querySelectorAll(".para-text .w");
-  var cur = 0;
   for (var i = 0; i < spans.length; i++) {
-    var len = spans[i].textContent.length;
-    if (charIndex >= cur && charIndex < cur + len) {
+    var start = parseInt(spans[i].dataset.start || "0");
+    var end = parseInt(spans[i].dataset.end || "0");
+    if (charIndex >= start && charIndex < end) {
       var prev = document.querySelector(".para-text .w.speak");
       if (prev) prev.classList.remove("speak");
       spans[i].classList.add("speak");
       spans[i].scrollIntoView({ block: "nearest", behavior: "smooth" });
       return;
     }
-    cur += len + 1;
   }
 }
 
@@ -268,7 +410,7 @@ function toggleTTS() {
   if (!p) return;
   var rateEl = document.getElementById("ttsRate");
   var voiceEl = document.getElementById("ttsVoice");
-  var rate = rateEl ? parseFloat(rateEl.value) : 0.95;
+  var rate = rateEl ? parseFloat(rateEl.value) : 1.15;
   ttsSavedRate = rate;
   localStorage.setItem("sm_tts_rate", String(rate));
   ttsUtterance = new SpeechSynthesisUtterance(p.text);
@@ -283,6 +425,7 @@ function toggleTTS() {
     }
   }
   ttsActive = true;
+  highlightWord(0);
   ttsUtterance.addEventListener("boundary", function(e) {
     if (e.charIndex >= 0) highlightWord(e.charIndex);
   });
@@ -304,8 +447,31 @@ function goBack() { if (hist.length > 1) { hist.pop(); currentPara = hist[hist.l
 function jumpTo() { var v = parseInt(document.getElementById("jumpInput").value); if (v && getPara(v)) { hist.push(v); visited.add(v); currentPara = v; refresh(); document.getElementById("jumpInput").value = ""; } }
 function resetToStep(idx) { archiveAndBranch(); hist = hist.slice(0, idx + 1); currentPara = hist[hist.length - 1]; refresh(); }
 function branchTo(fromIdx, targetId) { archiveAndBranch(); hist = hist.slice(0, fromIdx + 1); hist.push(targetId); visited.add(targetId); currentPara = targetId; refresh(); }
+function showResetModal() {
+  document.getElementById("resetModal").classList.add("open");
+}
+function closeResetModal() {
+  document.getElementById("resetModal").classList.remove("open");
+}
+function confirmReset() {
+  closeResetModal();
+  localStorage.removeItem("sm_save8");
+  currentPara = 1;
+  hist = [1];
+  visited = new Set([1]);
+  attempts = [{ hist: [1], ts: Date.now() }];
+  currentAttemptIdx = 0;
+  nodeNotes = {};
+  generalNotes = "";
+  document.getElementById("generalNotes").value = "";
+  saveState();
+  renderParagraph(currentPara);
+  restoreTTSControls();
+  updateBreadcrumb();
+  renderGraph();
+  stopTTS();
+}
 function resetGame() {
-  if (!confirm("Recommencer ?")) return;
   if (hist.length <= 1 && attempts.length <= 1) return;
   attempts[currentAttemptIdx] = { hist: hist.slice(), ts: attempts[currentAttemptIdx].ts };
   currentPara = 1; hist = [1];
@@ -316,7 +482,7 @@ function resetGame() {
   generalNotes = "";
   saveState(); renderParagraph(currentPara); restoreTTSControls(); updateBreadcrumb(); renderGraph();
 }
-function refresh() { var wasActive = ttsActive; stopTTS(); renderParagraph(currentPara); restoreTTSControls(); updateBreadcrumb(); renderGraph(); saveState(); if (wasActive) toggleTTS(); }
+function refresh() { var wasActive = ttsActive; stopTTS(); saveState(); renderParagraph(currentPara); restoreTTSControls(); updateBreadcrumb(); renderGraph(); if (wasActive) toggleTTS(); }
 
 function updateBreadcrumb() {
   var bc = document.getElementById("breadcrumb");
@@ -333,8 +499,9 @@ function crumbClick(idx) { hist = hist.slice(0, idx + 1); currentPara = hist[his
 function switchTab(name) {
   document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
   document.querySelectorAll(".tab-content").forEach(function(c) { c.classList.remove("active"); });
-  document.querySelector(".tab-btn:nth-child(" + (name === "graph" ? 1 : 2) + ")").classList.add("active");
-  document.getElementById("tab-" + (name === "graph" ? "graph" : "notes")).classList.add("active");
+  var btnIndex = name === "graph" ? 1 : (name === "intro" ? 2 : 3);
+  document.querySelector(".tab-btn:nth-child(" + btnIndex + ")").classList.add("active");
+  document.getElementById("tab-" + (name === "graph" ? "graph" : name)).classList.add("active");
   if (name === "notes") renderNotesList();
 }
 
@@ -343,13 +510,33 @@ function saveNodeNotePara(pid, text) { if (text.trim()) nodeNotes[pid] = text; e
 function renderNotesList() {
   var el = document.getElementById("notesList");
   var entries = Object.entries(nodeNotes);
-  if (!entries.length) { el.innerHTML = '<div style="color:var(--text-muted);font-size:12px;font-style:italic">Double-cliquez un commit pour ajouter une note.</div>'; return; }
+  if (!entries.length) { el.innerHTML = '<div style="color:var(--text-muted);font-size:12px;font-style:italic">Double-cliquez un paragraphe dans l’arbre pour ajouter une note.</div>'; return; }
   el.innerHTML = entries.sort(function(a, b) { return a[0] - b[0]; }).map(function(e) {
     return '<div style="margin-bottom:10px;padding:6px 10px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius)"><div style="font-size:11px;font-weight:600;color:var(--accent);margin-bottom:3px">\u00a7' + e[0] + '</div><div style="font-size:12px;color:var(--text);white-space:pre-wrap">' + esc(e[1]) + '</div></div>';
   }).join("");
 }
 
 // ===== GITGRAPH =====
+
+function showTooltip(pid, e) {
+  var p = BOOK_DATA[pid];
+  if (!p) return;
+  var tt = document.getElementById("graphTooltip");
+  tt.querySelector(".tt-id").textContent = "\u00a7" + pid;
+  var text = p.text || "";
+  if (text.length > 250) text = text.substring(0, 247) + "...";
+  tt.querySelector(".tt-text").textContent = text;
+  tt.classList.add("visible");
+  var x = e.clientX + 16, y = e.clientY + 16;
+  if (x + 380 > window.innerWidth) x = e.clientX - 380;
+  if (y + 200 > window.innerHeight) y = e.clientY - 200;
+  tt.style.left = x + "px";
+  tt.style.top = y + "px";
+}
+function hideTooltip() {
+  document.getElementById("graphTooltip").classList.remove("visible");
+}
+
 function renderGraph() {
   var container = document.getElementById("graphContainer");
   if (overlayMode) { renderOverlayGraph(); return; }
@@ -415,27 +602,51 @@ function renderGraph() {
       var dot = el("circle", {
         cx: MAIN_X, cy: y,
         r: isCur ? 9 : 6,
-        fill: isCur ? "#ffffff" : "#d4a843",
-        stroke: isCur ? "#d4a843" : "none",
+        fill: isCur ? "#58a6ff" : "#d4a843",
+        stroke: isCur ? "#58a6ff" : "none",
         "stroke-width": isCur ? 3 : 0,
         style: "cursor:pointer"
       });
       dot.addEventListener("click", function() { resetToStep(step.idx); });
+      dot.addEventListener("mouseover", function(e) { showTooltip(pid, e); });
+      dot.addEventListener("mouseout", hideTooltip);
       svg.appendChild(dot);
 
-      // Label
+// Label
       var msg = "\u00a7" + pid;
       if (step.takenGoTo === -1) msg += " \u2014 retour";
       var label = el("text", {
         x: MAIN_X + 18, y: y + 4,
-        fill: isCur ? "#ffffff" : "#8b949e",
+        fill: isCur ? "#58a6ff" : "#8b949e",
         "font-size": isCur ? 12 : 11,
         "font-weight": isCur ? "bold" : "normal",
         style: "cursor:pointer"
       });
       label.textContent = msg;
       label.addEventListener("click", function() { resetToStep(step.idx); });
+      label.addEventListener("mouseover", function(e) { showTooltip(pid, e); });
+      label.addEventListener("mouseout", hideTooltip);
       svg.appendChild(label);
+
+      // Skull for death paragraphs
+      if (step.para && step.para.choices && step.para.choices.length === 0) {
+        var skull = el("text", {
+          x: MAIN_X + 18 + msg.length * 7 + 6, y: y + 4,
+          fill: "#f85149", "font-size": 13
+        });
+        skull.textContent = "\u2620";
+        svg.appendChild(skull);
+      }
+      
+      // Picto for current player position
+      if (isCur) {
+        var playerIcon = el("text", {
+          x: MAIN_X + 18 + msg.length * 7 + 20, y: y + 4,
+          fill: "#58a6ff", "font-size": 13
+        });
+        playerIcon.textContent = "\u261e"; // ✞
+        svg.appendChild(playerIcon);
+      }
 
       // Unchosen branches
       var subY = y + SPACING / 2;
@@ -502,62 +713,97 @@ function renderOverlayGraph() {
   var container = document.getElementById("graphContainer");
   container.innerHTML = "";
 
-  // Build merged tree from all attempts
   var nodeId = 0;
-  function TreeNode(pid, attemptIdx) {
-    return { id: nodeId++, pid: pid, attempts: [attemptIdx], children: [] };
+  function TreeNode(pid, attemptIdx, parentNode) {
+    return { id: nodeId++, pid: pid, attempts: [attemptIdx], children: [], parent: parentNode || null, loopTarget: null, mergeFrom: [] };
   }
 
-  var root = TreeNode(1, 0);
+  var root = TreeNode(1, 0, null);
   var nodes = [root];
+  var pidMap = {};
+  pidMap[1] = root;
+
+  function isAncestor(node, targetPid) {
+    var cur = node;
+    while (cur) { if (cur.pid === targetPid) return cur; cur = cur.parent; }
+    return null;
+  }
 
   for (var ai = 0; ai < attempts.length; ai++) {
     var h = attempts[ai].hist;
     var node = root;
-    if (ai > 0) node.attempts.push(ai);
+    if (ai > 0 && root.attempts.indexOf(ai) === -1) root.attempts.push(ai);
 
     for (var hi = 1; hi < h.length; hi++) {
       var pid = h[hi];
+
+      // Check existing children first
       var found = null;
       for (var ci = 0; ci < node.children.length; ci++) {
-        if (node.children[ci].pid === pid) { found = node.children[ci]; break; }
+        if (node.children[ci].pid === pid && !node.children[ci].isLoop) { found = node.children[ci]; break; }
       }
       if (found) {
         if (found.attempts.indexOf(ai) === -1) found.attempts.push(ai);
         node = found;
-      } else {
-        var child = TreeNode(pid, ai);
-        node.children.push(child);
-        nodes.push(child);
-        node = child;
+        continue;
       }
+
+      // Loop: pid is our own ancestor
+      var ancestor = isAncestor(node, pid);
+      if (ancestor) {
+        var loopNode = TreeNode(pid, ai, node);
+        loopNode.loopTarget = ancestor;
+        loopNode.isLoop = true;
+        node.children.push(loopNode);
+        nodes.push(loopNode);
+        node = loopNode;
+        break;
+      }
+
+      // Merge: pid already exists elsewhere in the tree
+      var existing = pidMap[pid];
+      if (existing) {
+        if (existing.attempts.indexOf(ai) === -1) existing.attempts.push(ai);
+        existing.mergeFrom.push({ from: node, attempt: ai });
+        node = existing;
+        continue;
+      }
+
+      // New node
+      var child = TreeNode(pid, ai, node);
+      node.children.push(child);
+      nodes.push(child);
+      pidMap[pid] = child;
+      node = child;
     }
   }
 
-  // Layout constants
-  var X_STEP = 130, Y_STEP = 32, PAD = 24;
+  // Vertical layout: Y = depth, X = leaf spread
+  var Y_STEP = 34, X_STEP = 50, PAD = 24;
   var leafIdx = 0;
 
   function assignPos(n, depth) {
-    n.x = PAD + depth * X_STEP;
+    n.y = PAD + depth * Y_STEP;
     n.depth = depth;
     if (n.children.length === 0) {
-      n.y = PAD + leafIdx * Y_STEP;
+      n.x = PAD + leafIdx * X_STEP;
       leafIdx++;
     } else {
       for (var i = 0; i < n.children.length; i++) assignPos(n.children[i], depth + 1);
       var sum = 0;
-      for (var i = 0; i < n.children.length; i++) sum += n.children[i].y;
-      n.y = sum / n.children.length;
+      for (var i = 0; i < n.children.length; i++) sum += n.children[i].x;
+      n.x = sum / n.children.length;
     }
   }
   assignPos(root, 0);
 
-  var svgW = PAD * 2 + (function maxD(n) { var m = n.depth; for (var i = 0; i < n.children.length; i++) m = Math.max(m, maxD(n.children[i])); return m; })(root) * X_STEP + 60;
-  var svgH = PAD * 2 + leafIdx * Y_STEP;
+  var svgW = PAD * 2 + leafIdx * X_STEP;
+  var maxDepth = 0;
+  (function findMax(n) { if (n.depth > maxDepth) maxDepth = n.depth; for (var i = 0; i < n.children.length; i++) findMax(n.children[i]); })(root);
+  var svgH = PAD * 2 + (maxDepth + 2) * Y_STEP;
   var NS = "http://www.w3.org/2000/svg";
   var svg = document.createElementNS(NS, "svg");
-  svg.setAttribute("width", svgW);
+  svg.setAttribute("width", Math.max(svgW, 540));
   svg.setAttribute("height", svgH);
   svg.style.fontFamily = "ui-monospace, SFMono-Regular, Menlo, monospace";
 
@@ -567,64 +813,127 @@ function renderOverlayGraph() {
     return e;
   }
 
-  // Draw connectors first
+  // Vertical connectors
   function drawConnectors(n) {
     for (var i = 0; i < n.children.length; i++) {
       var child = n.children[i];
-      svg.appendChild(el("line", {
-        x1: n.x, y1: n.y, x2: child.x, y2: child.y,
-        stroke: "#d4a843", "stroke-width": 1.5, "stroke-opacity": 0.4
-      }));
+      // Vertical line down from parent, then horizontal to child, then vertical to child
+      var midY = n.y + Y_STEP / 2;
+      svg.appendChild(el("line", { x1: n.x, y1: n.y, x2: n.x, y2: midY, stroke: "#d4a843", "stroke-width": 1.5, "stroke-opacity": 0.4 }));
+      svg.appendChild(el("line", { x1: n.x, y1: midY, x2: child.x, y2: midY, stroke: "#d4a843", "stroke-width": 1.5, "stroke-opacity": 0.4 }));
+      svg.appendChild(el("line", { x1: child.x, y1: midY, x2: child.x, y2: child.y, stroke: "#d4a843", "stroke-width": 1.5, "stroke-opacity": 0.4 }));
       drawConnectors(child);
     }
   }
   drawConnectors(root);
 
-  // Draw nodes
-  function drawNodes(n) {
+  // Nodes
+function drawNodes(n) {
     var para = BOOK_DATA[n.pid];
     var isDeath = para && para.choices && para.choices.length === 0;
     var isCur = n.pid === currentPara && n.attempts.indexOf(currentAttemptIdx) !== -1;
+    var currentAttemptIndex = n.attempts.indexOf(currentAttemptIdx);
+    var isInPath = currentAttemptIndex !== -1 && !isCur;
 
-    // Dot
+    // Glow filter for current node only
+    if (isCur && !svg.querySelector("defs")) {
+      var defs = el("defs", {});
+      var filter = el("filter", { id: "glow", x: "-50%", y: "-50%", width: "200%", height: "200%" });
+      var blur = el("feGaussianBlur", { stdDeviation: "3", result: "coloredBlur" });
+      var merge = el("feMerge", {});
+      var mn1 = el("feMergeNode", { in: "coloredBlur" });
+      var mn2 = el("feMergeNode", { in: "SourceGraphic" });
+      merge.appendChild(mn1);
+      merge.appendChild(mn2);
+      filter.appendChild(blur);
+      filter.appendChild(merge);
+      defs.appendChild(filter);
+      svg.insertBefore(defs, svg.firstChild);
+    }
+
     var dot = el("circle", {
       cx: n.x, cy: n.y,
-      r: isCur ? 8 : isDeath ? 7 : 5,
-      fill: isDeath ? "#f85149" : isCur ? "#ffffff" : "#d4a843",
-      stroke: isCur ? "#d4a843" : isDeath ? "#f85149" : "none",
-      "stroke-width": isCur ? 3 : 2
+      r: isCur ? 8 : (isInPath ? 5 : (isDeath ? 7 : 5)),
+      fill: isDeath ? "#f85149" : isCur ? "#58a6ff" : isInPath ? "#58a6ff" : "#d4a843",
+      stroke: isCur ? "#fff" : "none",
+      "stroke-width": isCur ? 2 : 0,
+      "fill-opacity": isInPath ? 0.7 : 1,
+      filter: isCur ? "url(#glow)" : "none"
     });
+    if (isCur) {
+      var animR = el("animate", { attributeName: "r", values: "8;10;8", dur: "1.5s", repeatCount: "indefinite" });
+      dot.appendChild(animR);
+    }
+    dot.addEventListener("mouseover", function(e) { showTooltip(n.pid, e); });
+    dot.addEventListener("mouseout", hideTooltip);
     svg.appendChild(dot);
 
-    // Paragraph number
     var label = el("text", {
-      x: n.x, y: n.y - 12,
-      fill: isDeath ? "#f85149" : isCur ? "#ffffff" : "#8b949e",
-      "font-size": 10, "text-anchor": "middle", "font-weight": isCur ? "bold" : "normal"
+      x: n.x + 12, y: n.y + 4,
+      fill: isDeath ? "#f85149" : isCur ? "#58a6ff" : "#8b949e",
+      "font-size": 10,
+      "font-weight": isCur ? "bold" : "normal",
+      "fill-opacity": isInPath ? 0.5 : 1
     });
     label.textContent = "\u00a7" + n.pid;
+    label.addEventListener("mouseover", function(e) { showTooltip(n.pid, e); });
+    label.addEventListener("mouseout", hideTooltip);
     svg.appendChild(label);
+    
+    // Cercle extérieur animé uniquement sur le noeud actuel
+    if (isCur) {
+      var currentIndicator = el("circle", {
+        cx: n.x, cy: n.y,
+        r: 12,
+        fill: "none",
+        stroke: "#58a6ff",
+        "stroke-width": 1.5,
+        "stroke-dasharray": "5,3",
+        "stroke-opacity": 0.6
+      });
+      var animOrbit = el("animateTransform", {
+        attributeName: "transform",
+        type: "rotate",
+        from: "0 " + n.x + " " + n.y,
+        to: "360 " + n.x + " " + n.y,
+        dur: "4s",
+        repeatCount: "indefinite"
+      });
+      currentIndicator.appendChild(animOrbit);
+      svg.appendChild(currentIndicator);
+      
+      var currentLabel = el("text", {
+        x: n.x + 16, y: n.y - 10,
+        fill: "#58a6ff",
+        "font-size": 11,
+        "font-weight": "bold"
+      });
+      currentLabel.textContent = "VOUS ÊTES ICI";
+      svg.appendChild(currentLabel);
+    }
 
-    // Skull for death endings
+    // Skull for death
     if (isDeath) {
       var skull = el("text", {
-        x: n.x, y: n.y + 22,
-        fill: "#f85149", "font-size": 14, "text-anchor": "middle"
+        x: n.x + 12 + ("\u00a7" + n.pid).length * 6.5 + 4, y: n.y + 4,
+        fill: "#f85149", "font-size": 12
       });
       skull.textContent = "\u2620";
       svg.appendChild(skull);
     }
 
-    // Attempt endpoint markers
+    // Attempt endpoints
+    var endCount = 0;
     for (var ai = 0; ai < attempts.length; ai++) {
       var aHist = attempts[ai].hist;
       if (aHist[aHist.length - 1] === n.pid && !isDeath) {
         var endLabel = el("text", {
-          x: n.x + 14 + ai * 14, y: n.y + 4,
+          x: n.x + 12, y: n.y + 16 + endCount * 11,
           fill: "#58a6ff", "font-size": 8, "font-weight": "bold"
         });
         endLabel.textContent = "T" + (ai + 1);
         svg.appendChild(endLabel);
+        endCount++;
       }
     }
 
@@ -632,8 +941,68 @@ function renderOverlayGraph() {
   }
   drawNodes(root);
 
+  // Draw loop arrows
+  var loopCount = 0;
+  (function drawLoops(n) {
+    if (n.isLoop && n.loopTarget) {
+      loopCount++;
+      var loopOffset = 20 + (loopCount % 3) * 12;
+      // Dashed path: go left, up, then right to target
+      var path = "M" + n.x + "," + n.y +
+        " C" + (n.x - loopOffset) + "," + n.y +
+        " " + (n.loopTarget.x - loopOffset) + "," + n.loopTarget.y +
+        " " + n.loopTarget.x + "," + n.loopTarget.y;
+      svg.appendChild(el("path", {
+        d: path, fill: "none", stroke: "#f0883e",
+        "stroke-width": 1.5, "stroke-dasharray": "4,3", "stroke-opacity": 0.7
+      }));
+      // Small arrow at target
+      var ax = n.loopTarget.x - 6, ay = n.loopTarget.y;
+      svg.appendChild(el("polygon", {
+        points: ax + "," + ay + " " + (ax - 5) + "," + (ay - 4) + " " + (ax - 5) + "," + (ay + 4),
+        fill: "#f0883e", "fill-opacity": 0.7
+      }));
+      // Loop symbol on the node
+      var loopSym = el("text", {
+        x: n.x - 14, y: n.y + 4,
+        fill: "#f0883e", "font-size": 10, "font-weight": "bold"
+      });
+      loopSym.textContent = "\u21ba";
+      svg.appendChild(loopSym);
+    }
+    for (var i = 0; i < n.children.length; i++) drawLoops(n.children[i]);
+  })(root);
+
+  // Draw merge arrows (when paths converge to same paragraph)
+  var mergeCount = 0;
+  (function drawMerges(n) {
+    for (var mi = 0; mi < n.mergeFrom.length; mi++) {
+      var fromNode = n.mergeFrom[mi].from;
+      mergeCount++;
+      var offset = -20 - (mergeCount % 3) * 12;
+      var path = "M" + fromNode.x + "," + (fromNode.y + 6) +
+        " C" + (fromNode.x + offset) + "," + (fromNode.y + Y_STEP / 2) +
+        " " + (n.x + offset) + "," + (n.y - Y_STEP / 2) +
+        " " + n.x + "," + (n.y - 6);
+      svg.appendChild(el("path", {
+        d: path, fill: "none", stroke: "#58a6ff",
+        "stroke-width": 1.5, "stroke-dasharray": "4,3", "stroke-opacity": 0.6
+      }));
+      // Arrow at target
+      var ax = n.x, ay = n.y - 6;
+      svg.appendChild(el("polygon", {
+        points: ax + "," + ay + " " + (ax - 4) + "," + (ay - 5) + " " + (ax + 4) + "," + (ay - 5),
+        fill: "#58a6ff", "fill-opacity": 0.6
+      }));
+    }
+    for (var i = 0; i < n.children.length; i++) drawMerges(n.children[i]);
+  })(root);
+
   container.appendChild(svg);
-  document.getElementById("graphStats").textContent = nodes.length + " noeuds \u00b7 " + attempts.length + " tentatives";
+  var statsText = nodes.length + " noeuds \u00b7 " + attempts.length + " tentatives";
+  if (loopCount > 0) statsText += " \u00b7 " + loopCount + " boucle" + (loopCount > 1 ? "s" : "");
+  if (mergeCount > 0) statsText += " \u00b7 " + mergeCount + " fusion" + (mergeCount > 1 ? "s" : "");
+  document.getElementById("graphStats").textContent = statsText;
 }
 
 renderParagraph(currentPara);
@@ -642,5 +1011,16 @@ renderGraph();
 document.addEventListener("keydown", function(e) { if (e.key === "Backspace" && !e.target.matches("input,textarea")) { e.preventDefault(); goBack(); } });
 document.getElementById("jumpInput").addEventListener("keydown", function(e) { if (e.key === "Enter") jumpTo(); });
 </script>
+<div class="graph-tooltip" id="graphTooltip"><div class="tt-id"></div><div class="tt-text"></div></div>
+<div class="modal-overlay" id="resetModal">
+  <div class="modal">
+    <h2>Réinitialiser la partie</h2>
+    <p>Toutes les tentatives, notes et progression seront supprimées. Vous repartirez du paragraphe 1.</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeResetModal()">Annuler</button>
+      <button class="btn-danger" onclick="confirmReset()">Tout supprimer</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
