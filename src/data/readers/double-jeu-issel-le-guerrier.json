@@ -2,7 +2,7 @@
   "bookId": "double-jeu-issel-le-guerrier",
   "title": "Double Jeu 01 - Issel le Guerrier",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Double Jeu/Double Jeu 01 - Issel le Guerrier.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Double Jeu/Double Jeu 01 - Issel le Guerrier.pdf",
   "intro": [
     {
       "kicker": "Introduction",

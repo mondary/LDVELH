@@ -2,7 +2,7 @@
   "bookId": "les-messagers-du-temps-le-carillon-de-la-mort",
   "title": "Le Carillon de la Mort",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Les messagers du temps/1 - Le Carillon de la Mort.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Les messagers du temps/1 - Le Carillon de la Mort.pdf",
   "intro": [
     {
       "kicker": "Introduction",

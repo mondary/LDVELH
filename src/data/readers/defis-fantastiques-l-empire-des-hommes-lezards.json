@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-l-empire-des-hommes-lezards",
   "title": "Defis Fantastiques 31 - L'Empire des Hommes-Lezards",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 31 - L'Empire des Hommes-Lezards.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 31 - L'Empire des Hommes-Lezards.pdf",
   "intro": [
     {
       "kicker": "Introduction",

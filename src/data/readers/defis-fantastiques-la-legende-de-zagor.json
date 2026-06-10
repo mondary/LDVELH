@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-la-legende-de-zagor",
   "title": "Defis Fantastiques 52 - La Legende de Zagor",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 52 - La Legende de Zagor.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 52 - La Legende de Zagor.pdf",
   "intro": [
     {
       "kicker": "Introduction",

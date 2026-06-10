@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-dans-les-entrailles-de-torgar",
   "title": "Loup Solitaire 10 - Dans les entrailles de Torgar",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 10 - Dans les entrailles de Torgar.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 10 - Dans les entrailles de Torgar.pdf",
   "intro": [
     {
       "kicker": "Introduction",

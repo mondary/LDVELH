@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-dans-l-enfer-de-la-jungle",
   "title": "Loup Solitaire 08 - Dans l'enfer de la Jungle",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 08 - Dans l'enfer de la Jungle.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 08 - Dans l'enfer de la Jungle.pdf",
   "intro": [
     {
       "kicker": "Introduction",

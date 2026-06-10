@@ -2,7 +2,7 @@
   "bookId": "sorcellerie-les-collines-malefiques",
   "title": "Sorcellerie 1 - Les Collines Malefiques",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Sorcellerie/Sorcellerie 1 - Les Collines Malefiques.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Sorcellerie/Sorcellerie 1 - Les Collines Malefiques.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-la-tour-de-cristal",
   "title": "Loup Solitaire 17 - La Tour de Cristal",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 17 - La Tour de Cristal.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 17 - La Tour de Cristal.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-les-mages-de-solani",
   "title": "Defis Fantastiques 51 - Les Mages de Solani",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 51 - Les Mages de Solani.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 51 - Les Mages de Solani.pdf",
   "intro": [
     {
       "kicker": "Introduction",

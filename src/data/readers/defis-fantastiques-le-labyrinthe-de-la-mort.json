@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-labyrinthe-de-la-mort",
   "title": "Defis Fantastiques 06 - Le Labyrinthe de la Mort",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 06 - Le Labyrinthe de la Mort.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 06 - Le Labyrinthe de la Mort.pdf",
   "intro": [
     {
       "kicker": "Introduction",

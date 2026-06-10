@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-repaire-des-morts-vivants",
   "title": "Defis Fantastiques 43 - Le repaire des morts-vivants",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 43 - Le repaire des morts-vivants.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 43 - Le repaire des morts-vivants.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-les-trafiquants-de-kelter",
   "title": "Defis Fantastiques 15 - Les Trafiquants de Kelter",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 15 - Les Trafiquants de Kelter.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 15 - Les Trafiquants de Kelter.pdf",
   "intro": [
     {
       "kicker": "Introduction",

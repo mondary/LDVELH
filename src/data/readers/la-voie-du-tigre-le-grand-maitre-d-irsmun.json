@@ -2,7 +2,7 @@
   "bookId": "la-voie-du-tigre-le-grand-maitre-d-irsmun",
   "title": "Le Grand Maitre d'Irsmun",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - La voie du Tigre/4 - Le Grand Maitre d'Irsmun.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - La voie du Tigre/4 - Le Grand Maitre d'Irsmun.pdf",
   "intro": [
     {
       "kicker": "Introduction",

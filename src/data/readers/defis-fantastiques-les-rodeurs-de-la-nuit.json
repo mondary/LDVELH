@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-les-rodeurs-de-la-nuit",
   "title": "Defis Fantastiques 29 - Les Rodeurs de la nuit",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 29 - Les Rodeurs de la nuit.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 29 - Les Rodeurs de la nuit.pdf",
   "intro": [
     {
       "kicker": "Introduction",

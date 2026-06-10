@@ -2,7 +2,7 @@
   "bookId": "defis-et-sortileges-la-huitieme-porte",
   "title": "Défis et sortilèges 7-La huitième porte",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Défis et sortilèges/Défis et sortilèges 7-La huitième porte.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Défis et sortilèges/Défis et sortilèges 7-La huitième porte.pdf",
   "intro": [
     {
       "kicker": "Introduction",

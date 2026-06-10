@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-l-epee-du-samourai",
   "title": "Defis Fantastiques 20 - l'epee du samourai",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 20 - l'epee du samourai.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 20 - l'epee du samourai.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-voleur-d-ames",
   "title": "Defis Fantastiques 34 - Le Voleur d'Ames",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 34 - Le Voleur d'Ames.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 34 - Le Voleur d'Ames.pdf",
   "intro": [
     {
       "kicker": "Introduction",

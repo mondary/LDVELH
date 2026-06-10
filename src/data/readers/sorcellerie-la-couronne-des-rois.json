@@ -2,7 +2,7 @@
   "bookId": "sorcellerie-la-couronne-des-rois",
   "title": "Sorcellerie 4 - La Couronne des Rois",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Sorcellerie/Sorcellerie 4 - La Couronne des Rois.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Sorcellerie/Sorcellerie 4 - La Couronne des Rois.pdf",
   "intro": [
     {
       "kicker": "Introduction",

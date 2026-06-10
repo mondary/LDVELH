@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-la-cite-des-voleurs",
   "title": "Defis Fantastiques 05 - la Cite des Voleurs",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 05 - la Cite des Voleurs.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 05 - la Cite des Voleurs.pdf",
   "intro": [
     {
       "kicker": "Introduction",

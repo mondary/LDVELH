@@ -2,7 +2,7 @@
   "bookId": "la-voie-du-tigre-les-seigneurs-de-la-guerre",
   "title": "Les Seigneurs de la Guerre",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - La voie du Tigre/5 - Les Seigneurs de la Guerre.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - La voie du Tigre/5 - Les Seigneurs de la Guerre.pdf",
   "intro": [
     {
       "kicker": "Introduction",

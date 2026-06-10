@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-la-guerre-des-runes",
   "title": "Loup Solitaire 24 - La Guerre des Runes",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 24 - La Guerre des Runes.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 24 - La Guerre des Runes.pdf",
   "intro": [
     {
       "kicker": "Introduction",

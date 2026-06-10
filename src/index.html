@@ -1287,9 +1287,7 @@ let searchTerm = "";
 let sortBy = "default";
 let heroBook = null;
 let currentDisplayItemsById = new Map();
-const READER_MANIFEST = {
-  "astre-dor-le-sorcier-majdar": "data/readers/astre-dor-le-sorcier-majdar.json"
-};
+const READER_AVAILABLE = new Set();
 const readerCache = new Map();
 let readerState = null;
 let readerNodeSeq = 0;
@@ -1456,7 +1454,7 @@ function escapeHTML(value) {
 }
 
 function hasInteractiveReader(bookId) {
-  return !!READER_MANIFEST[bookId];
+  return READER_AVAILABLE.has(bookId);
 }
 
 function normalizeReaderChoiceLabel(label) {
@@ -1524,10 +1522,10 @@ function getReaderSection(sectionId) {
 
 async function loadReaderData(bookId) {
   if (readerCache.has(bookId)) return readerCache.get(bookId);
-  const src = READER_MANIFEST[bookId];
-  if (!src) return null;
-  const res = await fetch(src);
-  if (!res.ok) throw new Error(`Impossible de charger ${src}`);
+  const isbn = READER_AVAILABLE.get(bookId);
+  if (!isbn) return null;
+  const res = await fetch("/api/books/" + encodeURIComponent(isbn));
+  if (!res.ok) throw new Error("Impossible de charger le lecteur");
   const data = await res.json();
   data.sectionMap = readerSectionMap(data);
   readerCache.set(bookId, data);
@@ -1735,6 +1733,16 @@ function mergeEditions(books) {
   );
 }
 
+function compareSeriesName(a, b) {
+  const aName = String(a?.name || "");
+  const bName = String(b?.name || "");
+  const aIsAsDesAs = aName.localeCompare("as des as", "fr", { sensitivity: "base" }) === 0;
+  const bIsAsDesAs = bName.localeCompare("as des as", "fr", { sensitivity: "base" }) === 0;
+  if (aIsAsDesAs && !bIsAsDesAs) return 1;
+  if (bIsAsDesAs && !aIsAsDesAs) return -1;
+  return aName.localeCompare(bName, "fr", { sensitivity: "base" });
+}
+
 function buildGroupedBooks(books) {
   const groups = new Map();
   books.forEach(book => {
@@ -1830,7 +1838,7 @@ function renderNav() {
   const all = `<a class="${activeFilter === 'all' ? 'active' : ''}" data-series="all">Tout (${allCount})</a>`;
   const seriesInScope = DATA.series.filter(s => visible.some(b => b.series === s.id));
   const items = seriesInScope
-    .sort((a,b) => a.name.localeCompare(b.name, "fr", { sensitivity: "base" }))
+    .sort(compareSeriesName)
     .map(s => {
       const count = visible.filter(b => b.series === s.id).length;
       return `<a class="${activeFilter === s.id ? 'active' : ''}" data-series="${s.id}">${s.name} <span style="opacity:.5;font-size:10px;">${count}</span></a>`;
@@ -2046,9 +2054,7 @@ function renderLibrary() {
     } else {
       const visible = getCatalogBooks(getVisibleBooks());
       const seriesInScope = DATA.series.filter(s => visible.some(b => b.series === s.id));
-      const orderedSeries = [...seriesInScope].sort((a,b) =>
-        a.name.localeCompare(b.name, "fr", { sensitivity: "base" })
-      );
+      const orderedSeries = [...seriesInScope].sort(compareSeriesName);
       orderedSeries.forEach(s => {
         const sBooks = visible.filter(b => b.series === s.id).sort(compareCatalogNumber);
         if (sBooks.length) {
@@ -2435,7 +2441,7 @@ function renderStatsPanel() {
   html += `<table class="stats-table"><thead><tr><th>Série</th><th>Total</th>`;
   ["V1","V2","V3","V4","V5"].forEach(u => html += `<th class="num">${u}</th>`);
   html += `</tr></thead><tbody>`;
-  const seriesSorted = [...DATA.series].sort((a,b) => a.name.localeCompare(b.name, "fr", {sensitivity:"base"}));
+  const seriesSorted = [...DATA.series].sort(compareSeriesName);
   seriesSorted.forEach(s => {
     const sBooks = books.filter(b => b.series === s.id);
     const total = sBooks.length;

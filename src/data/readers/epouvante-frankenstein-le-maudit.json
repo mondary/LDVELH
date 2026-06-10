@@ -2,7 +2,7 @@
   "bookId": "epouvante-frankenstein-le-maudit",
   "title": "Frankenstein le maudit",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Epouvante/2 - Frankenstein le maudit.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Epouvante/2 - Frankenstein le maudit.pdf",
   "intro": [
     {
       "kicker": "Introduction",

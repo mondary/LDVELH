@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/mondary/LDVELH/issues"
   },
-  "homepage": "https://github.com/mondary/LDVELH#readme"
+  "homepage": "https://github.com/mondary/LDVELH#readme",
+  "dependencies": {
+    "pdfjs-dist": "^2.16.105"
+  }
 }

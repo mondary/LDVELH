@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-le-combat-des-loups",
   "title": "Loup Solitaire 19 - Le Combat des Loups",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 19 - Le Combat des Loups.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 19 - Le Combat des Loups.pdf",
   "intro": [
     {
       "kicker": "Introduction",

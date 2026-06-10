@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-la-croisade-du-desespoir",
   "title": "Loup Solitaire 15 - La Croisade du Désespoir",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 15 - La Croisade du Désespoir.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 15 - La Croisade du Désespoir.pdf",
   "intro": [
     {
       "kicker": "Introduction",

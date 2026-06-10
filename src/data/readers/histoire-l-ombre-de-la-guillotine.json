@@ -2,7 +2,7 @@
   "bookId": "histoire-l-ombre-de-la-guillotine",
   "title": "Histoire 1 - L'Ombre de la Guillotine",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Histoire/Histoire 1 - L'Ombre de la Guillotine.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Histoire/Histoire 1 - L'Ombre de la Guillotine.pdf",
   "intro": [
     {
       "kicker": "Introduction",

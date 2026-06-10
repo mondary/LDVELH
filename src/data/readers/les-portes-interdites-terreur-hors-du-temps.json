@@ -2,7 +2,7 @@
   "bookId": "les-portes-interdites-terreur-hors-du-temps",
   "title": "Terreur hors du Temps",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Les portes interdites/2 - Terreur hors du Temps.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Les portes interdites/2 - Terreur hors du Temps.pdf",
   "intro": [
     {
       "kicker": "Introduction",

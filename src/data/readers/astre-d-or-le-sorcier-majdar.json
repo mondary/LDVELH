@@ -2,7 +2,7 @@
   "bookId": "astre-d-or-le-sorcier-majdar",
   "title": "Le Sorcier Majdar",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Artre D'or/Astre d'Or 1-Le sorcier majdar.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Artre D'or/Astre d'Or 1-Le sorcier majdar.pdf",
   "sections": [
     {
       "id": 1,

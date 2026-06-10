@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-l-arpenteur-de-la-lune",
   "title": "Defis Fantastiques 46 - L'arpenteur de la Lune",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 46 - L'arpenteur de la Lune.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 46 - L'arpenteur de la Lune.pdf",
   "intro": [
     {
       "kicker": "Introduction",

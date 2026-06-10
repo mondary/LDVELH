@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-la-cite-de-l-empereur",
   "title": "Loup Solitaire 28 - La Cite de l'Empereur",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 28 - La Cite de l'Empereur.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 28 - La Cite de l'Empereur.pdf",
   "intro": [
     {
       "kicker": "Introduction",

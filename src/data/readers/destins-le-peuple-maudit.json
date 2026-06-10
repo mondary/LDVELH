@@ -2,7 +2,7 @@
   "bookId": "destins-le-peuple-maudit",
   "title": "Le Peuple Maudit",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Destins/3-Le Peuple Maudit.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Destins/3-Le Peuple Maudit.pdf",
   "intro": [
     {
       "kicker": "Introduction",

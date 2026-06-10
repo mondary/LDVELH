@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-manoir-de-l-enfer",
   "title": "Defis Fantastiques 10 - Le Manoir de l'enfer",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 10 - Le Manoir de l'enfer.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 10 - Le Manoir de l'enfer.pdf",
   "intro": [
     {
       "kicker": "Introduction",

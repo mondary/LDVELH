@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-talisman-de-la-mort",
   "title": "Defis Fantastiques 11 - Le Talisman de la Mort",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 11 - Le Talisman de la Mort.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 11 - Le Talisman de la Mort.pdf",
   "intro": [
     {
       "kicker": "Introduction",

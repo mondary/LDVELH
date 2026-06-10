@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-les-prisonniers-du-temps",
   "title": "Loup Solitaire 11 - Les Prisonniers du Temps",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 11 - Les Prisonniers du Temps.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 11 - Les Prisonniers du Temps.pdf",
   "intro": [
     {
       "kicker": "Introduction",

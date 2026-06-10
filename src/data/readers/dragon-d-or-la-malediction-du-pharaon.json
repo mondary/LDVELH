@@ -2,7 +2,7 @@
   "bookId": "dragon-d-or-la-malediction-du-pharaon",
   "title": "La Malédiction du Pharaon",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Dragon D'or/4 - La Malédiction du Pharaon.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Dragon D'or/4 - La Malédiction du Pharaon.pdf",
   "intro": [
     {
       "kicker": "Introduction",

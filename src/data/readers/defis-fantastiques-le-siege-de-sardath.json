@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-siege-de-sardath",
   "title": "Defis Fantastiques 49 - Le Siege de Sardath",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 49 - Le Siege de Sardath.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 49 - Le Siege de Sardath.pdf",
   "intro": [
     {
       "kicker": "Introduction",

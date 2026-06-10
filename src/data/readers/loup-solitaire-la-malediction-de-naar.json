@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-la-malediction-de-naar",
   "title": "Loup Solitaire 20 - La malediction de Naar",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 20 - La malediction de Naar.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 20 - La malediction de Naar.pdf",
   "intro": [
     {
       "kicker": "Introduction",

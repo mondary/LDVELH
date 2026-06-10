@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-l-elu-des-six-clans",
   "title": "Defis Fantastiques 38 - L'Elu des Six Clans",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 38 - L'Elu des Six Clans.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 38 - L'Elu des Six Clans.pdf",
   "intro": [
     {
       "kicker": "Introduction",

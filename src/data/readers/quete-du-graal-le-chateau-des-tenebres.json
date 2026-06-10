@@ -2,7 +2,7 @@
   "bookId": "quete-du-graal-le-chateau-des-tenebres",
   "title": "Quête du Graal 1 - Le chateau des tenebres",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Quete du Graal/Quête du Graal 1 - Le chateau des tenebres.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Quete du Graal/Quête du Graal 1 - Le chateau des tenebres.pdf",
   "intro": [
     {
       "kicker": "Introduction",

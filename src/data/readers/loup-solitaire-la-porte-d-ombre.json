@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-la-porte-d-ombre",
   "title": "Loup Solitaire 18 - La Porte d'ombre",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 18 - La Porte d'ombre.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 18 - La Porte d'ombre.pdf",
   "intro": [
     {
       "kicker": "Introduction",

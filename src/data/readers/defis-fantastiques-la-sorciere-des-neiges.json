@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-la-sorciere-des-neiges",
   "title": "Defis Fantastiques 09 - La Sorcière des Neiges",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 09 - La Sorcière des Neiges.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 09 - La Sorcière des Neiges.pdf",
   "intro": [
     {
       "kicker": "Introduction",

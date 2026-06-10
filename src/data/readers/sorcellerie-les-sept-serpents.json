@@ -2,7 +2,7 @@
   "bookId": "sorcellerie-les-sept-serpents",
   "title": "Sorcellerie 3 - Les Sept Serpents",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Sorcellerie/Sorcellerie 3 - Les Sept Serpents.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Sorcellerie/Sorcellerie 3 - Les Sept Serpents.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-le-captif-du-roi-sorcier",
   "title": "Loup Solitaire 14 - Le Captif du Roi-Sorcier",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 14 - Le Captif du Roi-Sorcier.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 14 - Le Captif du Roi-Sorcier.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-retour-a-la-montagne-de-feu",
   "title": "Defis Fantastiques 50 - Retour a la Montagne de Feu",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 50 - Retour a la Montagne de Feu.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 50 - Retour a la Montagne de Feu.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-l-epreuve-des-champions",
   "title": "Defis Fantastiques 21 - l'epreuve des champions",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 21 - l'epreuve des champions.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 21 - l'epreuve des champions.pdf",
   "intro": [
     {
       "kicker": "Introduction",

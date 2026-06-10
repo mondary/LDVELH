@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-le-demon-des-profondeurs",
   "title": "Loup Solitaire 26 - Le Demon des Profondeurs",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 26 - Le Demon des Profondeurs.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 26 - Le Demon des Profondeurs.pdf",
   "intro": [
     {
       "kicker": "Introduction",

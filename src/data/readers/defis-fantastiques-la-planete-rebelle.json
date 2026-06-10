@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-la-planete-rebelle",
   "title": "Defis Fantastiques 18 - La Planete Rebelle",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 18 - La Planete Rebelle.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 18 - La Planete Rebelle.pdf",
   "intro": [
     {
       "kicker": "Introduction",

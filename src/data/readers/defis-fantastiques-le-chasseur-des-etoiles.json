@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-chasseur-des-etoiles",
   "title": "Defis Fantastiques 27 - le chasseur des etoiles",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 27 - le chasseur des etoiles.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 27 - le chasseur des etoiles.pdf",
   "intro": [
     {
       "kicker": "Introduction",

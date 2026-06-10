@@ -2,7 +2,7 @@
   "bookId": "les-messagers-du-temps-l-homme-au-cheval-de-brume",
   "title": "L'homme au cheval de brume",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Les messagers du temps/3 - L'homme au cheval de brume.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Les messagers du temps/3 - L'homme au cheval de brume.pdf",
   "intro": [
     {
       "kicker": "Introduction",

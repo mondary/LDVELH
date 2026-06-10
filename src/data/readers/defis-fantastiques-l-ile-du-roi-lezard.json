@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-l-ile-du-roi-lezard",
   "title": "Defis Fantastiques 07 - L'Ile du Roi Lezard",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 07 - L'Ile du Roi Lezard.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 07 - L'Ile du Roi Lezard.pdf",
   "intro": [
     {
       "kicker": "Introduction",

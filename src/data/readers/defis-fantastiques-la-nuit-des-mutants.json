@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-la-nuit-des-mutants",
   "title": "Defis Fantastiques 36 - La Nuit des Mutants",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 36 - La Nuit des Mutants.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 36 - La Nuit des Mutants.pdf",
   "intro": [
     {
       "kicker": "Introduction",

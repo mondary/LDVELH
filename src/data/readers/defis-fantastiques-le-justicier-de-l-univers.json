@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-justicier-de-l-univers",
   "title": "Defis Fantastiques 33 - Le Justicier de l'univers",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 33 - Le Justicier de l'univers.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 33 - Le Justicier de l'univers.pdf",
   "intro": [
     {
       "kicker": "Introduction",

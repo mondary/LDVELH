@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-sorcier-de-la-montagne-de-feu",
   "title": "Defis Fantastiques 01 - Le Sorcier de la Montagne de feu",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 01 - Le Sorcier de la Montagne de feu.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 01 - Le Sorcier de la Montagne de feu.pdf",
   "intro": [
     {
       "kicker": "Introduction",

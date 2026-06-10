@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-voleur-de-vie",
   "title": "Defis Fantastiques 54 - Le Voleur de Vie",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 54 - Le Voleur de Vie.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 54 - Le Voleur de Vie.pdf",
   "intro": [
     {
       "kicker": "Introduction",

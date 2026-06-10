@@ -2,7 +2,7 @@
   "bookId": "la-voie-du-tigre-les-parchemins-de-kettsuinn",
   "title": "Les parchemins de kettsuin",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - La voie du Tigre/2 - Les parchemins de kettsuin.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - La voie du Tigre/2 - Les parchemins de kettsuin.pdf",
   "intro": [
     {
       "kicker": "Introduction",

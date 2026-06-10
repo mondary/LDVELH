@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-les-druides-de-cener",
   "title": "Loup Solitaire 13 - Les Druides de Cener",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 13 - Les Druides de Cener.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 13 - Les Druides de Cener.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "loup-ardent-les-maitres-du-mal",
   "title": "Loup Ardent 4 - Les maitres du mal",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Ardent/Loup Ardent 4 - Les maitres du mal.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Ardent/Loup Ardent 4 - Les maitres du mal.pdf",
   "intro": [
     {
       "kicker": "Introduction",

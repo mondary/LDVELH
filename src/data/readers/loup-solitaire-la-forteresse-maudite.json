@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-la-forteresse-maudite",
   "title": "Loup Solitaire 07 - La Forteresse Maudite",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 07 - La Forteresse Maudite.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 07 - La Forteresse Maudite.pdf",
   "intro": [
     {
       "kicker": "Introduction",

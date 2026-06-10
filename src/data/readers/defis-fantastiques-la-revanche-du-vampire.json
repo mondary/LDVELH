@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-la-revanche-du-vampire",
   "title": "Defis Fantastiques 57 - La Revanche du Vampire",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 57 - La Revanche du Vampire.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 57 - La Revanche du Vampire.pdf",
   "intro": [
     {
       "kicker": "Introduction",

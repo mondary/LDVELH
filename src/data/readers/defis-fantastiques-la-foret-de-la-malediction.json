@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-la-foret-de-la-malediction",
   "title": "Defis Fantastiques 03 - La Foret de la Malediction",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 03 - La Foret de la Malediction.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 03 - La Foret de la Malediction.pdf",
   "intro": [
     {
       "kicker": "Introduction",

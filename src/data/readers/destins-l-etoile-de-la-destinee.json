@@ -2,7 +2,7 @@
   "bookId": "destins-l-etoile-de-la-destinee",
   "title": "l'Etoile de la Destinee",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Destins/2-l'Etoile de la Destinee.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Destins/2-l'Etoile de la Destinee.pdf",
   "intro": [
     {
       "kicker": "Introduction",

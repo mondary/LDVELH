@@ -2,7 +2,7 @@
   "bookId": "les-messagers-du-temps-objectif-apocalypse",
   "title": "Objectif Apocalypse",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Les messagers du temps/4 - Objectif Apocalypse.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Les messagers du temps/4 - Objectif Apocalypse.pdf",
   "intro": [
     {
       "kicker": "Introduction",

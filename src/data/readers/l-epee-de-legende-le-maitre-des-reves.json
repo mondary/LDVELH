@@ -2,7 +2,7 @@
   "bookId": "l-epee-de-legende-le-maitre-des-reves",
   "title": "Le maître des rêves",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - L'épée de legende/2 - Le maître des rêves.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - L'épée de legende/2 - Le maître des rêves.pdf",
   "intro": [
     {
       "kicker": "Introduction",

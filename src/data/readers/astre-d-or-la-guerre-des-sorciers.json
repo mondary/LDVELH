@@ -2,7 +2,7 @@
   "bookId": "astre-d-or-la-guerre-des-sorciers",
   "title": "Astre d'Or 4-La guerre des sorciers",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Artre D'or/Astre d'Or 4-La guerre des sorciers.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Artre D'or/Astre d'Or 4-La guerre des sorciers.pdf",
   "intro": [
     {
       "kicker": "Introduction",

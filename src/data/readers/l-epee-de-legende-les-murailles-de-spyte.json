@@ -2,7 +2,7 @@
   "bookId": "l-epee-de-legende-les-murailles-de-spyte",
   "title": "Les Murailles de Spyte",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - L'épée de legende/5 - Les Murailles de Spyte.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - L'épée de legende/5 - Les Murailles de Spyte.pdf",
   "intro": [
     {
       "kicker": "Introduction",

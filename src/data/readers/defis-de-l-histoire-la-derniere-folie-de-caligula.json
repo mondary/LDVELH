@@ -2,7 +2,7 @@
   "bookId": "defis-de-l-histoire-la-derniere-folie-de-caligula",
   "title": "Défis de l'histoire 2-La Derniere Folie de Caligula",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Défis de l'histoire/Défis de l'histoire 2-La Derniere Folie de Caligula.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Défis de l'histoire/Défis de l'histoire 2-La Derniere Folie de Caligula.pdf",
   "intro": [
     {
       "kicker": "Introduction",

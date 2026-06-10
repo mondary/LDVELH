@@ -2,7 +2,7 @@
   "bookId": "destins-le-pirate-des-sept-mers",
   "title": "Le Pirate des Sept Mers",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Destins/1-Le Pirate des Sept Mers.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Destins/1-Le Pirate des Sept Mers.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "astre-d-or-la-cite-interdite",
   "title": "Astre d'Or 2-La cité interdite",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Artre D'or/Astre d'Or 2-La cité interdite.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Artre D'or/Astre d'Or 2-La cité interdite.pdf",
   "intro": [
     {
       "kicker": "Introduction",

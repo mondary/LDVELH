@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-combattant-de-l-autoroute",
   "title": "Defis Fantastiques 13 - Le Combattant de l'Autoroute",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 13 - Le Combattant de l'Autoroute.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 13 - Le Combattant de l'Autoroute.pdf",
   "intro": [
     {
       "kicker": "Introduction",

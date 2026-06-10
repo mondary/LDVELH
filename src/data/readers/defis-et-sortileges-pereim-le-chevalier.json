@@ -2,7 +2,7 @@
   "bookId": "defis-et-sortileges-pereim-le-chevalier",
   "title": "Défis et sortilèges 3-Pereim le chevalier",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Défis et sortilèges/Défis et sortilèges 3-Pereim le chevalier.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Défis et sortilèges/Défis et sortilèges 3-Pereim le chevalier.pdf",
   "intro": [
     {
       "kicker": "Introduction",

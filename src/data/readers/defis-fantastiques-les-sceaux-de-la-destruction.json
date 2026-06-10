@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-les-sceaux-de-la-destruction",
   "title": "Defis Fantastiques 23 - Les Sceaux de la Destruction",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 23 - Les Sceaux de la Destruction.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 23 - Les Sceaux de la Destruction.pdf",
   "intro": [
     {
       "kicker": "Introduction",

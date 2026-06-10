@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-la-galaxie-tragique",
   "title": "Defis Fantastiques 04 - La Galaxie Tragique",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 04 - La Galaxie Tragique.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 04 - La Galaxie Tragique.pdf",
   "intro": [
     {
       "kicker": "Introduction",

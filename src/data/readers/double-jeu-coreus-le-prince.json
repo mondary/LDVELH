@@ -2,7 +2,7 @@
   "bookId": "double-jeu-coreus-le-prince",
   "title": "Double Jeu 03 - Coréus le Prince",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Double Jeu/Double Jeu 03 - Coréus le Prince.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Double Jeu/Double Jeu 03 - Coréus le Prince.pdf",
   "intro": [
     {
       "kicker": "Introduction",

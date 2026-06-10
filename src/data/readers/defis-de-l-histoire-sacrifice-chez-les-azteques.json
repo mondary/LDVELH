@@ -2,7 +2,7 @@
   "bookId": "defis-de-l-histoire-sacrifice-chez-les-azteques",
   "title": "Défis de l'histoire 4-Sacrifice chez les aztèques",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Défis de l'histoire/Défis de l'histoire 4-Sacrifice chez les aztèques.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Défis de l'histoire/Défis de l'histoire 4-Sacrifice chez les aztèques.pdf",
   "intro": [
     {
       "kicker": "Introduction",

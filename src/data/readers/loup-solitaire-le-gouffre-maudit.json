@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-le-gouffre-maudit",
   "title": "Loup Solitaire 04 - Le Gouffre Maudit",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 04 - Le Gouffre Maudit.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 04 - Le Gouffre Maudit.pdf",
   "intro": [
     {
       "kicker": "Introduction",

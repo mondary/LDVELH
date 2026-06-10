@@ -2,7 +2,7 @@
   "bookId": "destins-le-collier-malefique",
   "title": "Le Collier Malefique",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Destins/4-Le Collier Malefique.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Destins/4-Le Collier Malefique.pdf",
   "intro": [
     {
       "kicker": "Introduction",

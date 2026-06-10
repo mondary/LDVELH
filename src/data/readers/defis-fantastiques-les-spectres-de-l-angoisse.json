@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-les-spectres-de-l-angoisse",
   "title": "Defis Fantastiques 28 - Les Spectres de l'Angoisse",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 28 - Les Spectres de l'Angoisse.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 28 - Les Spectres de l'Angoisse.pdf",
   "intro": [
     {
       "kicker": "Introduction",

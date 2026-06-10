@@ -51,11 +51,14 @@ db.exec(`
 `);
 
 function importJsonFiles() {
-  const stmtBook = db.prepare(
+  const insertBook = db.prepare(
     "INSERT OR IGNORE INTO books (book_id, isbn, title, subtitle, metadata) VALUES (?, ?, ?, ?, ?)"
   );
-  const stmtSection = db.prepare(
+  const insertSection = db.prepare(
     "INSERT OR REPLACE INTO sections (book_id, section_id, text_original, choices_original) VALUES (?, ?, ?, ?)"
+  );
+  const updateBook = db.prepare(
+    "UPDATE books SET isbn=?, title=?, subtitle=?, metadata=? WHERE book_id=? AND (isbn IS DISTINCT FROM ? OR title IS DISTINCT FROM ? OR subtitle IS DISTINCT FROM ? OR metadata IS DISTINCT FROM ?)"
   );
 
   let imported = 0;
@@ -64,40 +67,20 @@ function importJsonFiles() {
   for (const file of files) {
     const bookId = file.replace(".json", "");
     const raw = fs.readFileSync(path.join(READERS_DIR, file), "utf-8");
-    const json = JSON.parse(raw);
-
-    const meta = { ...json };
+    const data = JSON.parse(raw);
+    const meta = { ...data };
     delete meta.sections;
 
-    stmtBook.run(
-      bookId,
-      json.isbn || bookId,
-      json.title || bookId,
-      json.subtitle || "",
-      JSON.stringify(meta)
-    );
+    const isbn = data.isbn || bookId;
+    const title = data.title || bookId;
+    const subtitle = data.subtitle || "";
 
-    db.prepare(
-      "UPDATE books SET isbn=?, title=?, subtitle=?, metadata=? WHERE book_id=? AND (isbn IS DISTINCT FROM ? OR title IS DISTINCT FROM ? OR subtitle IS DISTINCT FROM ? OR metadata IS DISTINCT FROM ?)"
-    ).run(
-      json.isbn || bookId,
-      json.title || bookId,
-      json.subtitle || "",
-      JSON.stringify(meta),
-      bookId,
-      json.isbn || bookId,
-      json.title || bookId,
-      json.subtitle || ""
-    );
+    insertBook.run(bookId, isbn, title, subtitle, JSON.stringify(meta));
+    updateBook.run(isbn, title, subtitle, JSON.stringify(meta), bookId, isbn, title, subtitle);
 
-    if (json.sections) {
-      for (const s of json.sections) {
-        stmtSection.run(
-          bookId,
-          s.id,
-          s.text || "",
-          JSON.stringify(s.choices || [])
-        );
+    if (data.sections) {
+      for (const s of data.sections) {
+        insertSection.run(bookId, s.id, s.text || "", JSON.stringify(s.choices || []));
       }
     }
     imported++;
@@ -106,7 +89,7 @@ function importJsonFiles() {
 }
 
 const count = importJsonFiles();
-console.log(`Importé/mis à jour : ${count} livre(s)`);
+console.log(`Import\u00e9/mis \u00e0 jour : ${count} livre(s)`);
 
 if (!fs.existsSync(PENDING_DIR)) fs.mkdirSync(PENDING_DIR, { recursive: true });
 
@@ -114,10 +97,6 @@ function getBook(id) {
   let row = db.prepare("SELECT * FROM books WHERE book_id = ?").get(id);
   if (!row) row = db.prepare("SELECT * FROM books WHERE isbn = ?").get(id);
   if (!row) row = db.prepare("SELECT * FROM books WHERE title = ?").get(id);
-  if (!row) {
-    const like = "%" + id + "%";
-    row = db.prepare("SELECT * FROM books WHERE book_id LIKE ? OR isbn LIKE ? OR title LIKE ? LIMIT 1").get(like, like, like);
-  }
   if (!row) return null;
   const meta = JSON.parse(row.metadata || "{}");
   const sections = db
@@ -147,7 +126,6 @@ function saveSection(bookId, sectionId, text, choices) {
   const existing = db
     .prepare("SELECT text_original, choices_original FROM sections WHERE book_id = ? AND section_id = ?")
     .get(bookId, sectionId);
-
   if (!existing) {
     db.prepare(
       "INSERT INTO sections (book_id, section_id, text_original, text_modified, choices_original, choices_modified) VALUES (?, ?, ?, ?, ?, ?)"
@@ -208,123 +186,89 @@ function json(res, code, data) {
   res.end(JSON.stringify(data));
 }
 
-const server = http.createServer(async (req, res) => {
+const server = http.createServer((req, res) => {
   try {
     const url = new URL(req.url, `http://localhost:${PORT}`);
     const parts = url.pathname.split("/").filter(Boolean);
 
-  if (parts[0] === "api" && parts[1] === "books") {
-    if (!parts[2] && req.method === "GET") {
-      const rows = db.prepare("SELECT book_id, isbn, title, subtitle FROM books ORDER BY title").all();
-      return json(res, 200, rows);
+    if (parts[0] === "api" && parts[1] === "books") {
+      if (!parts[2] && req.method === "GET") {
+        const rows = db.prepare("SELECT book_id, isbn, title, subtitle FROM books ORDER BY title").all();
+        return json(res, 200, rows);
+      }
+      if (parts[2]) {
+        const id = decodeURIComponent(parts[2]);
+
+        if (req.method === "GET" && !parts[3]) {
+          const book = getBook(id);
+          if (!book) return json(res, 404, { error: "Livre non trouv\u00e9" });
+          return json(res, 200, book);
+        }
+
+        if (req.method === "GET" && parts[3] === "export") {
+          const book = getBook(id);
+          if (!book) return json(res, 404, { error: "Livre non trouv\u00e9" });
+          const exportData = {
+            bookId: book.bookId,
+            title: book.title,
+            subtitle: book.subtitle,
+            sections: book.sections.map((s) => ({ id: s.id, text: s.text, choices: s.choices })),
+          };
+          res.writeHead(200, {
+            "Content-Type": "application/json",
+            "Content-Disposition": `attachment; filename="${book.bookId}.json"`,
+          });
+          res.end(JSON.stringify(exportData, null, 2));
+          return;
+        }
+
+        if (req.method === "PUT" && parts[3] === "sections" && parts[4]) {
+          const body = JSON.parse(readBody(req));
+          body.then((b) => {
+            saveSection(id, parseInt(parts[4]), b.text, b.choices);
+            json(res, 200, { ok: true });
+          });
+          return;
+        }
+
+        if (req.method === "PUT" && parts[3] === "reset-section" && parts[4]) {
+          resetSection(id, parseInt(parts[4]));
+          return json(res, 200, { ok: true });
+        }
+
+        if (req.method === "POST" && parts[3] === "reset") {
+          resetBook(id);
+          return json(res, 200, { ok: true });
+        }
+
+        if (req.method === "POST" && parts[3] === "promote") {
+          readBody(req).then((raw) => {
+            const body = JSON.parse(raw);
+            if (body.password !== ADMIN_PASSWORD) return json(res, 403, { error: "Mot de passe incorrect" });
+            const book = getBook(id);
+            if (!book) return json(res, 404, { error: "Livre non trouv\u00e9" });
+            const exportData = { bookId: book.bookId, title: book.title, subtitle: book.subtitle };
+            const meta = JSON.parse(
+              db.prepare("SELECT metadata FROM books WHERE book_id = ?").get(id).metadata || "{}"
+            );
+            if (meta.pdf) exportData.pdf = meta.pdf;
+            if (meta.intro) exportData.intro = meta.intro;
+            exportData.sections = book.sections.map((s) => ({ id: s.id, text: s.text, choices: s.choices }));
+            fs.writeFileSync(path.join(READERS_DIR, book.bookId + ".json"), JSON.stringify(exportData, null, 2), "utf-8");
+            resetBook(id);
+            importJsonFiles();
+            const modified = book.sections.filter((s) => s.modified).length;
+            json(res, 200, { ok: true, modified });
+          });
+          return;
+        }
+
+        return json(res, 404, { error: "Route inconnue" });
+      }
     }
-    if (parts[2]) {
-      const id = decodeURIComponent(parts[2]);
 
-      if (req.method === "GET" && !parts[3]) {
-        const book = getBook(id);
-        if (!book) return json(res, 404, { error: "Livre non trouvé" });
-        return json(res, 200, book);
-      }
-
-      if (req.method === "GET" && parts[3] === "export") {
-        const book = getBook(id);
-        if (!book) return json(res, 404, { error: "Livre non trouvé" });
-        const exportData = {
-          bookId: book.bookId,
-          title: book.title,
-          subtitle: book.subtitle,
-          sections: book.sections.map((s) => ({
-            id: s.id,
-            text: s.text,
-            choices: s.choices,
-          })),
-        };
-        res.writeHead(200, {
-          "Content-Type": "application/json",
-          "Content-Disposition": `attachment; filename="${book.bookId}.json"`,
-        });
-        res.end(JSON.stringify(exportData, null, 2));
-        return;
-      }
-
-      if (req.method === "PUT" && parts[3] === "sections" && parts[4]) {
-        const sectionId = parseInt(parts[4]);
-        const body = JSON.parse(await readBody(req));
-        saveSection(id, sectionId, body.text, body.choices);
-        return json(res, 200, { ok: true });
-      }
-
-      if (req.method === "PUT" && parts[3] === "reset-section" && parts[4]) {
-        resetSection(id, parseInt(parts[4]));
-        return json(res, 200, { ok: true });
-      }
-
-      if (req.method === "POST" && parts[3] === "reset") {
-        resetBook(id);
-        return json(res, 200, { ok: true });
-      }
-
-      if (req.method === "POST" && parts[3] === "promote") {
-        const body = JSON.parse(await readBody(req));
-        if (body.password !== ADMIN_PASSWORD) return json(res, 403, { error: "Mot de passe incorrect" });
-        const book = getBook(id);
-        if (!book) return json(res, 404, { error: "Livre non trouvé" });
-        const exportData = {
-          bookId: book.bookId,
-          title: book.title,
-          subtitle: book.subtitle,
-        };
-        const meta = JSON.parse(
-          db.prepare("SELECT metadata FROM books WHERE book_id = ?").get(id).metadata || "{}"
-        );
-        if (meta.pdf) exportData.pdf = meta.pdf;
-        if (meta.intro) exportData.intro = meta.intro;
-        exportData.sections = book.sections.map((s) => ({
-          id: s.id,
-          text: s.text,
-          choices: s.choices,
-        }));
-        const filePath = path.join(READERS_DIR, book.bookId + ".json");
-        fs.writeFileSync(filePath, JSON.stringify(exportData, null, 2), "utf-8");
-        resetBook(id);
-        importJsonFiles();
-        const modified = book.sections.filter((s) => s.modified).length;
-        return json(res, 200, { ok: true, modified: modified });
-      }
-
-      if (req.method === "POST" && parts[3] === "request-mod") {
-        const book = getBook(id);
-        if (!book) return json(res, 404, { error: "Livre non trouvé" });
-        const modified = book.sections.filter((s) => s.modified);
-        if (modified.length === 0) return json(res, 200, { ok: true, message: "Aucune modification en attente" });
-        const exportData = {
-          bookId: book.bookId,
-          title: book.title,
-          subtitle: book.subtitle,
-          requested: new Date().toISOString(),
-          sections: book.sections.map((s) => ({
-            id: s.id,
-            text: s.text,
-            choices: s.choices,
-          })),
-        };
-        const meta = JSON.parse(
-          db.prepare("SELECT metadata FROM books WHERE book_id = ?").get(id).metadata || "{}"
-        );
-        if (meta.pdf) exportData.pdf = meta.pdf;
-        if (meta.intro) exportData.intro = meta.intro;
-        const reqFile = path.join(PENDING_DIR, book.bookId + "-" + Date.now() + ".json");
-        fs.writeFileSync(reqFile, JSON.stringify(exportData, null, 2), "utf-8");
-        return json(res, 200, { ok: true, file: path.basename(reqFile), sections: modified.length, adminEmail: ADMIN_EMAIL });
-      }
-
-      return json(res, 404, { error: "Route inconnue" });
-    }
-  }
-
-  serveStatic(req, res);
-  } catch(err) {
+    serveStatic(req, res);
+  } catch (err) {
     console.error("Server error:", err);
     if (!res.headersSent) {
       res.writeHead(500, { "Content-Type": "application/json" });
@@ -334,12 +278,5 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`Serveur lancé sur http://localhost:${PORT}`);
-  console.log("API :");
-  console.log(`  GET    /api/books                   → liste des livres`);
-  console.log(`  GET    /api/books/:bookId           → détail d'un livre`);
-  console.log(`  PUT    /api/books/:bookId/sections/:id → sauvegarder section`);
-  console.log(`  PUT    /api/books/:bookId/reset-section/:id → restaurer section`);
-  console.log(`  POST   /api/books/:bookId/reset     → restaurer tout le livre`);
-  console.log(`  GET    /api/books/:bookId/export     → export JSON modifié`);
+  console.log(`Serveur lanc\u00e9 sur http://localhost:${PORT}`);
 });

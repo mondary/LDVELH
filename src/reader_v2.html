@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Aventure Continue · LDVELH</title>
+    
+    <!-- Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Palette: Editorial Luxury */
+            --bg: #FDFBF7;
+            --surface: #F5F2EB;
+            --surface-inner: #FFFFFF;
+            --text-main: #1C1917;
+            --text-dim: #57534E;
+            --text-muted: #A8A29E;
+            --accent: #D4A843;
+            --accent-dim: rgba(212, 168, 67, 0.08);
+            --border: #E7E5E4;
+            --border-heavy: #D6D3D1;
+            
+            --radius-lg: 32px;
+            --radius-md: 20px;
+            --radius-sm: 12px;
+            
+            --font-serif: "Instrument Serif", Georgia, serif;
+            --font-sans: "Plus Jakarta Sans", -apple-system, sans-serif;
+            
+            --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+            --duration: 700ms;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            min-height: 100dvh;
+        }
+
+        /* Subtle Noise Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.025;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        /* --- Header & Layout --- */
+        .layout-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: grid;
+            grid-template-columns: 1fr 680px 1fr;
+            gap: 60px;
+            min-height: 100dvh;
+        }
+
+        .header-minimal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, var(--bg) 60%, transparent);
+            backdrop-blur: 8px;
+        }
+
+        .brand {
+            font-family: var(--font-serif);
+            font-size: 24px;
+            font-style: italic;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        /* --- Reader Core --- */
+        .reader-column {
+            grid-column: 2;
+            padding-top: 140px;
+            padding-bottom: 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn var(--duration) var(--ease-out) forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .para-badge {
+            font-family: var(--font-sans);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: -20px;
+        }
+
+        .para-badge::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: var(--border);
+        }
+
+        .para-text {
+            font-family: var(--font-serif);
+            font-size: 32px;
+            line-height: 1.4;
+            color: var(--text-main);
+            word-spacing: 0.05em;
+        }
+
+        .para-text .w.num {
+            color: var(--accent);
+            font-weight: 400;
+            border-bottom: 1px solid var(--accent-dim);
+        }
+
+        .para-text .w.speak {
+            background: var(--accent-dim);
+            border-radius: 4px;
+        }
+
+        /* --- Choices (Button-in-Button Architecture) --- */
+        .choices-container {
+            display: grid;
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .choice-item {
+            position: relative;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 20px 24px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 400ms var(--ease-out);
+            text-align: left;
+            border: none;
+            width: 100%;
+            font-family: var(--font-sans);
+        }
+
+        .choice-item:hover {
+            background: var(--surface-inner);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+            transform: translateY(-2px);
+        }
+
+        .choice-label {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-main);
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        .choice-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 400ms var(--ease-out);
+            flex-shrink: 0;
+            color: var(--text-dim);
+        }
+
+        .choice-item:hover .choice-icon {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+            transform: rotate(-45deg);
+        }
+
+        .choice-dest {
+            position: absolute;
+            top: -8px;
+            left: 20px;
+            background: var(--bg);
+            padding: 2px 8px;
+            border-radius: 99px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--accent);
+            border: 1px solid var(--border);
+        }
+
+        /* --- Sidebar & Controls --- */
+        .side-column {
+            padding-top: 140px;
+            position: sticky;
+            top: 0;
+            height: fit-content;
+        }
+
+        .side-column.left { grid-column: 1; }
+        .side-column.right { grid-column: 3; }
+
+        /* Double-Bezel Architecture */
+        .glass-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 8px;
+            margin-bottom: 24px;
+        }
+
+        .glass-card-inner {
+            background: var(--surface-inner);
+            border: 1px solid var(--border);
+            border-radius: calc(var(--radius-lg) - 8px);
+            padding: 24px;
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.8);
+        }
+
+        .card-title {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* --- UI Elements --- */
+        .btn-action {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 10px 18px;
+            border-radius: 99px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dim);
+            cursor: pointer;
+            transition: all 300ms var(--ease-out);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-action:hover {
+            border-color: var(--text-main);
+            color: var(--text-main);
+        }
+
+        .btn-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 300ms var(--ease-out);
+            color: var(--text-dim);
+        }
+
+        .btn-circle:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        /* --- Graph / History --- */
+        .history-dots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .history-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 200ms;
+        }
+
+        .history-dot.active {
+            background: var(--accent-dim);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* --- Mobile --- */
+        @media (max-width: 1200px) {
+            .layout-container {
+                grid-template-columns: 1fr;
+                padding: 0 24px;
+            }
+            .reader-column { grid-column: 1; }
+            .side-column { display: none; }
+            .header-minimal { padding: 16px 24px; }
+        }
+
+        /* TTS Controls Overlay */
+        .tts-floating {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--surface-inner);
+            border: 1px solid var(--border);
+            padding: 12px 24px;
+            border-radius: 99px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            z-index: 100;
+            display: none; /* Shown when needed */
+        }
+
+        /* Dashboard / Command Center Overlay */
+        .dashboard-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(28, 25, 23, 0.4);
+            backdrop-blur: 12px;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 400ms var(--ease-out);
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .dashboard-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .dashboard-panel {
+            width: 480px;
+            height: 100%;
+            background: var(--bg);
+            border-left: 1px solid var(--border);
+            padding: 40px;
+            transform: translateX(100%);
+            transition: transform 500ms var(--ease-out);
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            overflow-y: auto;
+        }
+
+        .dashboard-overlay.active .dashboard-panel {
+            transform: translateX(0);
+        }
+
+        .dash-section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .dash-title {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .notes-area {
+            width: 100%;
+            min-height: 120px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            font-family: var(--font-sans);
+            font-size: 14px;
+            color: var(--text-main);
+            resize: vertical;
+            outline: none;
+            transition: border-color 300ms;
+        }
+
+        .notes-area:focus {
+            border-color: var(--accent);
+        }
+
+        .jump-box {
+            display: flex;
+            gap: 8px;
+        }
+
+        .jump-input {
+            flex: 1;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 99px;
+            padding: 10px 20px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .jump-input:focus { border-color: var(--accent); }
+
+        /* Animations */
+        .fade-exit {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all var(--duration) var(--ease-out);
+        }
+
+        .fade-enter {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-minimal">
+        <a href="index.html" class="brand">
+            <div class="dot"></div>
+            L'Aventure
+        </a>
+
+        <div style="display: flex; gap: 12px; align-items: center;">
+            <button class="btn-circle" onclick="toggleTTS()" id="ttsMainBtn" title="Lecture audio">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14"/></svg>
+            </button>
+            <button class="btn-action" onclick="toggleDashboard()">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+                Centre de Commandes
+            </button>
+        </div>
+    </header>
+
+    <div class="dashboard-overlay" id="dashOverlay" onclick="if(event.target===this) toggleDashboard()">
+        <div class="dashboard-panel">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h2 style="font-family: var(--font-serif); font-size: 32px;">Journal de Bord</h2>
+                <button class="btn-circle" onclick="toggleDashboard()">✕</button>
+            </div>
+
+            <div class="dash-section">
+                <div class="dash-title">Aller au paragraphe</div>
+                <div class="jump-box">
+                    <input type="number" class="jump-input" id="jumpInput" placeholder="Numéro du paragraphe...">
+                    <button class="btn-action" onclick="jumpTo()">Sauter</button>
+                </div>
+            </div>
+
+            <div class="dash-section">
+                <div class="dash-title">Notes de l'Aventurier</div>
+                <textarea class="notes-area" id="generalNotes" placeholder="Consignez vos découvertes ici..." oninput="saveNotes()"></textarea>
+            </div>
+
+            <div class="dash-section">
+                <div class="dash-title">Historique Local</div>
+                <div class="history-dots" id="dashHistory">
+                    <!-- History -->
+                </div>
+            </div>
+
+            <div class="dash-section" style="margin-top: auto;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <button class="btn-action" onclick="resetGame()" style="justify-content: center; border-color: #FECACA; color: #DC2626;">Réinitialiser</button>
+                    <button class="btn-action" onclick="exportSave()" style="justify-content: center; background: var(--text-main); color: white;">Sauvegarder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="layout-container">
+        <!-- Stats & Meta -->
+        <aside class="side-column left">
+            <div class="glass-card">
+                <div class="glass-card-inner">
+                    <div class="card-title">Progression</div>
+                    <div id="statsInfo" style="font-size: 14px; color: var(--text-dim);">
+                        Chargement des données...
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card">
+                <div class="glass-card-inner">
+                    <div class="card-title">Livre</div>
+                    <h2 id="bookTitle" style="font-family: var(--font-serif); font-size: 24px; margin-bottom: 4px;">...</h2>
+                    <p id="bookSubtitle" style="font-size: 13px; color: var(--text-muted);"></p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Narrative Area -->
+        <section class="reader-column" id="readerColumn">
+            <div id="paraContent">
+                <div class="para-badge">Paragraphe <span id="paraNum">1</span></div>
+                <div class="para-text" id="paraText">
+                    Chargement de l'aventure...
+                </div>
+            </div>
+
+            <div class="choices-container" id="choicesList">
+                <!-- Choices injected here -->
+            </div>
+        </section>
+
+        <!-- History & Tools -->
+        <aside class="side-column right">
+            <div class="glass-card">
+                <div class="glass-card-inner">
+                    <div class="card-title">Parcours</div>
+                    <div class="history-dots" id="breadcrumb">
+                        <!-- Breadcrumbs -->
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <button class="btn-action" onclick="resetGame()" style="justify-content: center;">Recommencer</button>
+                <button class="btn-action" onclick="exportSave()" style="justify-content: center;">Sauvegarder</button>
+            </div>
+        </aside>
+    </main>
+
+    <div class="tts-floating" id="ttsFloating">
+        <button class="btn-circle" id="ttsBtn" onclick="toggleTTS()">
+            <svg width="20" height="20" fill="currentColor"><path d="M8 5v10l7-5-7-5z"/></svg>
+        </button>
+        <div style="height: 24px; width: 1px; background: var(--border);"></div>
+        <select id="ttsVoice" style="border: none; background: transparent; font-family: var(--font-sans); font-size: 12px; outline: none;"></select>
+    </div>
+
+    <script>
+        // Core Logic (Refined from original reader.html)
+        var BOOK_DATA = {};
+        var currentIsbn = "";
+        var currentPara = 1;
+        var hist = [1];
+        var visited = new Set([1]);
+
+        function getSaveKey() { return "ldvelh_save_" + currentIsbn; }
+
+        function loadBook(isbn) {
+            currentIsbn = isbn;
+            fetch("/api/books/" + encodeURIComponent(isbn))
+                .then(r => r.json())
+                .then(json => {
+                    document.getElementById("bookTitle").textContent = json.title;
+                    document.getElementById("bookSubtitle").textContent = json.subtitle || "";
+                    
+                    if (json.sections) {
+                        json.sections.forEach(s => {
+                            BOOK_DATA[s.id] = {
+                                text: s.text,
+                                choices: s.choices ? s.choices.map(c => ({ label: c.label, go_to: c.to })) : []
+                            };
+                        });
+                    }
+                    
+                    restoreState();
+                    renderParagraph(currentPara);
+                    updateBreadcrumb();
+                    updateStats();
+                })
+                .catch(e => {
+                    document.getElementById("paraText").textContent = "Erreur de chargement de l'aventure.";
+                });
+        }
+
+        function restoreState() {
+            try {
+                let s = JSON.parse(localStorage.getItem(getSaveKey()) || "{}");
+                if (s.attempts && s.attempts.length > 0) {
+                    let cur = s.attempts[s.currentAttemptIdx || 0];
+                    hist = cur.hist.slice();
+                    currentPara = hist[hist.length - 1];
+                } else if (s.hist) {
+                    hist = s.hist;
+                    currentPara = hist[hist.length - 1];
+                }
+                visited = new Set(s.visited || hist);
+            } catch (e) {}
+        }
+
+        function saveState() {
+            localStorage.setItem(getSaveKey(), JSON.stringify({
+                hist: hist,
+                visited: Array.from(visited)
+            }));
+        }
+
+        function renderParagraph(id) {
+            const p = BOOK_DATA[id];
+            if (!p) return;
+
+            const col = document.getElementById("readerColumn");
+            
+            // Subtle transition
+            col.style.opacity = "0";
+            col.style.transform = "translateY(10px)";
+            
+            setTimeout(() => {
+                document.getElementById("paraNum").textContent = id;
+                document.getElementById("paraText").innerHTML = formatText(p.text);
+                
+                const list = document.getElementById("choicesList");
+                list.innerHTML = "";
+                
+                p.choices.forEach(c => {
+                    const btn = document.createElement("button");
+                    btn.className = "choice-item";
+                    btn.innerHTML = `
+                        <div class="choice-dest">${c.go_to === -1 ? 'RETOUR' : '§' + c.go_to}</div>
+                        <div class="choice-label">${c.label || 'Continuer l\'aventure'}</div>
+                        <div class="choice-icon">
+                            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h10m0 0l-4-4m4 4l-4 4"/></svg>
+                        </div>
+                    `;
+                    btn.onclick = () => c.go_to === -1 ? goBack() : makeChoice(c.go_to);
+                    list.appendChild(btn);
+                });
+
+                col.style.opacity = "1";
+                col.style.transform = "translateY(0)";
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 300);
+        }
+
+        function formatText(text) {
+            var re = /(\S+|\s+)/g, m, html = "";
+            while ((m = re.exec(text)) !== null) {
+                var tok = m[0];
+                if (/^\s+$/.test(tok)) {
+                    var nl = tok.split("\n");
+                    for (var i = 0; i < nl.length; i++) {
+                        if (i > 0) html += "<br>";
+                        html += tok[i] ? tok[i].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+                    }
+                } else {
+                    const isNum = /\d/.test(tok);
+                    html += `<span class="w ${isNum ? 'num' : ''}" data-start="${m.index}" data-end="${m.index + tok.length}">${tok.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>`;
+                }
+            }
+            return html;
+        }
+
+        function highlightWord(charIndex) {
+            var spans = document.querySelectorAll(".para-text .w");
+            for (var i = 0; i < spans.length; i++) {
+                var start = parseInt(spans[i].dataset.start || "0");
+                var end = parseInt(spans[i].dataset.end || "0");
+                if (charIndex >= start && charIndex < end) {
+                    var prev = document.querySelector(".para-text .w.speak");
+                    if (prev) prev.classList.remove("speak");
+                    spans[i].classList.add("speak");
+                    return;
+                }
+            }
+        }
+
+        function makeChoice(t) {
+            hist.push(t);
+            visited.add(t);
+            currentPara = t;
+            saveState();
+            renderParagraph(t);
+            updateBreadcrumb();
+            updateStats();
+        }
+
+        function goBack() {
+            if (hist.length > 1) {
+                hist.pop();
+                currentPara = hist[hist.length - 1];
+                saveState();
+                renderParagraph(currentPara);
+                updateBreadcrumb();
+                updateStats();
+            }
+        }
+
+        function updateBreadcrumb() {
+            const bc = document.getElementById("breadcrumb");
+            bc.innerHTML = hist.slice(-12).map((id, i) => `
+                <div class="history-dot ${i === hist.length - 1 || (hist.length > 12 && i === 11) ? 'active' : ''}" onclick="jumpToStep(${i})">
+                    ${id}
+                </div>
+            `).join("");
+        }
+
+        function jumpToStep(idx) {
+            hist = hist.slice(0, idx + 1);
+            currentPara = hist[hist.length - 1];
+            saveState();
+            renderParagraph(currentPara);
+            updateBreadcrumb();
+        }
+
+        function updateStats() {
+            const total = Object.keys(BOOK_DATA).length;
+            const seen = visited.size;
+            document.getElementById("statsInfo").innerHTML = `
+                <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                    <span>Exploration</span>
+                    <span style="color:var(--text-main); font-weight:600">${Math.round(seen/total*100)}%</span>
+                </div>
+                <div style="height:4px; background:var(--border); border-radius:2px; overflow:hidden;">
+                    <div style="width:${seen/total*100}%; height:100%; background:var(--accent);"></div>
+                </div>
+                <div style="margin-top:12px; font-size:12px; color:var(--text-muted);">
+                    ${seen} paragraphes découverts sur ${total}
+                </div>
+            `;
+        }
+
+        function resetGame() {
+            if(confirm("Voulez-vous vraiment recommencer l'aventure ?")) {
+                hist = [1];
+                currentPara = 1;
+                saveState();
+                renderParagraph(1);
+                updateBreadcrumb();
+                updateStats();
+            }
+        }
+
+        function toggleDashboard() {
+            document.getElementById("dashOverlay").classList.toggle("active");
+            updateDashHistory();
+        }
+
+        function jumpTo() {
+            const val = parseInt(document.getElementById("jumpInput").value);
+            if (val && BOOK_DATA[val]) {
+                makeChoice(val);
+                toggleDashboard();
+                document.getElementById("jumpInput").value = "";
+            } else {
+                alert("Paragraphe invalide ou inexistant.");
+            }
+        }
+
+        function saveNotes() {
+            const notes = document.getElementById("generalNotes").value;
+            localStorage.setItem("ldvelh_notes_" + currentIsbn, notes);
+        }
+
+        function updateDashHistory() {
+            const container = document.getElementById("dashHistory");
+            container.innerHTML = hist.map((id, i) => `
+                <div class="history-dot" onclick="jumpToStep(${i}); toggleDashboard();">${id}</div>
+            `).join("");
+        }
+
+        // --- TTS Implementation ---
+        let ttsUtterance = null;
+        let ttsActive = false;
+
+        function toggleTTS() {
+            if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+                setTTSActive(false);
+                return;
+            }
+
+            const text = BOOK_DATA[currentPara].text;
+            ttsUtterance = new SpeechSynthesisUtterance(text);
+            ttsUtterance.lang = "fr-FR";
+            ttsUtterance.rate = 1.1;
+
+            ttsUtterance.addEventListener("boundary", e => {
+                if (e.charIndex >= 0) highlightWord(e.charIndex);
+            });
+
+            ttsUtterance.onstart = () => setTTSActive(true);
+            ttsUtterance.onend = () => {
+                setTTSActive(false);
+                const prev = document.querySelector(".para-text .w.speak");
+                if (prev) prev.classList.remove("speak");
+            };
+
+            window.speechSynthesis.speak(ttsUtterance);
+        }
+
+        function setTTSActive(active) {
+            ttsActive = active;
+            const btn = document.getElementById("ttsMainBtn");
+            if (active) {
+                btn.style.background = "var(--accent)";
+                btn.style.color = "white";
+            } else {
+                btn.style.background = "";
+                btn.style.color = "";
+            }
+        }
+
+        function exportSave() {
+            saveState();
+            alert("Sauvegarde effectuée dans le stockage local.");
+        }
+
+        // Boot
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const bookId = params.get("book");
+            if (bookId) {
+                loadBook(bookId);
+                // Restore notes
+                const savedNotes = localStorage.getItem("ldvelh_notes_" + bookId);
+                if (savedNotes) document.getElementById("generalNotes").value = savedNotes;
+            }
+        })();
+    </script>
+</body>
+</html>

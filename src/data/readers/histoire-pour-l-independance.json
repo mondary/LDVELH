@@ -2,7 +2,7 @@
   "bookId": "histoire-pour-l-independance",
   "title": "Histoire 4 - Pour l'independance",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Histoire/Histoire 4 - Pour l'independance.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Histoire/Histoire 4 - Pour l'independance.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-la-griffe-du-vampire",
   "title": "Loup Solitaire 27 - La Griffe du Vampire",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 27 - La Griffe du Vampire.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 27 - La Griffe du Vampire.pdf",
   "intro": [
     {
       "kicker": "Introduction",

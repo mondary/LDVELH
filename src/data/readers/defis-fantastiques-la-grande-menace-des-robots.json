@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-la-grande-menace-des-robots",
   "title": "Defis Fantastiques 22 - La Grande Menace des Robots",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 22 - La Grande Menace des Robots.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 22 - La Grande Menace des Robots.pdf",
   "intro": [
     {
       "kicker": "Introduction",

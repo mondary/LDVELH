@@ -2,7 +2,7 @@
   "bookId": "loup-ardent-la-horde-des-demons",
   "title": "Loup Ardent 1 - la horde des demons",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Ardent/Loup Ardent 1 - la horde des demons.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Ardent/Loup Ardent 1 - la horde des demons.pdf",
   "sections": [
     {
       "id": 2,

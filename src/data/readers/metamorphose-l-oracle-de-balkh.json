@@ -2,7 +2,7 @@
   "bookId": "metamorphose-l-oracle-de-balkh",
   "title": "Metamorphoses 2 - L'oracle de Balkh",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Metamorphose/Metamorphoses 2 - L'oracle de Balkh.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Metamorphose/Metamorphoses 2 - L'oracle de Balkh.pdf",
   "intro": [
     {
       "kicker": "Introduction",

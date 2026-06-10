@@ -2,7 +2,7 @@
   "bookId": "quete-du-graal-les-portes-de-l-au-dela",
   "title": "Quête du Graal 3 - Les portes de l'au dela",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Quete du Graal/Quête du Graal 3 - Les portes de l'au dela.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Quete du Graal/Quête du Graal 3 - Les portes de l'au dela.pdf",
   "sections": [
     {
       "id": 2,

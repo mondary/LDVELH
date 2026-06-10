@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-sur-la-piste-du-loup",
   "title": "Loup Solitaire 25 - Sur la Piste du Loup",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 25 - Sur la Piste du Loup.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 25 - Sur la Piste du Loup.pdf",
   "intro": [
     {
       "kicker": "Introduction",

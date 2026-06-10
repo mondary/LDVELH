@@ -2,7 +2,7 @@
   "bookId": "defis-de-l-histoire-la-guerre-de-troie-aura-t-elle-lieu",
   "title": "Défis de l'histoire 3-La guerre de Troie aura-t-elle lieu",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Défis de l'histoire/Défis de l'histoire 3-La guerre de Troie aura-t-elle lieu.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Défis de l'histoire/Défis de l'histoire 3-La guerre de Troie aura-t-elle lieu.pdf",
   "intro": [
     {
       "kicker": "Introduction",

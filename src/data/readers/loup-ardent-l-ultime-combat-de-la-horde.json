@@ -2,7 +2,7 @@
   "bookId": "loup-ardent-l-ultime-combat-de-la-horde",
   "title": "Loup Ardent 3 - L'Ultime combat de la Horde",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Ardent/Loup Ardent 3 - L'Ultime combat de la Horde.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Ardent/Loup Ardent 3 - L'Ultime combat de la Horde.pdf",
   "intro": [
     {
       "kicker": "Introduction",

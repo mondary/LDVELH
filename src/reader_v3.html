@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grimoire Interactif · LDVELH</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Palette: Midnight Grimoire */
+            --bg: #0C0C0C;
+            --surface: #141414;
+            --surface-raised: #1C1C1C;
+            --surface-inner: #242424;
+            --text-main: #E5E5E5;
+            --text-dim: #A3A3A3;
+            --text-muted: #525252;
+            --accent: #D4A843;
+            --accent-glow: rgba(212, 168, 67, 0.4);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(212, 168, 67, 0.2);
+            
+            --radius-outer: 32px;
+            --radius-inner: 24px;
+            
+            --font-serif: "Instrument Serif", Georgia, serif;
+            --font-sans: "Plus Jakarta Sans", sans-serif;
+            
+            --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+            --ease-out: cubic-bezier(0.32, 0.72, 0, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg);
+            color: var(--text-main);
+            overflow: hidden;
+            height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Ambient Background */
+        .ambient-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 80vw;
+            height: 80vh;
+            background: radial-gradient(circle at center, var(--accent-glow) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            opacity: 0.15;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* --- Main Frame: The Grimoire Enclosure --- */
+        .grimoire-enclosure {
+            position: relative;
+            width: 96vw;
+            height: 92vh;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-outer);
+            display: grid;
+            grid-template-columns: 320px 1fr 400px;
+            overflow: hidden;
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.8);
+            z-index: 10;
+        }
+
+        /* --- Left Column: Library & Identity --- */
+        .column-library {
+            border-right: 1px solid var(--border);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.02), transparent);
+        }
+
+        .cover-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 2/3;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 1px solid var(--border);
+        }
+
+        .cover-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1s var(--ease-out);
+        }
+
+        .cover-wrap:hover .cover-img {
+            transform: scale(1.05);
+        }
+
+        .book-info h1 {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .book-info p {
+            font-size: 13px;
+            color: var(--text-dim);
+        }
+
+        .progression-card {
+            background: var(--surface-raised);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .stat-label { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+        .stat-value { font-size: 20px; font-weight: 700; font-family: var(--font-serif); color: var(--accent); }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--bg);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+            transition: width 1s var(--ease-out);
+        }
+
+        /* --- Middle Column: Narrative Core --- */
+        .column-narrative {
+            position: relative;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 80px 60px;
+            scrollbar-width: none;
+        }
+
+        .narrative-container {
+            max-width: 640px;
+            width: 100%;
+        }
+
+        .para-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .para-num-orb {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: var(--surface-raised);
+            border: 1px solid var(--border-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-serif);
+            font-size: 28px;
+            color: var(--accent);
+            box-shadow: 0 0 20px rgba(212, 168, 67, 0.1);
+        }
+
+        .text-content {
+            font-family: var(--font-serif);
+            font-size: 30px;
+            line-height: 1.5;
+            color: var(--text-main);
+            margin-bottom: 60px;
+        }
+
+        .text-content .w.num {
+            color: var(--accent);
+            cursor: pointer;
+            text-decoration: underline decoration-thickness(1px) underline-offset(4px);
+        }
+
+        .text-content .w.speak {
+            color: var(--accent);
+            text-shadow: 0 0 15px var(--accent);
+        }
+
+        .choices-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .choice-button {
+            background: var(--surface-raised);
+            border: 1px solid var(--border);
+            padding: 24px 32px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 400ms var(--ease-out);
+            text-align: left;
+            width: 100%;
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .choice-button::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, transparent, rgba(212,168,67,0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 600ms;
+        }
+
+        .choice-button:hover {
+            border-color: var(--accent);
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .choice-button:hover::before { transform: translateX(100%); }
+
+        .choice-text { font-size: 16px; font-weight: 500; flex: 1; z-index: 1; }
+        .choice-dest-badge { 
+            background: var(--bg); 
+            padding: 4px 12px; 
+            border-radius: 99px; 
+            font-size: 11px; 
+            font-weight: 800; 
+            color: var(--accent);
+            border: 1px solid var(--border);
+            z-index: 1;
+        }
+
+        /* --- Right Column: Command & Tools --- */
+        .column-tools {
+            border-left: 1px solid var(--border);
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .tool-tabs {
+            display: flex;
+            padding: 20px 20px 0;
+            gap: 8px;
+        }
+
+        .tool-tab {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px 12px 0 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-bottom: none;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            transition: all 300ms;
+            text-align: center;
+        }
+
+        .tool-tab.active {
+            background: var(--surface-raised);
+            color: var(--accent);
+            border-color: var(--border-glow);
+        }
+
+        .tool-content {
+            flex: 1;
+            padding: 32px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .tool-content.active { display: flex; flex-direction: column; gap: 24px; }
+
+        /* Notes & Graph UI */
+        .notes-editor {
+            flex: 1;
+            background: var(--surface-raised);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            font-size: 14px;
+            resize: none;
+            outline: none;
+        }
+
+        .mini-graph {
+            height: 300px;
+            background: var(--surface-raised);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* --- Floating Actions --- */
+        .floating-header {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            display: flex;
+            gap: 12px;
+            z-index: 100;
+        }
+
+        .action-circle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--surface-raised);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 300ms;
+            color: var(--text-dim);
+        }
+
+        .action-circle:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .action-circle.active {
+            background: var(--accent);
+            color: black;
+            border-color: var(--accent);
+        }
+
+        /* Scrollbars */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+        /* Mobile Responsive */
+        @media (max-width: 1200px) {
+            .grimoire-enclosure {
+                grid-template-columns: 1fr;
+                height: 100dvh;
+                width: 100vw;
+                border-radius: 0;
+            }
+            .column-library, .column-tools { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+
+    <div class="grimoire-enclosure">
+        
+        <!-- Identity Wing -->
+        <aside class="column-library">
+            <div class="cover-wrap">
+                <img id="bookCover" src="" alt="Couverture" class="cover-img">
+            </div>
+
+            <div class="book-info">
+                <h1 id="bookTitle">Chargement...</h1>
+                <p id="bookSubtitle"></p>
+            </div>
+
+            <div class="progression-card">
+                <div class="stat-row">
+                    <div class="stat-label">Exploration</div>
+                    <div class="stat-value" id="percentVal">0%</div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-label">Sections</div>
+                    <div class="stat-value" id="sectionsVal" style="font-size: 14px">0/400</div>
+                </div>
+            </div>
+
+            <div style="margin-top: auto; display: grid; gap: 8px;">
+                <button class="tool-tab" style="border-radius: 12px; border-bottom: 1px solid var(--border);" onclick="location.href='index.html'">← Bibliothèque</button>
+            </div>
+        </aside>
+
+        <!-- Narrative Heart -->
+        <main class="column-narrative" id="narrativeColumn">
+            <div class="floating-header">
+                <button class="action-circle" id="ttsBtn" onclick="toggleTTS()" title="Lecture audio">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14"/></svg>
+                </button>
+                <button class="action-circle" onclick="goBack()" title="Retour arrière">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5m0 0l7-7m-7 7l7 7"/></svg>
+                </button>
+                <button class="action-circle" onclick="resetGame()" title="Recommencer">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v5h5M20 20v-5h-5M15.22 5.38a8 8 0 013.83 8.35M4.95 18.62a8 8 0 01-3.83-8.35"/></svg>
+                </button>
+            </div>
+
+            <div class="narrative-container">
+                <header class="para-header">
+                    <div class="para-num-orb" id="paraNum">1</div>
+                    <div style="flex: 1; height: 1px; background: var(--border);"></div>
+                </header>
+
+                <div class="text-content" id="paraText">
+                    L'aventure vous attend. Préparez-vous à entrer dans la légende...
+                </div>
+
+                <div class="choices-grid" id="choicesList">
+                    <!-- Choices -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Command Wing -->
+        <aside class="column-tools">
+            <nav class="tool-tabs">
+                <div class="tool-tab active" onclick="switchTab('graph')">Parcours</div>
+                <div class="tool-tab" onclick="switchTab('notes')">Notes</div>
+                <div class="tool-tab" onclick="switchTab('tools')">Outils</div>
+            </nav>
+
+            <div class="tool-content active" id="tab-graph">
+                <div class="mini-graph" id="graphContainer">
+                    <!-- SVG Graph -->
+                </div>
+                <div class="dash-section">
+                    <div class="stat-label">Historique</div>
+                    <div id="breadcrumb" style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px;"></div>
+                </div>
+            </div>
+
+            <div class="tool-content" id="tab-notes">
+                <div class="stat-label">Journal de l'Aventurier</div>
+                <textarea class="notes-editor" id="generalNotes" placeholder="Vos découvertes..." oninput="saveNotes()"></textarea>
+            </div>
+
+            <div class="tool-content" id="tab-tools">
+                <div class="dash-section">
+                    <div class="stat-label">Saut Temporel</div>
+                    <div style="display: flex; gap: 8px; margin-top: 8px;">
+                        <input type="number" id="jumpInput" placeholder="§" style="width: 60px; background: var(--surface-raised); border: 1px solid var(--border); border-radius: 8px; color: white; padding: 8px; text-align: center;">
+                        <button class="tool-tab" style="border-radius: 8px; flex: 1;" onclick="jumpTo()">Aller au §</button>
+                    </div>
+                </div>
+                <div style="margin-top: auto; display: grid; gap: 12px;">
+                    <button class="tool-tab" style="border-radius: 12px; background: var(--surface-raised);" onclick="exportSave()">💾 Sauvegarder</button>
+                    <button class="tool-tab" style="border-radius: 12px; color: #f87171;" onclick="resetGame()">Réinitialiser tout</button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // --- Core Application Logic ---
+        var BOOK_DATA = {};
+        var currentIsbn = "";
+        var currentPara = 1;
+        var hist = [1];
+        var visited = new Set([1]);
+
+        function getSaveKey() { return "ldvelh_save_" + currentIsbn; }
+
+        function loadBook(isbn) {
+            currentIsbn = isbn;
+            fetch("/api/books/" + encodeURIComponent(isbn))
+                .then(r => r.json())
+                .then(json => {
+                    document.getElementById("bookTitle").textContent = json.title;
+                    document.getElementById("bookSubtitle").textContent = json.subtitle || "";
+                    document.getElementById("bookCover").src = `/assets/covers/medium/${isbn}.jpg`;
+                    
+                    if (json.sections) {
+                        json.sections.forEach(s => {
+                            BOOK_DATA[s.id] = {
+                                text: s.text,
+                                choices: s.choices ? s.choices.map(c => ({ label: c.label, go_to: c.to })) : []
+                            };
+                        });
+                    }
+                    
+                    restoreState();
+                    renderParagraph(currentPara);
+                    updateBreadcrumb();
+                    updateStats();
+                });
+        }
+
+        function restoreState() {
+            try {
+                let s = JSON.parse(localStorage.getItem(getSaveKey()) || "{}");
+                if (s.hist) { hist = s.hist; currentPara = hist[hist.length - 1]; }
+                visited = new Set(s.visited || hist);
+                const n = localStorage.getItem("ldvelh_notes_" + currentIsbn);
+                if (n) document.getElementById("generalNotes").value = n;
+            } catch (e) {}
+        }
+
+        function saveState() {
+            localStorage.setItem(getSaveKey(), JSON.stringify({
+                hist: hist,
+                visited: Array.from(visited)
+            }));
+        }
+
+        function renderParagraph(id) {
+            const p = BOOK_DATA[id];
+            if (!p) return;
+
+            const col = document.getElementById("narrativeColumn");
+            col.scrollTo({ top: 0, behavior: 'smooth' });
+
+            document.getElementById("paraNum").textContent = id;
+            document.getElementById("paraText").innerHTML = formatText(p.text);
+            
+            const list = document.getElementById("choicesList");
+            list.innerHTML = "";
+            
+            p.choices.forEach(c => {
+                const btn = document.createElement("button");
+                btn.className = "choice-button";
+                btn.innerHTML = `
+                    <div class="choice-text">${c.label || 'Continuer l\'aventure'}</div>
+                    <div class="choice-dest-badge">${c.go_to === -1 ? 'RETOUR' : '§' + c.go_to}</div>
+                `;
+                btn.onclick = () => c.go_to === -1 ? goBack() : makeChoice(c.go_to);
+                list.appendChild(btn);
+            });
+        }
+
+        function formatText(text) {
+            var re = /(\S+|\s+)/g, m, html = "";
+            while ((m = re.exec(text)) !== null) {
+                var tok = m[0];
+                if (/^\s+$/.test(tok)) {
+                    var nl = tok.split("\n");
+                    for (var i = 0; i < nl.length; i++) {
+                        if (i > 0) html += "<br>";
+                        html += tok[i] ? tok[i].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+                    }
+                } else {
+                    const isNum = /\d/.test(tok);
+                    html += `<span class="w ${isNum ? 'num' : ''}" data-start="${m.index}" data-end="${m.index + tok.length}">${tok.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>`;
+                }
+            }
+            return html;
+        }
+
+        function makeChoice(t) {
+            hist.push(t); visited.add(t); currentPara = t;
+            saveState(); renderParagraph(t); updateBreadcrumb(); updateStats();
+        }
+
+        function goBack() {
+            if (hist.length > 1) {
+                hist.pop(); currentPara = hist[hist.length - 1];
+                saveState(); renderParagraph(currentPara); updateBreadcrumb(); updateStats();
+            }
+        }
+
+        function updateBreadcrumb() {
+            const bc = document.getElementById("breadcrumb");
+            bc.innerHTML = hist.slice(-20).map((id, i) => `
+                <div class="choice-dest-badge" style="cursor:pointer; margin-bottom:4px;" onclick="jumpToStep(${i})">§${id}</div>
+            `).join("");
+        }
+
+        function jumpToStep(idx) {
+            hist = hist.slice(0, idx + 1);
+            currentPara = hist[hist.length - 1];
+            saveState(); renderParagraph(currentPara); updateBreadcrumb();
+        }
+
+        function updateStats() {
+            const total = Object.keys(BOOK_DATA).length;
+            const seen = visited.size;
+            const p = Math.round(seen/total*100);
+            document.getElementById("percentVal").textContent = p + "%";
+            document.getElementById("progressFill").style.width = p + "%";
+            document.getElementById("sectionsVal").textContent = `${seen}/${total}`;
+        }
+
+        function switchTab(name) {
+            document.querySelectorAll(".tool-tab").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tool-content").forEach(c => c.classList.remove("active"));
+            event.target.classList.add("active");
+            document.getElementById("tab-" + name).classList.add("active");
+        }
+
+        function jumpTo() {
+            const val = parseInt(document.getElementById("jumpInput").value);
+            if (val && BOOK_DATA[val]) { makeChoice(val); document.getElementById("jumpInput").value = ""; }
+        }
+
+        function saveNotes() {
+            localStorage.setItem("ldvelh_notes_" + currentIsbn, document.getElementById("generalNotes").value);
+        }
+
+        // ===== GRAPH ENGINE (Ported & Refined) =====
+        var overlayMode = false;
+        var attempts = [];
+        var currentAttemptIdx = 0;
+
+        function renderGraph() {
+            var container = document.getElementById("graphContainer");
+            container.innerHTML = "";
+            var n = hist.length;
+
+            var MAIN_X = 40, UNCHOSEN_X = 180, SPACING = 34, PAD = 20;
+            var steps = [], totalY = PAD;
+
+            for (var i = 0; i < n; i++) {
+                var pid = hist[i], para = BOOK_DATA[pid];
+                var takenGoTo = i < n - 1 ? hist[i + 1] : null;
+                var aborted = para ? para.choices.filter(c => c.go_to !== takenGoTo) : [];
+                steps.push({ pid: pid, y: totalY, aborted: aborted, takenGoTo: takenGoTo, idx: i });
+                totalY += SPACING + (aborted.length * 20);
+            }
+
+            var svgH = Math.max(300, totalY + PAD), svgW = container.clientWidth || 360;
+            var NS = "http://www.w3.org/2000/svg";
+            var svg = document.createElementNS(NS, "svg");
+            svg.setAttribute("width", "100%");
+            svg.setAttribute("height", svgH);
+            
+            function el(tag, attrs) {
+                var e = document.createElementNS(NS, tag);
+                for (var k in attrs) e.setAttribute(k, attrs[k]);
+                return e;
+            }
+
+            if (n > 1) svg.appendChild(el("line", { x1: MAIN_X, y1: steps[0].y, x2: MAIN_X, y2: steps[n-1].y, stroke: "var(--accent)", "stroke-width": 1, "stroke-opacity": 0.3 }));
+
+            steps.forEach(step => {
+                var dot = el("circle", { 
+                    cx: MAIN_X, cy: step.y, r: step.idx === n-1 ? 5 : 3, 
+                    fill: step.idx === n-1 ? "var(--accent)" : "var(--text-muted)",
+                    style: "cursor:pointer"
+                });
+                dot.onclick = () => jumpToStep(step.idx);
+                svg.appendChild(dot);
+
+                var txt = el("text", { x: MAIN_X + 12, y: step.y + 4, fill: "var(--text-dim)", "font-size": 10 });
+                txt.textContent = "§" + step.pid;
+                svg.appendChild(txt);
+
+                var ay = step.y + 20;
+                step.aborted.forEach(ab => {
+                    svg.appendChild(el("line", { x1: MAIN_X, y1: step.y, x2: UNCHOSEN_X, y2: ay, stroke: "var(--border)", "stroke-width": 0.5, "stroke-dasharray": "2,2" }));
+                    var aDot = el("circle", { cx: UNCHOSEN_X, cy: ay, r: 2, fill: "var(--text-muted)" });
+                    svg.appendChild(aDot);
+                    var aTxt = el("text", { x: UNCHOSEN_X + 8, y: ay + 4, fill: "var(--text-muted)", "font-size": 9 });
+                    aTxt.textContent = "§" + ab.go_to;
+                    svg.appendChild(aTxt);
+                    ay += 20;
+                });
+            });
+
+            container.appendChild(svg);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Modifying refresh calls
+        const originalRefresh = renderParagraph;
+        renderParagraph = function(id) {
+            originalRefresh(id);
+            renderGraph();
+        };
+
+        function exportSave() {
+            saveState(); alert("Partie sauvegardée.");
+        }
+
+        // --- TTS Implementation ---
+        let ttsUtterance = null;
+        function highlightWord(charIndex) {
+            var spans = document.querySelectorAll(".text-content .w");
+            for (var i = 0; i < spans.length; i++) {
+                var start = parseInt(spans[i].dataset.start || "0");
+                var end = parseInt(spans[i].dataset.end || "0");
+                if (charIndex >= start && charIndex < end) {
+                    var prev = document.querySelector(".text-content .w.speak");
+                    if (prev) prev.classList.remove("speak");
+                    spans[i].classList.add("speak");
+                    return;
+                }
+            }
+        }
+
+        function toggleTTS() {
+            if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.cancel();
+                document.getElementById("ttsBtn").classList.remove("active");
+                return;
+            }
+            const text = BOOK_DATA[currentPara].text;
+            ttsUtterance = new SpeechSynthesisUtterance(text);
+            ttsUtterance.lang = "fr-FR";
+            ttsUtterance.rate = 1.1;
+            ttsUtterance.addEventListener("boundary", e => { if (e.charIndex >= 0) highlightWord(e.charIndex); });
+            ttsUtterance.onstart = () => document.getElementById("ttsBtn").classList.add("active");
+            ttsUtterance.onend = () => {
+                document.getElementById("ttsBtn").classList.remove("active");
+                const prev = document.querySelector(".text-content .w.speak");
+                if (prev) prev.classList.remove("speak");
+            };
+            window.speechSynthesis.speak(ttsUtterance);
+        }
+
+        // Boot
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const bookId = params.get("book");
+            if (bookId) loadBook(bookId);
+        })();
+    </script>
+</body>
+</html>

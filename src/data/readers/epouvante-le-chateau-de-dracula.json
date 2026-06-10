@@ -2,7 +2,7 @@
   "bookId": "epouvante-le-chateau-de-dracula",
   "title": "Le Château de Dracula",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Epouvante/1 - Le Château de Dracula.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Epouvante/1 - Le Château de Dracula.pdf",
   "intro": [
     {
       "kicker": "Introduction",

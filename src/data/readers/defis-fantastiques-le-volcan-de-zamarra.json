@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-volcan-de-zamarra",
   "title": "Defis Fantastiques 39 - Le Volcan de Zamarra",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 39 - Le Volcan de Zamarra.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 39 - Le Volcan de Zamarra.pdf",
   "intro": [
     {
       "kicker": "Introduction",

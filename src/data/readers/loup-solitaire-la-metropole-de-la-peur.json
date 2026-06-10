@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-la-metropole-de-la-peur",
   "title": "Loup Solitaire 09 - La Metropole de la peur",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 09 - La Metropole de la peur.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 09 - La Metropole de la peur.pdf",
   "intro": [
     {
       "kicker": "Introduction",

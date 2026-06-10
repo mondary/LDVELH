@@ -2,7 +2,7 @@
   "bookId": "dragon-d-or-l-oeil-du-dragon",
   "title": "l'oeil du Dragon",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Dragon D'or/6 - l'oeil du Dragon.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Dragon D'or/6 - l'oeil du Dragon.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "astre-d-or-le-royaume-de-l-oubli",
   "title": "Astre d'Or 3-Le royaume de l'oubli",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Artre D'or/Astre d'Or 3-Le royaume de l'oubli.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Artre D'or/Astre d'Or 3-Le royaume de l'oubli.pdf",
   "intro": [
     {
       "kicker": "Introduction",

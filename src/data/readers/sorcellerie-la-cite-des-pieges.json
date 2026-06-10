@@ -2,7 +2,7 @@
   "bookId": "sorcellerie-la-cite-des-pieges",
   "title": "Sorcellerie 2 - La Cite des Pieges",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Sorcellerie/Sorcellerie 2 - La Cite des Pieges.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Sorcellerie/Sorcellerie 2 - La Cite des Pieges.pdf",
   "intro": [
     {
       "kicker": "Introduction",

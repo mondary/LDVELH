@@ -2,7 +2,7 @@
   "bookId": "quete-du-graal-le-temps-de-la-malediction",
   "title": "Quête du Graal 6 - le temps de la malediction",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Quete du Graal/Quête du Graal 6 - le temps de la malediction.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Quete du Graal/Quête du Graal 6 - le temps de la malediction.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-defis-sanglants-sur-l-ocean",
   "title": "Defis Fantastiques 16 - Defis Sanglants sur l'Océan",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 16 - Defis Sanglants sur l'Océan.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 16 - Defis Sanglants sur l'Océan.pdf",
   "intro": [
     {
       "kicker": "Introduction",

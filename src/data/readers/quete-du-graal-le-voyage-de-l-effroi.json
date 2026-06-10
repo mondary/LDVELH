@@ -2,7 +2,7 @@
   "bookId": "quete-du-graal-le-voyage-de-l-effroi",
   "title": "Quête du Graal 4 -Le voyage de l'effroi",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Quete du Graal/Quête du Graal 4 -Le voyage de l'effroi.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Quete du Graal/Quête du Graal 4 -Le voyage de l'effroi.pdf",
   "intro": [
     {
       "kicker": "Introduction",

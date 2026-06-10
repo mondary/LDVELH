@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-mercenaire-de-l-espace",
   "title": "Defis Fantastiques 12 - Le Mercenaire de l'Espace",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 12 - Le Mercenaire de l'Espace.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 12 - Le Mercenaire de l'Espace.pdf",
   "intro": [
     {
       "kicker": "Introduction",

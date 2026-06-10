@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-les-demons-des-profondeurs",
   "title": "Defis Fantastiques 19 - Les Demons des Profondeurs",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 19 - Les Demons des Profondeurs.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 19 - Les Demons des Profondeurs.pdf",
   "intro": [
     {
       "kicker": "Introduction",

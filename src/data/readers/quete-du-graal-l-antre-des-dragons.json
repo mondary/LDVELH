@@ -2,7 +2,7 @@
   "bookId": "quete-du-graal-l-antre-des-dragons",
   "title": "Quête du Graal 2 - L'antre des dragons",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Quete du Graal/Quête du Graal 2 - L'antre des dragons.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Quete du Graal/Quête du Graal 2 - L'antre des dragons.pdf",
   "intro": [
     {
       "kicker": "Introduction",

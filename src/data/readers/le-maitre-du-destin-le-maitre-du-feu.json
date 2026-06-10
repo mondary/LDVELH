@@ -2,7 +2,7 @@
   "bookId": "le-maitre-du-destin-le-maitre-du-feu",
   "title": "Le Maitre du Feu",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Les maitres du destin/2 - Le Maitre du Feu.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Les maitres du destin/2 - Le Maitre du Feu.pdf",
   "intro": [
     {
       "kicker": "Introduction",

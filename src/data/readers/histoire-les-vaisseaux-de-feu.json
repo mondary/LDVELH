@@ -2,7 +2,7 @@
   "bookId": "histoire-les-vaisseaux-de-feu",
   "title": "Histoire 5 - Les vaisseaux de feu",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Histoire/Histoire 5 - Les vaisseaux de feu.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Histoire/Histoire 5 - Les vaisseaux de feu.pdf",
   "intro": [
     {
       "kicker": "Introduction",

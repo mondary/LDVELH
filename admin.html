@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LDVELH · Admin</title>
+<style>
+:root{--bg:#0d1117;--bg-panel:#161b22;--bg-card:#1c2129;--bg-hover:#21262d;--text:#e6edf3;--text-dim:#8b949e;--text-muted:#484f58;--accent:#d4a843;--accent-dim:rgba(212,168,67,0.12);--red:#f85149;--green:#3fb950;--blue:#58a6ff;--border:#30363d;--radius:6px}
+*{box-sizing:border-box;margin:0;padding:0}html,body{height:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--text)}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+
+.login-wrap{display:flex;align-items:center;justify-content:center;height:100vh}
+.login{background:var(--bg-panel);border:1px solid var(--border);border-radius:12px;padding:40px;width:min(400px,90vw)}
+.login h1{font-size:20px;margin-bottom:4px}
+.login p{color:var(--text-dim);font-size:13px;margin-bottom:24px}
+.login input{width:100%;background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:var(--radius);font-size:14px;outline:none;margin-bottom:14px}
+.login input:focus{border-color:var(--accent)}
+.login button{width:100%;background:var(--accent);border:none;color:#000;padding:10px;border-radius:var(--radius);font-size:14px;font-weight:600;cursor:pointer}
+.login button:hover{opacity:.9}
+.login .error{color:var(--red);font-size:13px;margin-top:10px}
+
+.header{background:var(--bg-panel);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px}
+.header h1{font-size:16px;font-weight:600;color:var(--accent)}
+.header .spacer{flex:1}
+.header button{background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);padding:6px 14px;border-radius:var(--radius);cursor:pointer;font-size:12px}
+.header button:hover{border-color:var(--accent);color:var(--text)}
+
+.content{padding:24px;max-width:1200px;margin:0 auto}
+.empty{text-align:center;color:var(--text-muted);padding:60px 20px;font-size:15px}
+
+.book-card{background:var(--bg-panel);border:1px solid var(--border);border-radius:10px;margin-bottom:16px;overflow:hidden}
+.book-header{display:flex;align-items:center;padding:16px 20px;cursor:pointer;gap:12px}
+.book-header:hover{background:var(--bg-hover)}
+.book-header h2{font-size:15px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.book-header .badge{padding:3px 10px;border-radius:99px;font-size:11px;font-weight:600}
+.badge-pending{background:rgba(212,168,67,0.15);color:var(--accent)}
+.badge-promoted{background:rgba(63,185,80,0.15);color:var(--green)}
+.book-header .arrow{color:var(--text-muted);font-size:12px;transition:transform .2s}
+.book-header.open .arrow{transform:rotate(90deg)}
+
+.version-list{display:none;border-top:1px solid var(--border)}
+.version-list.open{display:block}
+
+.version-row{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid rgba(48,54,61,0.5)}
+.version-row:last-child{border-bottom:none}
+.version-row .v-num{font-weight:700;color:var(--accent);min-width:30px}
+.version-row .v-info{flex:1;min-width:0}
+.version-row .v-author{font-size:13px;color:var(--text)}
+.version-row .v-date{font-size:11px;color:var(--text-muted)}
+.version-row .v-note{font-size:12px;color:var(--text-dim);margin-top:4px;font-style:italic}
+.version-row .v-stats{display:flex;gap:8px;margin-top:6px}
+.version-row .v-stat{font-size:11px;padding:2px 8px;border-radius:4px;background:var(--bg-card);border:1px solid var(--border)}
+.v-stat.changed{color:var(--accent)}
+.v-stat.added{color:var(--green)}
+.v-stat.removed{color:var(--red)}
+.version-row .v-actions{display:flex;gap:6px;flex-shrink:0}
+.btn-sm{padding:5px 12px;border-radius:var(--radius);font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--border)}
+.btn-promote{background:rgba(63,185,80,0.1);border-color:rgba(63,185,80,0.3);color:var(--green)}
+.btn-promote:hover{background:rgba(63,185,80,0.2)}
+.btn-diff{background:var(--bg-card);color:var(--blue);border-color:rgba(88,166,255,0.3)}
+.btn-diff:hover{background:rgba(88,166,255,0.1)}
+.btn-delete{background:var(--bg-card);color:var(--red);border-color:rgba(248,81,73,0.3)}
+.btn-delete:hover{background:rgba(248,81,73,0.1)}
+.btn-promoted{background:rgba(63,185,80,0.15);border-color:rgba(63,185,80,0.4);color:var(--green);cursor:default;font-weight:700}
+
+.diff-panel{display:none;background:var(--bg);border-top:1px solid var(--border);padding:16px 20px}
+.diff-panel.open{display:block}
+.diff-summary{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+.diff-summary .ds{font-size:12px;padding:4px 12px;border-radius:6px;background:var(--bg-card);border:1px solid var(--border)}
+.ds.ds-changed{color:var(--accent);border-color:rgba(212,168,67,0.3)}
+.ds.ds-added{color:var(--green);border-color:rgba(63,185,80,0.3)}
+.ds.ds-removed{color:var(--red);border-color:rgba(248,81,73,0.3)}
+.diff-section{margin-bottom:16px}
+.diff-section h4{font-size:12px;color:var(--text-muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+.diff-card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;margin-bottom:10px;overflow:hidden}
+.diff-card-head{display:flex;align-items:center;padding:8px 14px;background:var(--bg-hover);font-size:13px;font-weight:600;color:var(--accent);gap:8px}
+.diff-card-head .tag{font-size:10px;padding:1px 6px;border-radius:4px;font-weight:600}
+.tag-modified{background:rgba(212,168,67,0.15);color:var(--accent)}
+.tag-added{background:rgba(63,185,80,0.15);color:var(--green)}
+.diff-card-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.diff-side{padding:10px 14px;font-size:12px;line-height:1.6;overflow:auto;max-height:180px;border-right:1px solid var(--border)}
+.diff-side:last-child{border-right:none}
+.diff-side .side-label{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;font-weight:600}
+.diff-side.orig{background:rgba(248,81,73,0.03)}
+.diff-side.mod{background:rgba(63,185,80,0.03)}
+.diff-ids{display:flex;flex-wrap:wrap;gap:6px}
+.diff-id{background:var(--bg-card);border:1px solid var(--border);padding:2px 8px;border-radius:4px;font-size:12px}
+.diff-del{background:rgba(248,81,73,0.25);border-radius:2px;padding:0 1px}
+.diff-ins{background:rgba(63,185,80,0.25);border-radius:2px;padding:0 1px}
+</style>
+</head>
+<body>
+
+<div class="login-wrap" id="loginWrap">
+  <div class="login">
+    <h1>LDVELH Admin</h1>
+    <p>Gestion des corrections soumises par la communauté.</p>
+    <input type="password" id="pwInput" placeholder="Mot de passe admin" onkeydown="if(event.key==='Enter')doLogin()">
+    <button onclick="doLogin()">Connexion</button>
+    <div class="error" id="loginError" style="display:none"></div>
+  </div>
+</div>
+
+<div id="app" style="display:none">
+  <div class="header">
+    <h1>LDVELH · Admin</h1>
+    <div class="spacer"></div>
+    <a href="index.html">← Bibliothèque</a>
+    <button onclick="doLogout()">Déconnexion</button>
+  </div>
+  <div class="content" id="content"></div>
+</div>
+
+<script>
+var API = "api/index.php";
+var pw = "";
+var booksCache = {};
+
+function doLogin() {
+  pw = document.getElementById("pwInput").value.trim();
+  if (!pw) return;
+  loadBooks();
+}
+
+function doLogout() {
+  pw = "";
+  document.getElementById("loginWrap").style.display = "flex";
+  document.getElementById("app").style.display = "none";
+}
+
+function apiGet(path) {
+  return fetch(API + path).then(function(r) { return r.json(); });
+}
+
+function apiPost(path, body) {
+  return fetch(API + path, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  }).then(function(r) { return r.json(); });
+}
+
+function apiDelete(path) {
+  return fetch(API + path + "?password=" + encodeURIComponent(pw), {
+    method: "DELETE"
+  }).then(function(r) { return r.json(); });
+}
+
+function loadBooks() {
+  var libraryUrl = "src/data/library.json";
+  fetch(libraryUrl).then(function(r) { return r.json(); }).then(function(lib) {
+    var books = lib.books || [];
+    var withReader = books.filter(function(b) { return b.hasReader; });
+    loadAllVersions(withReader);
+  }).catch(function(e) {
+    document.getElementById("loginError").style.display = "block";
+    document.getElementById("loginError").textContent = "Erreur: " + e.message;
+  });
+}
+
+function loadAllVersions(books) {
+  var promises = books.map(function(b) {
+    return apiGet("/versions/" + encodeURIComponent(b.id))
+      .then(function(data) {
+        return { book: b, versions: data.versions || [], promoted: data.promoted };
+      })
+      .catch(function() {
+        return { book: b, versions: [], promoted: null };
+      });
+  });
+
+  Promise.all(promises).then(function(results) {
+    booksCache = {};
+    results.forEach(function(r) { booksCache[r.book.id] = r; });
+    document.getElementById("loginWrap").style.display = "none";
+    document.getElementById("app").style.display = "block";
+    renderBooks(results);
+  });
+}
+
+function renderBooks(results) {
+  var el = document.getElementById("content");
+  var withVersions = results.filter(function(r) { return r.versions.length > 0; });
+  var withoutVersions = results.filter(function(r) { return r.versions.length === 0; });
+
+  if (withVersions.length === 0) {
+    el.innerHTML = '<div class="empty">Aucune correction soumise pour le moment.<br><br>' + withoutVersions.length + ' livres en ligne.</div>';
+    return;
+  }
+
+  var totalPending = 0;
+  withVersions.forEach(function(r) {
+    r.versions.forEach(function(v) {
+      if (r.promoted !== v.id) totalPending++;
+    });
+  });
+
+  var html = '<div style="margin-bottom:20px;color:var(--text-dim);font-size:13px">' +
+    withVersions.length + ' livre(s) avec des versions &middot; ' +
+    totalPending + ' en attente &middot; ' +
+    withoutVersions.length + ' sans soumission' +
+    '</div>';
+
+  withVersions.forEach(function(r) {
+    var bookId = r.book.id;
+    html += '<div class="book-card" id="book-' + bookId + '">';
+    html += '<div class="book-header" onclick="toggleBook(\'' + bookId + '\')">';
+    html += '<h2>' + esc(r.book.title || bookId) + '</h2>';
+    var pendingCount = r.versions.filter(function(v) { return r.promoted !== v.id; }).length;
+    if (r.promoted) {
+      html += '<span class="badge badge-promoted">v' + r.promoted + ' active</span>';
+    }
+    if (pendingCount > 0) {
+      html += '<span class="badge badge-pending">' + pendingCount + ' en attente</span>';
+    }
+    html += '<span class="arrow">▶</span>';
+    html += '</div>';
+    html += '<div class="version-list" id="versions-' + bookId + '">';
+
+    r.versions.slice().reverse().forEach(function(v) {
+      var isPromoted = r.promoted === v.id;
+      html += '<div class="version-row">';
+      html += '<div class="v-num">v' + v.id + '</div>';
+      html += '<div class="v-info">';
+      html += '<div class="v-author">' + esc(v.author || "Anonyme") + ' &middot; <span class="v-date">' + formatDate(v.date) + '</span></div>';
+      if (v.note) html += '<div class="v-note">"' + esc(v.note) + '"</div>';
+      if (v.diff) {
+        html += '<div class="v-stats">';
+        html += '<span class="v-stat changed">' + (v.diff.changed || 0) + ' modifiée(s)</span>';
+        html += '<span class="v-stat added">' + (v.diff.added || 0) + ' ajoutée(s)</span>';
+        html += '<span class="v-stat removed">' + (v.diff.removed || 0) + ' supprimée(s)</span>';
+        html += '</div>';
+      }
+      html += '<div style="font-size:11px;color:var(--text-muted);margin-top:4px">' + v.sections + ' sections</div>';
+      html += '</div>';
+      html += '<div class="v-actions">';
+      if (isPromoted) {
+        html += '<span class="btn-sm btn-promoted">✓ Active</span>';
+      } else {
+        html += '<button class="btn-sm btn-promote" onclick="promoteVersion(\'' + bookId + '\',' + v.id + ')">Promouvoir</button>';
+        html += '<button class="btn-sm btn-diff" onclick="showDiff(\'' + bookId + '\',' + v.id + ',this)">Diff</button>';
+        html += '<button class="btn-sm btn-delete" onclick="deleteVersion(\'' + bookId + '\',' + v.id + ')">×</button>';
+      }
+      html += '</div>';
+      html += '</div>';
+      html += '<div class="diff-panel" id="diff-' + bookId + '-' + v.id + '"></div>';
+    });
+
+    html += '</div></div>';
+  });
+
+  el.innerHTML = html;
+}
+
+function toggleBook(bookId) {
+  var list = document.getElementById("versions-" + bookId);
+  var header = list.previousElementSibling;
+  list.classList.toggle("open");
+  header.classList.toggle("open");
+}
+
+function promoteVersion(bookId, versionId) {
+  if (!confirm("Promouvoir la version " + versionId + " de " + bookId + " ?\nCela remplacera le fichier reader actuel.")) return;
+  apiPost("/versions/" + encodeURIComponent(bookId) + "/" + versionId + "/promote", { password: pw })
+    .then(function(r) {
+      if (r.error) { alert("Erreur: " + r.error); return; }
+      alert("Version " + versionId + " promue avec succès !");
+      refreshBook(bookId);
+    })
+    .catch(function(e) { alert("Erreur: " + e.message); });
+}
+
+function deleteVersion(bookId, versionId) {
+  if (!confirm("Supprimer la version " + versionId + " de " + bookId + " ?")) return;
+  apiDelete("/versions/" + encodeURIComponent(bookId) + "/" + versionId)
+    .then(function(r) {
+      if (r.error) { alert("Erreur: " + r.error); return; }
+      refreshBook(bookId);
+    })
+    .catch(function(e) { alert("Erreur: " + e.message); });
+}
+
+function wordDiff(a, b) {
+  var ta = a.match(/\S+|\s+/g) || [];
+  var tb = b.match(/\S+|\s+/g) || [];
+  var m = ta.length, n = tb.length;
+  var dp = [];
+  for (var i = 0; i <= m; i++) { dp[i] = []; for (var j = 0; j <= n; j++) dp[i][j] = 0; }
+  for (i = 1; i <= m; i++)
+    for (j = 1; j <= n; j++)
+      dp[i][j] = ta[i-1] === tb[j-1] ? dp[i-1][j-1]+1 : Math.max(dp[i-1][j], dp[i][j-1]);
+  var oi = [], mi = [];
+  i = m; j = n;
+  while (i > 0 || j > 0) {
+    if (i > 0 && j > 0 && ta[i-1] === tb[j-1]) { oi.unshift({t:ta[i-1],c:0}); mi.unshift({t:tb[j-1],c:0}); i--; j--; }
+    else if (j > 0 && (i === 0 || dp[i][j-1] >= dp[i-1][j])) { mi.unshift({t:tb[j-1],c:1}); j--; }
+    else { oi.unshift({t:ta[i-1],c:-1}); i--; }
+  }
+  var buildHtml = function(parts, cls) {
+    var h = '', run = '', runCls = 0;
+    var flush = function() { if (run) { h += runCls ? '<span class="'+cls+'">'+esc(run)+'</span>' : esc(run); run=''; } };
+    parts.forEach(function(p) {
+      if (p.c !== runCls) { flush(); runCls = p.c; }
+      run += p.t;
+    });
+    flush();
+    return h;
+  };
+  return {
+    orig: buildHtml(oi, 'diff-del'),
+    mod: buildHtml(mi, 'diff-ins')
+  };
+}
+
+function showDiff(bookId, versionId, btn) {
+  var panel = document.getElementById("diff-" + bookId + "-" + versionId);
+  if (panel.classList.contains("open")) {
+    panel.classList.remove("open");
+    panel.innerHTML = "";
+    return;
+  }
+  panel.classList.add("open");
+  panel.innerHTML = '<div style="color:var(--text-muted);font-size:13px;padding:8px">Chargement du diff…</div>';
+
+  apiGet("/versions/" + encodeURIComponent(bookId) + "/" + versionId + "/diff")
+    .then(function(data) {
+      if (data.error) { panel.innerHTML = '<div style="color:var(--red)">Erreur: ' + data.error + '</div>'; return; }
+
+      var stats = data.stats || {};
+      var html = '<div class="diff-summary">';
+      html += '<span class="ds ds-changed">' + (stats.changed || 0) + ' modifiée(s)</span>';
+      html += '<span class="ds ds-added">' + (stats.added || 0) + ' ajoutée(s)</span>';
+      html += '<span class="ds ds-removed">' + (stats.removed || 0) + ' supprimée(s)</span>';
+      html += '</div>';
+
+      if (data.changed && data.changed.length > 0) {
+        html += '<div class="diff-section">';
+        data.changed.forEach(function(c) {
+          var origText = c.original.text || "";
+          var modText = c.modified.text || "";
+          var hasChange = origText !== modText;
+          var d = hasChange ? wordDiff(origText, modText) : null;
+          html += '<div class="diff-card">';
+          html += '<div class="diff-card-head">§' + c.id + ' <span class="tag tag-modified">modifié</span></div>';
+          html += '<div class="diff-card-body"' + (hasChange ? '' : ' style="grid-template-columns:1fr"') + '>';
+          html += '<div class="diff-side orig"><div class="side-label">Original</div>' + (d ? d.orig : esc(origText)) + '</div>';
+          if (hasChange) {
+            html += '<div class="diff-side mod"><div class="side-label">Modifié</div>' + (d ? d.mod : esc(modText)) + '</div>';
+          }
+          html += '</div></div>';
+        });
+        html += '</div>';
+      }
+
+      if (data.added && data.added.length > 0) {
+        html += '<div class="diff-section"><h4>Sections ajoutées</h4><div class="diff-ids">';
+        data.added.forEach(function(id) { html += '<span class="diff-id" style="color:var(--green);border-color:rgba(63,185,80,0.3)">§' + id + '</span>'; });
+        html += '</div></div>';
+      }
+      if (data.removed && data.removed.length > 0) {
+        html += '<div class="diff-section"><h4>Sections supprimées</h4><div class="diff-ids">';
+        data.removed.forEach(function(id) { html += '<span class="diff-id" style="color:var(--red);border-color:rgba(248,81,73,0.3)">§' + id + '</span>'; });
+        html += '</div></div>';
+      }
+
+      if (!data.changed && !data.added && !data.removed) {
+        html = '<div style="color:var(--text-muted);font-size:13px">Aucune différence détectée.</div>';
+      }
+      panel.innerHTML = html;
+    })
+    .catch(function(e) { panel.innerHTML = '<div style="color:var(--red)">Erreur: ' + e.message + '</div>'; });
+}
+
+function refreshBook(bookId) {
+  apiGet("/versions/" + encodeURIComponent(bookId)).then(function(data) {
+    var cached = booksCache[bookId];
+    if (cached) {
+      cached.versions = data.versions || [];
+      cached.promoted = data.promoted;
+    }
+    var results = Object.values(booksCache);
+    renderBooks(results);
+  });
+}
+
+function esc(s) { return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+function formatDate(d) {
+  if (!d) return "";
+  try { return new Date(d).toLocaleDateString("fr-FR", { day:"numeric", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit" }); }
+  catch(e) { return d; }
+}
+
+if (localStorage.getItem("ldvelh_admin_pw")) {
+  pw = localStorage.getItem("ldvelh_admin_pw");
+  loadBooks();
+}
+</script>
+</body>
+</html>

@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-le-tyran-du-desert",
   "title": "Loup Solitaire 05 - Le Tyran du Desert",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 05 - Le Tyran du Desert.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 05 - Le Tyran du Desert.pdf",
   "intro": [
     {
       "kicker": "Introduction",

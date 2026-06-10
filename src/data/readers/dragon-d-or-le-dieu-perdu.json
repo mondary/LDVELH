@@ -2,7 +2,7 @@
   "bookId": "dragon-d-or-le-dieu-perdu",
   "title": "Le Dieu Perdu",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Dragon D'or/2 - Le Dieu Perdu.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Dragon D'or/2 - Le Dieu Perdu.pdf",
   "intro": [
     {
       "kicker": "Introduction",

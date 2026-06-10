@@ -2,7 +2,7 @@
   "bookId": "le-maitre-du-destin-la-foret-du-dragon",
   "title": "La Foret du Dragon",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Les maitres du destin/1 - La Foret du Dragon.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Les maitres du destin/1 - La Foret du Dragon.pdf",
   "intro": [
     {
       "kicker": "Introduction",

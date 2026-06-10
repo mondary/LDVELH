@@ -2,7 +2,7 @@
   "bookId": "les-messagers-du-temps-le-masque-de-sang",
   "title": "Le masque de sang",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Les messagers du temps/2-Le masque de sang.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Les messagers du temps/2-Le masque de sang.pdf",
   "intro": [
     {
       "kicker": "Introduction",

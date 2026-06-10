@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-marais-aux-scorpions",
   "title": "Defis Fantastiques 08 - Le Marais aux Scorpions",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 08 - Le Marais aux Scorpions.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 08 - Le Marais aux Scorpions.pdf",
   "intro": [
     {
       "kicker": "Introduction",

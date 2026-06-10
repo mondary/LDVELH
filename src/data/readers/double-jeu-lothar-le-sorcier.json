@@ -2,7 +2,7 @@
   "bookId": "double-jeu-lothar-le-sorcier",
   "title": "Double Jeu 05 - Lothar le Sorcier",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Double Jeu/Double Jeu 05 - Lothar le Sorcier.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Double Jeu/Double Jeu 05 - Lothar le Sorcier.pdf",
   "intro": [
     {
       "kicker": "Introduction",

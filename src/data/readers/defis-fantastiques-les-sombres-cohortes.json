@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-les-sombres-cohortes",
   "title": "Defis Fantastiques 37 - Les Sombres Cohortes",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 37 - Les Sombres Cohortes.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 37 - Les Sombres Cohortes.pdf",
   "intro": [
     {
       "kicker": "Introduction",

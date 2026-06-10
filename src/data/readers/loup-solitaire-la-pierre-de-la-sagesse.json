@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-la-pierre-de-la-sagesse",
   "title": "Loup Solitaire 06 - La Pierre de la Sagesse",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 06 - La Pierre de la Sagesse.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 06 - La Pierre de la Sagesse.pdf",
   "intro": [
     {
       "kicker": "Introduction",

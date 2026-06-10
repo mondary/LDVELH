@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-la-nuit-du-necromancien",
   "title": "Defis Fantastiques 64 - La nuit du Necromancien",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 64 - La nuit du Necromancien.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 64 - La nuit du Necromancien.pdf",
   "intro": [
     {
       "kicker": "Introduction",

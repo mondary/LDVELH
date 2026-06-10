@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-le-crepuscule-des-maitres",
   "title": "Loup Solitaire 12 - Le crepuscule des Maitres",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 12 - Le crepuscule des Maitres.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 12 - Le crepuscule des Maitres.pdf",
   "intro": [
     {
       "kicker": "Introduction",

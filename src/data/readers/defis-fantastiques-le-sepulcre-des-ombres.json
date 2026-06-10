@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-sepulcre-des-ombres",
   "title": "Defis Fantastiques 53 - Le Sepulcre des Ombres",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 53 - Le Sepulcre des Ombres.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 53 - Le Sepulcre des Ombres.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-l-heritage-de-vashna",
   "title": "Loup Solitaire 16 - L'Heritage de Vashna",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 16 - L'Heritage de Vashna.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 16 - L'Heritage de Vashna.pdf",
   "intro": [
     {
       "kicker": "Introduction",

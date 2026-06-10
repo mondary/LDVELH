@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Living Map · LDVELH V4</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #030303;
+            --accent: #EAB308;
+            --accent-dim: rgba(234, 179, 8, 0.15);
+            --glass: rgba(15, 15, 15, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+            
+            --font-story: "Cormorant Garamond", serif;
+            --font-ui: "Plus Jakarta Sans", sans-serif;
+            
+            --ease: cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: var(--font-ui);
+            background: var(--bg);
+            color: white;
+            height: 100dvh;
+            overflow: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 50%, #111 0%, transparent 100%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        /* --- THE SPATIAL CANVAS --- */
+        #canvas {
+            position: absolute;
+            inset: 0;
+            cursor: grab;
+            z-index: 1;
+        }
+
+        #canvas:active { cursor: grabbing; }
+
+        /* --- FLOATING STORY ORB --- */
+        .story-orb {
+            position: absolute;
+            width: 600px;
+            padding: 60px;
+            background: var(--glass);
+            backdrop-blur: 40px;
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            box-shadow: 0 100px 100px -50px rgba(0,0,0,0.9);
+            transform: translate(-50%, -50%);
+            pointer-events: auto;
+            animation: orbFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(-50%, -52%); }
+            50% { transform: translate(-50%, -48%); }
+        }
+
+        .para-label {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 30px;
+            opacity: 0.6;
+        }
+
+        .story-text {
+            font-family: var(--font-story);
+            font-size: 34px;
+            line-height: 1.3;
+            color: #eee;
+            margin-bottom: 50px;
+        }
+
+        .story-text .w.speak {
+            color: var(--accent);
+            text-shadow: 0 0 20px var(--accent);
+        }
+
+        .choice-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: white;
+            color: black;
+            padding: 18px 30px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s var(--ease);
+            margin-right: 10px;
+            margin-bottom: 10px;
+            border: none;
+        }
+
+        .choice-pill:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: var(--accent);
+            box-shadow: 0 20px 40px var(--accent-dim);
+        }
+
+        /* --- HUD ELEMENTS --- */
+        .hud-top {
+            position: fixed;
+            top: 40px;
+            left: 40px;
+            right: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .book-identity {
+            display: flex;
+            gap: 25px;
+            pointer-events: auto;
+        }
+
+        .mini-cover {
+            width: 80px;
+            aspect-ratio: 2/3;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .book-meta h2 {
+            font-family: var(--font-story);
+            font-size: 28px;
+            font-style: italic;
+        }
+
+        .exploration-gauge {
+            margin-top: 10px;
+            width: 200px;
+            height: 2px;
+            background: var(--border);
+            position: relative;
+        }
+
+        #gaugeFill {
+            position: absolute;
+            height: 100%;
+            background: var(--accent);
+            box-shadow: 0 0 10px var(--accent);
+            transition: width 1s var(--ease);
+        }
+
+        .hud-bottom {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+            pointer-events: auto;
+        }
+
+        .action-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--glass);
+            backdrop-blur: 20px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s var(--ease);
+            color: white;
+        }
+
+        .action-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .action-btn.active { background: var(--accent); color: black; }
+
+        /* --- THE CONSTELLATION GRAPH --- */
+        .node-line {
+            stroke: var(--accent);
+            stroke-width: 1;
+            stroke-dasharray: 5,5;
+            opacity: 0.2;
+        }
+
+        .map-node {
+            fill: var(--accent);
+            opacity: 0.3;
+            cursor: pointer;
+        }
+
+        .map-node.active { opacity: 1; r: 6; }
+
+        /* Sidebar / Dashboard V4 */
+        #sidePanel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 100%;
+            background: var(--glass);
+            backdrop-blur: 60px;
+            border-left: 1px solid var(--border);
+            z-index: 200;
+            transform: translateX(100%);
+            transition: transform 0.6s var(--ease);
+            padding: 60px;
+        }
+
+        #sidePanel.open { transform: translateX(0); }
+
+        .notes-v4 {
+            width: 100%;
+            height: 300px;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--border);
+            color: white;
+            font-family: var(--font-story);
+            font-size: 20px;
+            resize: none;
+            outline: none;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hud-top">
+        <div class="book-identity" onclick="location.href='index.html'">
+            <img id="bookCover" class="mini-cover" src="" alt="">
+            <div class="book-meta">
+                <h2 id="bookTitle">...</h2>
+                <div class="exploration-gauge"><div id="gaugeFill" style="width: 0%"></div></div>
+                <div id="exploreText" style="font-size: 10px; font-weight: 800; margin-top: 5px; color: var(--text-dim);">EXPLORATION 0%</div>
+            </div>
+        </div>
+        
+        <div style="pointer-events: auto;">
+            <button class="action-btn" onclick="toggleSide()">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <div id="canvas">
+        <svg id="svgGraph" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;"></svg>
+        <div id="orbContainer" style="position: absolute; inset: 0;"></div>
+    </div>
+
+    <div class="hud-bottom">
+        <button class="action-btn" id="ttsBtn" onclick="toggleTTS()">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14"/></svg>
+        </button>
+        <button class="action-btn" onclick="goBack()">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5m0 0l7-7m-7 7l7 7"/></svg>
+        </button>
+        <button class="action-btn" onclick="resetGame()">
+            <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v5h5M20 20v-5h-5M15.22 5.38a8 8 0 013.83 8.35M4.95 18.62a8 8 0 01-3.83-8.35"/></svg>
+        </button>
+    </div>
+
+    <div id="sidePanel">
+        <div class="para-label">JOURNAL DE BORD</div>
+        <textarea class="notes-v4" id="notes" placeholder="Consignez vos pensées..." oninput="saveNotes()"></textarea>
+        
+        <div style="margin-top: 40px;">
+            <div class="para-label">SAUT TEMPOREL</div>
+            <input type="number" id="jumpInput" placeholder="§" style="background: transparent; border: none; border-bottom: 1px solid var(--border); color: white; font-size: 32px; width: 100px; outline: none;">
+            <button class="choice-pill" style="margin-top: 20px;" onclick="jumpTo()">Sauter</button>
+        </div>
+    </div>
+
+    <script>
+        var BOOK_DATA = {};
+        var currentIsbn = "";
+        var currentPara = 1;
+        var hist = [1];
+        var visited = new Set([1]);
+        
+        // Spatial State
+        let offset = { x: window.innerWidth/2, y: window.innerHeight/2 };
+        let isDragging = false;
+        let lastMouse = { x: 0, y: 0 };
+
+        function loadBook(isbn) {
+            currentIsbn = isbn;
+            fetch("/api/books/" + encodeURIComponent(isbn))
+                .then(r => r.json())
+                .then(json => {
+                    document.getElementById("bookTitle").textContent = json.title;
+                    document.getElementById("bookCover").src = `/assets/covers/medium/${isbn}.jpg`;
+                    if (json.sections) {
+                        json.sections.forEach(s => {
+                            BOOK_DATA[s.id] = { text: s.text, choices: s.choices ? s.choices.map(c => ({ label: c.label, go_to: c.to })) : [] };
+                        });
+                    }
+                    restoreState();
+                    renderSpace();
+                    updateStats();
+                });
+        }
+
+        function renderSpace() {
+            const container = document.getElementById("orbContainer");
+            container.innerHTML = "";
+            const svg = document.getElementById("svgGraph");
+            svg.innerHTML = "";
+
+            // Create current orb
+            const orb = document.createElement("div");
+            orb.className = "story-orb";
+            orb.style.left = offset.x + "px";
+            orb.style.top = offset.y + "px";
+            
+            const p = BOOK_DATA[currentPara];
+            orb.innerHTML = `
+                <div class="para-label">CONSTELLATION §${currentPara}</div>
+                <div class="story-text">${formatText(p.text)}</div>
+                <div class="choices">
+                    ${p.choices.map(c => `
+                        <button class="choice-pill" onclick="makeChoice(${c.go_to})">
+                            ${c.label || 'Continuer'}
+                            <span style="opacity: 0.4">§${c.go_to === -1 ? 'BACK' : c.go_to}</span>
+                        </button>
+                    `).join("")}
+                </div>
+            `;
+            container.appendChild(orb);
+
+            // Draw links to previous nodes (Constellation effect)
+            if(hist.length > 1) {
+                // Simplified constellation for V4 POC
+            }
+        }
+
+        function formatText(text) {
+            var re = /(\S+|\s+)/g, m, html = "";
+            while ((m = re.exec(text)) !== null) {
+                var tok = m[0];
+                if (/^\s+$/.test(tok)) {
+                    var nl = tok.split("\n");
+                    for (var i = 0; i < nl.length; i++) {
+                        if (i > 0) html += "<br>";
+                        html += tok[i] ? tok[i].replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;") : "";
+                    }
+                } else {
+                    html += `<span class="w ${/\d/.test(tok) ? 'num' : ''}" data-start="${m.index}" data-end="${m.index + tok.length}">${tok.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>`;
+                }
+            }
+            return html;
+        }
+
+        function makeChoice(t) {
+            if(t === -1) { goBack(); return; }
+            hist.push(t); visited.add(t); currentPara = t;
+            saveState(); 
+            // Aesthetic zoom transition
+            offset.y += 100;
+            renderSpace(); updateStats();
+        }
+
+        function goBack() {
+            if (hist.length > 1) {
+                hist.pop(); currentPara = hist[hist.length - 1];
+                saveState(); renderSpace(); updateStats();
+            }
+        }
+
+        function updateStats() {
+            const total = Object.keys(BOOK_DATA).length;
+            const seen = visited.size;
+            const p = Math.round(seen/total*100);
+            document.getElementById("gaugeFill").style.width = p + "%";
+            document.getElementById("exploreText").textContent = `EXPLORATION ${p}%`;
+        }
+
+        function toggleSide() { document.getElementById("sidePanel").classList.toggle("open"); }
+        function saveNotes() { localStorage.setItem("ldvelh_notes_" + currentIsbn, document.getElementById("notes").value); }
+        function saveState() { localStorage.setItem("ldvelh_save_" + currentIsbn, JSON.stringify({ hist: hist, visited: Array.from(visited) })); }
+        function restoreState() {
+            try {
+                let s = JSON.parse(localStorage.getItem("ldvelh_save_" + currentIsbn) || "{}");
+                if (s.hist) { hist = s.hist; currentPara = hist[hist.length - 1]; }
+                visited = new Set(s.visited || hist);
+                const n = localStorage.getItem("ldvelh_notes_" + currentIsbn);
+                if (n) document.getElementById("notes").value = n;
+            } catch (e) {}
+        }
+        function jumpTo() { const val = parseInt(document.getElementById("jumpInput").value); if (val && BOOK_DATA[val]) { makeChoice(val); toggleSide(); } }
+        function resetGame() { if(confirm("Réinitialiser?")) { hist=[1]; currentPara=1; saveState(); renderSpace(); updateStats(); } }
+
+        // TTS
+        let ttsUtterance = null;
+        function highlightWord(charIndex) {
+            var spans = document.querySelectorAll(".story-text .w");
+            for (var i = 0; i < spans.length; i++) {
+                var start = parseInt(spans[i].dataset.start || "0");
+                var end = parseInt(spans[i].dataset.end || "0");
+                if (charIndex >= start && charIndex < end) {
+                    var prev = document.querySelector(".story-text .w.speak");
+                    if (prev) prev.classList.remove("speak");
+                    spans[i].classList.add("speak");
+                    return;
+                }
+            }
+        }
+
+        function toggleTTS() {
+            if (window.speechSynthesis.speaking) { window.speechSynthesis.cancel(); document.getElementById("ttsBtn").classList.remove("active"); return; }
+            const text = BOOK_DATA[currentPara].text;
+            ttsUtterance = new SpeechSynthesisUtterance(text);
+            ttsUtterance.lang = "fr-FR";
+            ttsUtterance.rate = 1.1;
+            ttsUtterance.addEventListener("boundary", e => { if (e.charIndex >= 0) highlightWord(e.charIndex); });
+            ttsUtterance.onstart = () => document.getElementById("ttsBtn").classList.add("active");
+            ttsUtterance.onend = () => { document.getElementById("ttsBtn").classList.remove("active"); document.querySelectorAll(".w.speak").forEach(s => s.classList.remove("speak")); };
+            window.speechSynthesis.speak(ttsUtterance);
+        }
+
+        // Canvas Interaction
+        window.addEventListener("mousedown", e => { isDragging = true; lastMouse = { x: e.clientX, y: e.clientY }; });
+        window.addEventListener("mousemove", e => {
+            if(!isDragging) return;
+            offset.x += e.clientX - lastMouse.x;
+            offset.y += e.clientY - lastMouse.y;
+            lastMouse = { x: e.clientX, y: e.clientY };
+            const orb = document.querySelector(".story-orb");
+            if(orb) { orb.style.left = offset.x + "px"; orb.style.top = offset.y + "px"; }
+        });
+        window.addEventListener("mouseup", () => isDragging = false);
+
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const bookId = params.get("book");
+            if (bookId) loadBook(bookId);
+        })();
+    </script>
+</body>
+</html>

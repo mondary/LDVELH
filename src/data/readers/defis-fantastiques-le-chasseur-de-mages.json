@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-chasseur-de-mages",
   "title": "Defis Fantastiques 56 - Le Chasseur de Mages",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 56 - Le Chasseur de Mages.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 56 - Le Chasseur de Mages.pdf",
   "intro": [
     {
       "kicker": "Introduction",

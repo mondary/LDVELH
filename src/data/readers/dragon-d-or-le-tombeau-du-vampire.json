@@ -2,7 +2,7 @@
   "bookId": "dragon-d-or-le-tombeau-du-vampire",
   "title": "Le Tombeau du Vampire",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Dragon D'or/1 - Le Tombeau du Vampire.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Dragon D'or/1 - Le Tombeau du Vampire.pdf",
   "intro": [
     {
       "kicker": "Introduction",

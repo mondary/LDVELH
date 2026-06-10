@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-le-heros-de-mynuit",
   "title": "Loup Solitaire 23 - Le Heros de Mynuit",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 23 - Le Heros de Mynuit.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 23 - Le Heros de Mynuit.pdf",
   "intro": [
     {
       "kicker": "Introduction",

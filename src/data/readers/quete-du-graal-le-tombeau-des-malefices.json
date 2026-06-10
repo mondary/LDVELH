@@ -2,7 +2,7 @@
   "bookId": "quete-du-graal-le-tombeau-des-malefices",
   "title": "Quête du Graal 7 - Le tombeau des malefices",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Quete du Graal/Quête du Graal 7 - Le tombeau des malefices.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Quete du Graal/Quête du Graal 7 - Le tombeau des malefices.pdf",
   "intro": [
     {
       "kicker": "Introduction",

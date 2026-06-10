@@ -2,7 +2,7 @@
   "bookId": "loup-ardent-les-cryptes-de-la-terreur",
   "title": "Loup Ardent 2 - Les Cryptes de la Terreur",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Ardent/Loup Ardent 2 - Les Cryptes de la Terreur.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Ardent/Loup Ardent 2 - Les Cryptes de la Terreur.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-la-malediction-de-la-momie-grand-format",
   "title": "Defis Fantastiques 59 - La malediction de la Momie",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 59 - La malediction de la Momie.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 59 - La malediction de la Momie.pdf",
   "intro": [
     {
       "kicker": "Introduction",

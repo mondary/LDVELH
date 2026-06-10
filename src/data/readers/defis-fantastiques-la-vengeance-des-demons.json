@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-la-vengeance-des-demons",
   "title": "Defis Fantastiques 41 - La Vengeance des Demons",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 41 - La Vengeance des Demons.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 41 - La Vengeance des Demons.pdf",
   "intro": [
     {
       "kicker": "Introduction",

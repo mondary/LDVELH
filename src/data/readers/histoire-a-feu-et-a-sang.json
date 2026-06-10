@@ -2,7 +2,7 @@
   "bookId": "histoire-a-feu-et-a-sang",
   "title": "Histoire 2 - A feu et A Sang",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Histoire/Histoire 2 - A feu et A Sang.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Histoire/Histoire 2 - A feu et A Sang.pdf",
   "intro": [
     {
       "kicker": "Introduction",

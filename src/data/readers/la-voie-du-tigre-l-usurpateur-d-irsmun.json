@@ -2,7 +2,7 @@
   "bookId": "la-voie-du-tigre-l-usurpateur-d-irsmun",
   "title": "L'Usurpateur d'Irsmun",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - La voie du Tigre/3 - L'Usurpateur d'Irsmun.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - La voie du Tigre/3 - L'Usurpateur d'Irsmun.pdf",
   "intro": [
     {
       "kicker": "Introduction",

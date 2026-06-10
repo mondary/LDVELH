@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-les-pirates-de-shadaki",
   "title": "Loup Solitaire 22 - Les Pirates de Shadaki",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 22 - Les Pirates de Shadaki.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 22 - Les Pirates de Shadaki.pdf",
   "intro": [
     {
       "kicker": "Introduction",

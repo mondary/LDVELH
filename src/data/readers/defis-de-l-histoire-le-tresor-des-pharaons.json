@@ -2,7 +2,7 @@
   "bookId": "defis-de-l-histoire-le-tresor-des-pharaons",
   "title": "Défis de l'histoire 1-Le Trésor des Pharaons",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Défis de l'histoire/Défis de l'histoire 1-Le Trésor des Pharaons.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Défis de l'histoire/Défis de l'histoire 1-Le Trésor des Pharaons.pdf",
   "intro": [
     {
       "kicker": "Introduction",

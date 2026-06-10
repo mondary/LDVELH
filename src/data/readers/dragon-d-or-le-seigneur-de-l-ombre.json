@@ -2,7 +2,7 @@
   "bookId": "dragon-d-or-le-seigneur-de-l-ombre",
   "title": "Le Seigneur de l'Ombre",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Dragon D'or/3 - Le Seigneur de l'Ombre.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Dragon D'or/3 - Le Seigneur de l'Ombre.pdf",
   "intro": [
     {
       "kicker": "Introduction",

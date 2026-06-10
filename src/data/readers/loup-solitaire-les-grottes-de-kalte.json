@@ -2,7 +2,7 @@
   "bookId": "loup-solitaire-les-grottes-de-kalte",
   "title": "Loup Solitaire 03 - Les Grottes de Kalte",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 03 - Les Grottes de Kalte.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Loup Solitaire/Loup Solitaire 03 - Les Grottes de Kalte.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "l-epee-de-legende-l-impossible-mission",
   "title": "Impossible Mission",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - L'épée de legende/4 - Impossible Mission.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - L'épée de legende/4 - Impossible Mission.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-les-esclaves-de-l-eternite",
   "title": "Defis Fantastiques 32 - Les Esclaves de l'eternite",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 32 - Les Esclaves de l'eternite.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 32 - Les Esclaves de l'eternite.pdf",
   "intro": [
     {
       "kicker": "Introduction",

@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-le-temple-de-la-terreur",
   "title": "Defis Fantastiques 14 - Le Temple de la Terreur",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 14 - Le Temple de la Terreur.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 14 - Le Temple de la Terreur.pdf",
   "intro": [
     {
       "kicker": "Introduction",

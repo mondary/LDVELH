@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-les-mondes-de-l-aleph",
   "title": "Defis Fantastiques 48 - Les Mondes de l'Aleph",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 48 - Les Mondes de l'Aleph.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 48 - Les Mondes de l'Aleph.pdf",
   "intro": [
     {
       "kicker": "Introduction",

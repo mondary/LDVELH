@@ -2,7 +2,7 @@
   "bookId": "defis-fantastiques-la-citadelle-du-chaos",
   "title": "Defis Fantastiques 02 - La Citadelle du Chaos",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 02 - La Citadelle du Chaos.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Defis fantastiques/Defis Fantastiques 02 - La Citadelle du Chaos.pdf",
   "intro": [
     {
       "kicker": "Introduction",

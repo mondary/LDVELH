@@ -2,7 +2,7 @@
   "bookId": "quete-du-graal-la-legion-des-morts",
   "title": "Quête du Graal 8 - La légion des morts",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Quete du Graal/Quête du Graal 8 - La légion des morts.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Quete du Graal/Quête du Graal 8 - La légion des morts.pdf",
   "sections": [
     {
       "id": 2,

@@ -2,7 +2,7 @@
   "bookId": "les-portes-interdites-l-horreur-dans-la-vallee",
   "title": "l'Horreur dans la Vallée",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Les portes interdites/1 - l'Horreur dans la Vallée.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Les portes interdites/1 - l'Horreur dans la Vallée.pdf",
   "intro": [
     {
       "kicker": "Introduction",

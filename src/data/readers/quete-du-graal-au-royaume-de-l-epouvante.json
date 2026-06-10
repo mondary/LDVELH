@@ -2,7 +2,7 @@
   "bookId": "quete-du-graal-au-royaume-de-l-epouvante",
   "title": "Quête du Graal 5 - Au Royaume de l'épouvante",
   "subtitle": "",
-  "pdf": "/assets/pdf/LDVELH - PDF - Quete du Graal/Quête du Graal 5 - Au Royaume de l'épouvante.pdf",
+  "pdf": "src/assets/pdf/LDVELH - PDF - Quete du Graal/Quête du Graal 5 - Au Royaume de l'épouvante.pdf",
   "intro": [
     {
       "kicker": "Introduction",
