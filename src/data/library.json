@@ -163,7 +163,8 @@
           "price": 5.5,
           "rating": 4.44
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "astre-d-or-la-guerre-des-sorciers",
@@ -201,7 +202,8 @@
           "price": 10.99,
           "rating": 3.96
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "astre-d-or-le-royaume-de-l-oubli",
@@ -239,7 +241,8 @@
           "price": 7.326,
           "rating": 4.14
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "astre-d-or-le-sorcier-majdar",
@@ -277,7 +280,8 @@
           "price": 10.18,
           "rating": 4.25
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "chroniques-cretoises-l-odyssee-d-altheos",
@@ -308,7 +312,8 @@
           "price": 9.768,
           "rating": 4.39
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "chroniques-cretoises-la-vengeance-d-altheos",
@@ -339,7 +344,8 @@
           "price": 7.5834,
           "rating": 4.29
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "chroniques-cretoises-le-labyrinthe-du-roi-minos",
@@ -370,7 +376,8 @@
           "price": 7.5306,
           "rating": 4.24
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "destins-l-etoile-de-la-destinee",
@@ -399,7 +406,8 @@
           "price": 29.39,
           "rating": 4.55
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "destins-le-collier-malefique",
@@ -428,7 +436,8 @@
           "price": 55.176,
           "rating": 4.16
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "destins-le-peuple-maudit",
@@ -465,7 +474,8 @@
           "price": 31.4,
           "rating": 4.48
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "destins-le-pirate-des-sept-mers",
@@ -494,7 +504,8 @@
           "price": 72.99,
           "rating": 4.62
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "double-jeu-bardik-le-voleur",
@@ -524,7 +535,8 @@
           "price": 16.31,
           "rating": 4.25
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "double-jeu-clovis-le-chevalier",
@@ -553,7 +565,8 @@
           "price": 63.77,
           "rating": 4.2
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "double-jeu-coreus-le-prince",
@@ -583,7 +596,8 @@
           "price": 13.01,
           "rating": 4.24
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "double-jeu-darian-le-magicien",
@@ -613,7 +627,8 @@
           "price": 18.0246,
           "rating": 4.05
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "double-jeu-issel-le-guerrier",
@@ -643,7 +658,8 @@
           "price": 22.96,
           "rating": 4.14
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "double-jeu-lothar-le-sorcier",
@@ -673,7 +689,8 @@
           "price": 39.2634,
           "rating": 4.09
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "dragon-d-or-l-oeil-du-dragon",
@@ -698,7 +715,8 @@
           "price": 6.0324,
           "rating": 4.08
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "dragon-d-or-l-il-du-dragon",
@@ -727,7 +745,8 @@
           "price": 13.827,
           "rating": 4.24
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "dragon-d-or-la-malediction-du-pharaon",
@@ -764,7 +783,8 @@
           "price": 4.31,
           "rating": 3.75
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "dragon-d-or-le-chateau-des-ames-damnees",
@@ -789,7 +809,8 @@
           "price": 9.38,
           "rating": 4.16
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "dragon-d-or-le-chateau-des-ames-damnees-2",
@@ -819,7 +840,8 @@
           "price": 11.085,
           "rating": 4.21
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "dragon-d-or-le-dieu-perdu",
@@ -857,7 +879,8 @@
           "price": 4.67,
           "rating": 4.06
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "dragon-d-or-le-seigneur-de-l-ombre",
@@ -894,7 +917,8 @@
           "price": 7.9992,
           "rating": 4.44
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "dragon-d-or-le-tombeau-du-vampire",
@@ -931,7 +955,8 @@
           "price": 5.8476,
           "rating": 4.08
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "as-des-as-vous-etes-l-as-des-as",
@@ -962,7 +987,8 @@
           "price": null,
           "rating": null
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "as-des-as-les-maitres-des-dragons",
@@ -993,7 +1019,8 @@
           "price": null,
           "rating": null
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "as-des-as-le-sherif-et-le-hors-la-loi",
@@ -1025,7 +1052,8 @@
           "price": null,
           "rating": null
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-de-l-histoire-la-derniere-folie-de-caligula",
@@ -1050,7 +1078,8 @@
           "price": 12.408,
           "rating": 4.37
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-de-l-histoire-la-guerre-de-troie-aura-t-elle-lieu",
@@ -1075,7 +1104,8 @@
           "price": 12.2628,
           "rating": 4.6
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-de-l-histoire-le-tresor-des-pharaons",
@@ -1100,7 +1130,8 @@
           "price": 8.9892,
           "rating": 4.35
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-de-l-histoire-sacrifice-chez-les-azteques",
@@ -1125,7 +1156,8 @@
           "price": 15.5298,
           "rating": 4.48
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-et-sortileges-caithness-l-elementaliste",
@@ -1154,7 +1186,8 @@
           "price": 9.9132,
           "rating": 4.43
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-et-sortileges-kandjar-le-magicien",
@@ -1183,7 +1216,8 @@
           "price": 7.1676,
           "rating": 4.14
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-et-sortileges-keldrilh-le-menestrel",
@@ -1212,7 +1246,8 @@
           "price": 11.7678,
           "rating": 4.31
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-et-sortileges-l-ultime-reincarnation",
@@ -1241,7 +1276,8 @@
           "price": 28.7562,
           "rating": 4.54
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-et-sortileges-la-huitieme-porte",
@@ -1270,7 +1306,8 @@
           "price": 22.985,
           "rating": 4.43
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-et-sortileges-le-sanctuaire-des-horlas",
@@ -1299,7 +1336,8 @@
           "price": 21.8658,
           "rating": 4.7
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-et-sortileges-les-heritiers-de-dorgan",
@@ -1328,7 +1366,8 @@
           "price": 22.99,
           "rating": 4.83
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-et-sortileges-pereim-le-chevalier",
@@ -1357,7 +1396,8 @@
           "price": 13.2792,
           "rating": 4.61
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-defis-sanglants-sur-l-ocean",
@@ -1394,7 +1434,8 @@
           "price": 11.9988,
           "rating": 4.2
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-l-ancienne-prophetie",
@@ -1432,7 +1473,8 @@
           "price": 20.55,
           "rating": 3.96
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-l-arpenteur-de-la-lune",
@@ -1469,7 +1511,8 @@
           "price": 19.44,
           "rating": 3.36
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-l-elu-des-six-clans",
@@ -1498,7 +1541,8 @@
           "price": 31.1784,
           "rating": 4.25
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-l-empire-des-hommes-lezards",
@@ -1527,7 +1571,8 @@
           "price": 28.4394,
           "rating": 4.16
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-l-epreuve-des-champions",
@@ -1588,7 +1633,8 @@
           "price": 6.09,
           "rating": 4.54
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-l-epee-du-samourai",
@@ -1618,7 +1664,8 @@
           "price": 17.98,
           "rating": 4.36
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-l-ile-du-roi-lezard",
@@ -1651,7 +1698,8 @@
           "price": 16.5066,
           "rating": 4.5
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-l-ile-du-roi-lezard-2",
@@ -1680,7 +1728,8 @@
           "price": 5.0952,
           "rating": 4.35
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-l-il-d-emeraude",
@@ -1713,7 +1762,8 @@
           "price": 6.94,
           "rating": 4.56
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-citadelle-du-chaos",
@@ -1774,7 +1824,8 @@
           "price": 7.72,
           "rating": 4.14
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-cite-des-voleurs",
@@ -1835,7 +1886,8 @@
           "price": 8.46,
           "rating": 4.18
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-crypte-du-sorcier",
@@ -1888,7 +1940,8 @@
           "price": 6.2634,
           "rating": 4.33
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-creature-venue-du-chaos",
@@ -1949,7 +2002,8 @@
           "price": 10.08,
           "rating": 4.41
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-forteresse-du-cauchemar",
@@ -1978,7 +2032,8 @@
           "price": 9.6426,
           "rating": 4.42
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-foret-de-la-malediction",
@@ -2023,7 +2078,8 @@
           "price": 5.5,
           "rating": 4.6
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-foret-de-malediction",
@@ -2056,7 +2112,8 @@
           "price": 6.3624,
           "rating": 4.37
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-la-galaxie-tragique",
@@ -2085,7 +2142,8 @@
           "price": 5.6496,
           "rating": 4.21
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-grande-menace-des-robots",
@@ -2114,7 +2172,8 @@
           "price": 17.89,
           "rating": 4.18
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-legende-de-zagor",
@@ -2167,7 +2226,8 @@
           "price": 5.885,
           "rating": 4.4
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-legende-des-guerriers-fantomes",
@@ -2204,7 +2264,8 @@
           "price": 9.4314,
           "rating": 4.12
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-la-malediction-de-la-momie-grand-format",
@@ -2229,7 +2290,8 @@
           "price": 71.01,
           "rating": 4.49
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-nuit-des-mutants",
@@ -2258,7 +2320,8 @@
           "price": 50.28,
           "rating": 4.47
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-nuit-du-loup-garou-grand-format",
@@ -2283,7 +2346,8 @@
           "price": 42.55,
           "rating": 4.6
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-la-nuit-du-necromancien",
@@ -2308,7 +2372,8 @@
           "price": 10.4,
           "rating": 4.5
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-nuit-du-necromancien-grand-format",
@@ -2333,7 +2398,8 @@
           "price": 15.5892,
           "rating": 4.71
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-la-planete-rebelle",
@@ -2370,7 +2436,8 @@
           "price": 12.5466,
           "rating": 4.09
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-revanche-du-vampire",
@@ -2395,7 +2462,8 @@
           "price": 30.54,
           "rating": 4.23
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-sorciere-des-neiges",
@@ -2456,7 +2524,8 @@
           "price": 6.31,
           "rating": 4.19
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-tour-de-la-destruction",
@@ -2493,7 +2562,8 @@
           "price": 19.98,
           "rating": 4.53
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-la-vengeance-des-demons",
@@ -2523,7 +2593,8 @@
           "price": 40.775,
           "rating": 4.68
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-chasseur-de-mages",
@@ -2560,7 +2631,8 @@
           "price": 55.374,
           "rating": 3.74
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-chasseur-des-etoiles",
@@ -2589,7 +2661,8 @@
           "price": 12.0,
           "rating": 4.48
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-combattant-de-l-autoroute",
@@ -2618,7 +2691,8 @@
           "price": 13.002,
           "rating": 4.15
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-dragon-de-la-nuit",
@@ -2643,7 +2717,8 @@
           "price": 66.59,
           "rating": 4.24
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-fleau-de-titan",
@@ -2668,7 +2743,8 @@
           "price": 9.29,
           "rating": 4.71
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-le-justicier-de-l-univers",
@@ -2697,7 +2773,8 @@
           "price": 14.67,
           "rating": 4.27
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-labyrinthe-de-la-mort",
@@ -2758,7 +2835,8 @@
           "price": 9.065,
           "rating": 4.49
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-manoir-de-l-enfer",
@@ -2819,7 +2897,8 @@
           "price": 8.4,
           "rating": 4.23
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-marais-aux-scorpions",
@@ -2848,7 +2927,8 @@
           "price": 7.87,
           "rating": 4.36
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-maitre-des-tempetes-grand-format",
@@ -2873,7 +2953,8 @@
           "price": 12.66,
           "rating": 4.75
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-le-mercenaire-de-l-espace",
@@ -2910,7 +2991,8 @@
           "price": 7.3656,
           "rating": 4.08
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-pirate-de-l-au-dela",
@@ -2943,7 +3025,8 @@
           "price": 9.085,
           "rating": 4.54
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-le-pirate-de-l-au-dela-grand-format",
@@ -2968,7 +3051,8 @@
           "price": 7.74,
           "rating": 4.54
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-le-repaire-des-morts-vivants",
@@ -2993,7 +3077,8 @@
           "price": 18.0048,
           "rating": 4.68
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-repaire-des-morts-vivants-2",
@@ -3023,7 +3108,8 @@
           "price": 17.48,
           "rating": 4.72
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-le-sang-des-zombies",
@@ -3048,7 +3134,8 @@
           "price": 6.63,
           "rating": 4.48
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-le-sang-des-zombies-grand-format",
@@ -3073,7 +3160,8 @@
           "price": 13.0416,
           "rating": 4.48
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-le-sceptre-noir",
@@ -3110,7 +3198,8 @@
           "price": 15.05,
           "rating": 4.05
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-siege-de-sardath",
@@ -3147,7 +3236,8 @@
           "price": 18.2292,
           "rating": 4.41
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-sorcier-de-la-montagne-de-feu",
@@ -3209,7 +3299,8 @@
           "price": 5.75,
           "rating": 4.59
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-sepulcre-des-ombres",
@@ -3246,7 +3337,8 @@
           "price": 33.98,
           "rating": 4.27
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-talisman-de-la-mort",
@@ -3300,7 +3392,8 @@
           "price": 7.03,
           "rating": 4.63
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-temple-de-la-terreur",
@@ -3353,7 +3446,8 @@
           "price": 5.985,
           "rating": 4.39
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-vampire-du-chateau-noir",
@@ -3390,7 +3484,8 @@
           "price": 16.269,
           "rating": 4.6
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-volcan-de-zamarra",
@@ -3427,7 +3522,8 @@
           "price": 11.12,
           "rating": 4.29
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-voleur-d-ames",
@@ -3452,7 +3548,8 @@
           "price": 17.96,
           "rating": 4.14
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-le-voleur-d-ames-2",
@@ -3481,7 +3578,8 @@
           "price": 17.96,
           "rating": 4.39
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-le-voleur-de-vie",
@@ -3518,7 +3616,8 @@
           "price": 35.69,
           "rating": 4.14
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-les-chevaliers-du-destin",
@@ -3555,7 +3654,8 @@
           "price": 30.77,
           "rating": 4.5
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-les-demons-des-profondeurs",
@@ -3584,7 +3684,8 @@
           "price": 12.4674,
           "rating": 4.4
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-les-esclaves-de-l-eternite",
@@ -3614,7 +3715,8 @@
           "price": 45.837,
           "rating": 3.85
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-les-gouffres-de-la-cruaute",
@@ -3643,7 +3745,8 @@
           "price": 17.89,
           "rating": 4.44
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-les-geants-de-fer",
@@ -3668,7 +3771,8 @@
           "price": null,
           "rating": 5.0
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-les-mages-de-solani",
@@ -3705,7 +3809,8 @@
           "price": 52.767,
           "rating": 4.05
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-les-mercenaires-du-levant",
@@ -3743,7 +3848,8 @@
           "price": 17.79,
           "rating": 3.56
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-les-mondes-de-l-aleph",
@@ -3780,7 +3886,8 @@
           "price": 12.5004,
           "rating": 3.93
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-les-mysteres-de-salamonis",
@@ -3805,7 +3912,8 @@
           "price": 18.01,
           "rating": 4.72
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-les-rodeurs-de-la-nuit",
@@ -3842,7 +3950,8 @@
           "price": 14.2032,
           "rating": 3.75
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-les-sceaux-de-la-destruction",
@@ -3871,7 +3980,8 @@
           "price": 16.797,
           "rating": 4.07
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-les-sombres-cohortes",
@@ -3924,7 +4034,8 @@
           "price": 6.69,
           "rating": 4.61
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-les-spectres-de-l-angoisse",
@@ -3953,7 +4064,8 @@
           "price": 21.6,
           "rating": 4.28
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-les-trafiquants-de-kelter",
@@ -3982,7 +4094,8 @@
           "price": 9.195,
           "rating": 4.08
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-lanneau-des-serpents-de-feu",
@@ -4007,7 +4120,8 @@
           "price": 8.15,
           "rating": 4.59
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-rendez-vous-avec-la-mort",
@@ -4032,7 +4146,8 @@
           "price": 6.62,
           "rating": 4.08
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-rendez-vous-avec-la-mort-2",
@@ -4065,7 +4180,8 @@
           "price": 8.8308,
           "rating": 4.02
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "defis-fantastiques-rendez-vous-avec-la-mort-3",
@@ -4094,7 +4210,8 @@
           "price": 11.975,
           "rating": 4.35
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "defis-fantastiques-retour-a-la-montagne-de-feu",
@@ -4147,7 +4264,8 @@
           "price": 6.3426,
           "rating": 4.32
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "epouvante-frankenstein-le-maudit",
@@ -4184,7 +4302,8 @@
           "price": 3.92,
           "rating": 3.93
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "epouvante-le-chateau-de-dracula",
@@ -4221,7 +4340,8 @@
           "price": 9.372,
           "rating": 4.19
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "histoire-a-feu-et-a-sang",
@@ -4251,7 +4371,8 @@
           "price": 10.6854,
           "rating": 4.2
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "histoire-l-ombre-de-la-guillotine",
@@ -4281,7 +4402,8 @@
           "price": 10.164,
           "rating": 4.44
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "histoire-la-derniere-invasion",
@@ -4311,7 +4433,8 @@
           "price": 9.75,
           "rating": 4.46
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "histoire-les-vaisseaux-de-feu",
@@ -4341,7 +4464,8 @@
           "price": 33.78,
           "rating": 4.04
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "histoire-pour-l-independance",
@@ -4370,7 +4494,8 @@
           "price": 13.96,
           "rating": 4.4
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "l-epee-de-legende-l-impossible-mission",
@@ -4399,7 +4524,8 @@
           "price": 42.9,
           "rating": 4.45
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "l-epee-de-legende-le-maitre-des-reves",
@@ -4429,7 +4555,8 @@
           "price": 26.8488,
           "rating": 4.34
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "l-epee-de-legende-le-port-des-assassins",
@@ -4459,7 +4586,8 @@
           "price": 45.465,
           "rating": 4.46
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-epee-de-legende-les-murailles-de-spyte",
@@ -4489,7 +4617,8 @@
           "price": 17.9,
           "rating": 4.37
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "l-epee-de-legende-les-treize-mages",
@@ -4519,7 +4648,8 @@
           "price": 42.935,
           "rating": 4.17
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "l-il-noir-a-l-auberge-du-sanglier-noir",
@@ -4548,7 +4678,8 @@
           "price": 9.801,
           "rating": 4.26
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-dans-les-griffes-du-demon",
@@ -4577,7 +4708,8 @@
           "price": 13.0218,
           "rating": 4.26
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-extension-au-jeu-d-aventure",
@@ -4606,7 +4738,8 @@
           "price": null,
           "rating": null
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-initiation-au-jeu-d-aventure",
@@ -4635,7 +4768,8 @@
           "price": 58.005,
           "rating": 4.13
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-l-archipel-des-cyclopes",
@@ -4664,7 +4798,8 @@
           "price": 11.8008,
           "rating": 4.68
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-la-fille-du-calife",
@@ -4693,7 +4828,8 @@
           "price": 6.97,
           "rating": 4.28
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-la-foret-sans-retour",
@@ -4722,7 +4858,8 @@
           "price": 8.0058,
           "rating": 4.52
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-la-porte-des-mondes",
@@ -4751,7 +4888,8 @@
           "price": 15.61,
           "rating": 4.45
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-la-reine-des-amazones",
@@ -4780,7 +4918,8 @@
           "price": 50.6286,
           "rating": 4.7
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-la-source-de-mort",
@@ -4809,7 +4948,8 @@
           "price": 6.855,
           "rating": 4.16
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-le-bourreau-de-thalussa",
@@ -4838,7 +4978,8 @@
           "price": 98.38,
           "rating": 5.0
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-le-chemin-maudit",
@@ -4867,7 +5008,8 @@
           "price": 32.99,
           "rating": 4.2
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-le-fleuve-du-desastre",
@@ -4896,7 +5038,8 @@
           "price": 8.0,
           "rating": 4.38
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-le-magicien-des-glaces",
@@ -4925,7 +5068,8 @@
           "price": 13.0218,
           "rating": 4.32
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-le-navire-des-ames-perdues",
@@ -4954,7 +5098,8 @@
           "price": 12.9228,
           "rating": 4.32
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-le-tournoi-des-felons",
@@ -4984,7 +5129,8 @@
           "price": 16.74,
           "rating": 4.93
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-les-accessoires-du-maitre",
@@ -5013,7 +5159,8 @@
           "price": 80.0,
           "rating": 4.77
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-les-esclaves-d-al-anfa",
@@ -5043,7 +5190,8 @@
           "price": 62.0,
           "rating": 4.13
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-les-hieroglyphes-de-l-horreur",
@@ -5072,7 +5220,8 @@
           "price": 25.1,
           "rating": 4.32
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-les-sept-coupes-magiques",
@@ -5101,7 +5250,8 @@
           "price": 8.4084,
           "rating": 4.32
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "l-il-noir-les-spectres-des-marais",
@@ -5131,7 +5281,8 @@
           "price": 49.33,
           "rating": 4.33
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "la-voie-du-tigre-l-usurpateur-d-irsmun",
@@ -5160,7 +5311,8 @@
           "price": 8.48,
           "rating": 4.49
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "la-voie-du-tigre-la-vengeance-du-ninja",
@@ -5190,7 +5342,8 @@
           "price": 9.98,
           "rating": 4.47
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "la-voie-du-tigre-le-grand-maitre-d-irsmun",
@@ -5220,7 +5373,8 @@
           "price": 9.31,
           "rating": 4.57
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "la-voie-du-tigre-les-demons-de-manmarch",
@@ -5250,7 +5404,8 @@
           "price": 13.0,
           "rating": 3.96
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "la-voie-du-tigre-les-parchemins-de-kettsuinn",
@@ -5280,7 +5435,8 @@
           "price": 8.19,
           "rating": 4.38
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "la-voie-du-tigre-les-seigneurs-de-la-guerre",
@@ -5309,7 +5465,8 @@
           "price": 12.98,
           "rating": 4.53
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "le-maitre-du-destin-la-foret-du-dragon",
@@ -5338,7 +5495,8 @@
           "price": 27.36,
           "rating": 3.73
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "le-maitre-du-destin-le-maitre-du-feu",
@@ -5367,7 +5525,8 @@
           "price": 21.28,
           "rating": 4.71
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "les-messagers-du-temps-l-homme-au-cheval-de-brume",
@@ -5396,7 +5555,8 @@
           "price": 11.9064,
           "rating": 4.45
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "les-messagers-du-temps-le-carillon-de-la-mort",
@@ -5425,7 +5585,8 @@
           "price": 7.227,
           "rating": 4.36
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "les-messagers-du-temps-le-masque-de-sang",
@@ -5454,7 +5615,8 @@
           "price": 10.296,
           "rating": 4.43
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "les-messagers-du-temps-objectif-apocalypse",
@@ -5483,7 +5645,8 @@
           "price": 27.225,
           "rating": 4.42
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "les-portes-interdites-l-horreur-dans-la-vallee",
@@ -5513,7 +5676,8 @@
           "price": 8.1312,
           "rating": 4.51
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "les-portes-interdites-terreur-hors-du-temps",
@@ -5543,7 +5707,8 @@
           "price": 5.9994,
           "rating": 4.31
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "les-terres-de-legende-initiation-a-la-magie",
@@ -5572,7 +5737,8 @@
           "price": 12.4278,
           "rating": 4.5
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "les-terres-de-legende-la-puissance-des-tenebres",
@@ -5601,7 +5767,8 @@
           "price": 33.8,
           "rating": 4.39
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "les-terres-de-legende-le-livre-des-regles",
@@ -5630,7 +5797,8 @@
           "price": 19.89,
           "rating": 4.33
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "les-terres-de-legende-le-secret-des-elfes",
@@ -5659,7 +5827,8 @@
           "price": 9.47,
           "rating": 4.3
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "les-terres-de-legende-les-creatures-de-l-ombre",
@@ -5688,7 +5857,8 @@
           "price": 16.5924,
           "rating": 4.56
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "les-terres-de-legende-les-terres-de-legende",
@@ -5717,7 +5887,8 @@
           "price": 32.98,
           "rating": 4.55
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "loup-solitaire-au-bord-de-labime",
@@ -5742,7 +5913,8 @@
           "price": 12.78,
           "rating": 4.73
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "loup-solitaire-le-crepuscule-de-la-nuit-eternelle",
@@ -5775,7 +5947,8 @@
           "price": 24.9,
           "rating": null
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "loup-solitaire-dans-l-enfer-de-la-jungle",
@@ -5836,7 +6009,8 @@
           "price": 12.48,
           "rating": 4.0
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-dans-les-entrailles-de-torgar",
@@ -5897,7 +6071,8 @@
           "price": 13.26,
           "rating": 4.64
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-l-heritage-de-vashna",
@@ -5950,7 +6125,8 @@
           "price": 5.88,
           "rating": 4.54
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-l-il-d-agarash",
@@ -5975,7 +6151,8 @@
           "price": 14.56,
           "rating": 4.62
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "loup-solitaire-l-il-d-agarash-grand-format",
@@ -6000,7 +6177,8 @@
           "price": 59.89,
           "rating": 4.55
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "loup-solitaire-la-cite-de-l-empereur",
@@ -6025,7 +6203,8 @@
           "price": 79.98,
           "rating": 4.45
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-la-croisade-du-desespoir",
@@ -6078,7 +6257,8 @@
           "price": 6.69,
           "rating": 4.4
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-la-forteresse-maudite",
@@ -6139,7 +6319,8 @@
           "price": 13.01,
           "rating": 3.82
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-la-griffe-du-vampire",
@@ -6164,7 +6345,8 @@
           "price": 81.58,
           "rating": 4.78
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-la-guerre-des-runes",
@@ -6189,7 +6371,8 @@
           "price": 21.88,
           "rating": 4.51
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-la-malediction-de-naar",
@@ -6242,7 +6425,8 @@
           "price": 6.69,
           "rating": 4.15
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-la-metropole-de-la-peur",
@@ -6303,7 +6487,8 @@
           "price": 11.7,
           "rating": 3.9
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-la-pierre-de-la-sagesse",
@@ -6364,7 +6549,8 @@
           "price": 9.88,
           "rating": 4.51
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-la-porte-d-ombre",
@@ -6417,7 +6603,8 @@
           "price": 6.2172,
           "rating": 4.63
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-la-tour-de-cristal",
@@ -6470,7 +6657,8 @@
           "price": 5.655,
           "rating": 4.37
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-la-traversee-infernale",
@@ -6531,7 +6719,8 @@
           "price": 8.805,
           "rating": 4.7
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "loup-solitaire-le-captif-du-roi-sorcier",
@@ -6568,7 +6757,8 @@
           "price": 6.3492,
           "rating": 3.96
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-le-captif-du-roi-sorcier-2",
@@ -6601,7 +6791,8 @@
           "price": 5.5638,
           "rating": 4.41
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "loup-solitaire-le-combat-des-loups",
@@ -6654,7 +6845,8 @@
           "price": 5.48,
           "rating": 4.43
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-le-crepuscule-des-maitres",
@@ -6715,7 +6907,8 @@
           "price": 12.24,
           "rating": 4.15
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-le-demon-des-profondeurs",
@@ -6740,7 +6933,8 @@
           "price": 75.4314,
           "rating": 4.55
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-le-gouffre-maudit",
@@ -6801,7 +6995,8 @@
           "price": null,
           "rating": 4.35
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-le-heros-de-mynuit",
@@ -6826,7 +7021,8 @@
           "price": 57.98,
           "rating": 4.29
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-le-tyran-du-desert",
@@ -6887,7 +7083,8 @@
           "price": 9.6,
           "rating": 4.49
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-le-voyage-de-la-pierre-de-lune",
@@ -6924,7 +7121,8 @@
           "price": 32.095,
           "rating": 4.33
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-les-druides-de-cener",
@@ -6977,7 +7175,8 @@
           "price": 6.75,
           "rating": 4.23
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-les-grottes-de-kalte",
@@ -7038,7 +7237,8 @@
           "price": 8.28,
           "rating": 4.38
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-les-maitres-des-tenebres",
@@ -7099,7 +7299,8 @@
           "price": 9.71,
           "rating": 4.41
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-les-maitres-des-tenebres-collector",
@@ -7124,7 +7325,8 @@
           "price": 26.58,
           "rating": 4.5
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "loup-solitaire-les-maitres-des-tenebres-edition-augmentee",
@@ -7149,7 +7351,8 @@
           "price": 11.26,
           "rating": 4.48
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "loup-solitaire-les-pirates-de-shadaki",
@@ -7186,7 +7389,8 @@
           "price": 26.2086,
           "rating": 4.37
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-les-prisonniers-du-temps",
@@ -7247,7 +7451,8 @@
           "price": 13.46,
           "rating": 4.23
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-solitaire-sur-la-piste-du-loup",
@@ -7272,7 +7477,8 @@
           "price": 52.9,
           "rating": 4.86
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-ardent-l-ultime-combat-de-la-horde",
@@ -7309,7 +7515,8 @@
           "price": 10.47,
           "rating": 4.65
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-ardent-la-horde-des-demons",
@@ -7346,7 +7553,8 @@
           "price": 7.79,
           "rating": 4.51
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-ardent-les-cryptes-de-la-terreur",
@@ -7383,7 +7591,8 @@
           "price": 5.3,
           "rating": 3.7
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "loup-ardent-les-maitres-du-mal",
@@ -7420,7 +7629,8 @@
           "price": 11.1474,
           "rating": 3.86
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "metamorphose-l-homme-aux-cent-visages",
@@ -7449,7 +7659,8 @@
           "price": 26.466,
           "rating": 4.31
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "metamorphose-l-oracle-de-balkh",
@@ -7478,7 +7689,8 @@
           "price": 50.2656,
           "rating": 4.72
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "quete-du-graal-au-royaume-de-l-epouvante",
@@ -7523,7 +7735,8 @@
           "price": null,
           "rating": 4.52
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "quete-du-graal-l-antre-des-dragons",
@@ -7568,7 +7781,8 @@
           "price": 6.83,
           "rating": 4.28
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "quete-du-graal-la-legion-des-morts",
@@ -7605,7 +7819,8 @@
           "price": 19.4766,
           "rating": 4.1
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "quete-du-graal-le-chateau-des-tenebres",
@@ -7650,7 +7865,8 @@
           "price": 5.86,
           "rating": 4.32
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "quete-du-graal-le-temps-de-la-malediction",
@@ -7687,7 +7903,8 @@
           "price": 13.4442,
           "rating": 4.12
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "quete-du-graal-le-tombeau-des-malefices",
@@ -7724,7 +7941,8 @@
           "price": 7.26,
           "rating": 4.19
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "quete-du-graal-le-voyage-de-l-effroi",
@@ -7769,7 +7987,8 @@
           "price": 8.88,
           "rating": 4.29
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "quete-du-graal-les-portes-de-l-au-dela",
@@ -7814,7 +8033,8 @@
           "price": 12.25,
           "rating": 4.33
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "sherlock-holmes-l-emeraude-de-la-riviere-noire",
@@ -7851,7 +8071,8 @@
           "price": 8.88,
           "rating": 4.23
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "sherlock-holmes-l-heritier-disparu",
@@ -7888,7 +8109,8 @@
           "price": 13.88,
           "rating": 3.61
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "sherlock-holmes-la-conspiration-des-dynamiteurs",
@@ -7925,7 +8147,8 @@
           "price": 24.16,
           "rating": 4.63
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "sherlock-holmes-le-crime-du-docteur-watson",
@@ -7962,7 +8185,8 @@
           "price": 14.3,
           "rating": 4.8
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "sherlock-holmes-le-maitre-chanteur-d-appledore",
@@ -7999,7 +8223,8 @@
           "price": 7.91,
           "rating": 3.62
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "sherlock-holmes-meurtre-au-club-diogene",
@@ -8036,7 +8261,8 @@
           "price": 30.129,
           "rating": 3.72
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "sherlock-holmes-pour-l-honneur-de-la-reine",
@@ -8073,7 +8299,8 @@
           "price": 22.9,
           "rating": 4.7
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "sherlock-holmes-un-duel-dans-le-yorkshire",
@@ -8110,7 +8337,8 @@
           "price": 23.38,
           "rating": 4.22
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "sorcellerie-la-cite-des-pieges",
@@ -8155,7 +8383,8 @@
           "price": 23.5884,
           "rating": 4.55
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "sorcellerie-la-couronne-des-rois",
@@ -8180,7 +8409,8 @@
           "price": 87.115,
           "rating": 4.73
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "sorcellerie-la-couronnes-des-rois",
@@ -8217,7 +8447,8 @@
           "price": 22.374,
           "rating": 4.45
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "sorcellerie-les-collines-malefiques",
@@ -8262,7 +8493,8 @@
           "price": 14.4606,
           "rating": 4.59
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "sorcellerie-les-sept-serpents",
@@ -8307,7 +8539,8 @@
           "price": 44.0088,
           "rating": 4.81
         }
-      ]
+      ],
+      "hasReader": true
     },
     {
       "id": "super-sherlock-la-villa-des-revenants",
@@ -8344,7 +8577,8 @@
           "price": 16.99,
           "rating": 4.84
         }
-      ]
+      ],
+      "hasReader": false
     },
     {
       "id": "super-sherlock-le-mystere-de-compton",
@@ -8381,7 +8615,8 @@
           "price": 10.0518,
           "rating": 4.28
         }
-      ]
+      ],
+      "hasReader": false
     }
   ]
 }

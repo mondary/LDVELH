@@ -7,14 +7,14 @@ Built-in reader with decision tree, text-to-speech, edit mode, and save/restore.
 
 ## Features
 
-### Library (`src/index.html`)
+### Library (`index.html`)
 - Browse by series, universe, and category.
 - Full-text search.
 - Sort by default order, year, rating, or title.
 - Detailed item view with cover, metadata, and all editions.
 - Direct link to the interactive reader.
 
-### Reader (`src/reader.html`)
+### Reader (`reader.html`)
 - Interactive reading with SVG decision tree.
 - Text-to-speech (TTS) in French with voice and speed controls.
 - Edit mode: modify text and choices, saved to database.
@@ -32,7 +32,16 @@ Built-in reader with decision tree, text-to-speech, edit mode, and save/restore.
 - Original and modified data stored separately.
 - REST API for section CRUD.
 
-## Usage
+## Static Deployment (FTP)
+
+The app works entirely as static files. To deploy on FTP:
+
+1. Upload `index.html`, `reader.html` and the `src/` directory.
+2. The reader loads books directly from JSON files (no server needed).
+
+The Node.js server is only needed for local editing.
+
+## Usage (development)
 
 ```bash
 node server/server.js
@@ -44,40 +53,43 @@ Then open `http://localhost:5432`.
 
 | Method | Route | Description |
 |--------|-------|-------------|
-| GET | `/api/books/:isbn` | Full book (modified text if exists, else original) |
-| PUT | `/api/books/:isbn/sections/:id` | Save a modified section |
-| PUT | `/api/books/:isbn/reset-section/:id` | Restore original section |
-| POST | `/api/books/:isbn/reset` | Restore entire book |
-| GET | `/api/books/:isbn/export` | Export modified book as JSON |
+| GET | `/api/books` | List all books |
+| GET | `/api/books/:bookId` | Full book (modified text if exists, else original) |
+| PUT | `/api/books/:bookId/sections/:id` | Save a modified section |
+| PUT | `/api/books/:bookId/reset-section/:id` | Restore original section |
+| POST | `/api/books/:bookId/reset` | Restore entire book |
+| GET | `/api/books/:bookId/export` | Export modified book as JSON |
 
 ## Structure
 
 ```
+index.html              Library (entry point)
+reader.html             Interactive reader
 server/
-  server.js          Node.js server + SQLite
-  ldvelh.db          Database (auto-created)
+  server.js             Node.js server + SQLite
+  ldvelh.db             Database (auto-created)
   package.json
 src/
-  index.html          Library
-  reader.html         Interactive reader
-  data/
-    library.json      Book catalog
-    readers/          Per-book JSON (imported on first launch)
-      9782070333707.json
   assets/
-    covers/           Covers
-    pdf/              Book PDFs
+    covers/             Covers
+    pdf/                Book PDFs
+  data/
+    library.json        Book catalog
+    readers/            Per-book JSON (identified by bookId)
+      astre-d-or-le-sorcier-majdar.json
 ```
 
 ## Adding a book
 
-1. Create a JSON file in `src/data/readers/` named by ISBN (e.g. `9782070333707.json`).
-2. Format: `{ "bookId": "...", "title": "...", "pdf": "/assets/pdf/path/to/file.pdf", "sections": [{ "id": 1, "text": "...", "choices": [{ "to": 2, "label": "..." }] }] }`. The `pdf` field is optional and enables the PDF button in the reader.
-3. Restart the server: it auto-imports new JSON files.
-4. The book is accessible via `reader.html?book=ISBN`.
+1. Create a JSON file in `src/data/readers/` named by book ID (e.g. `astre-d-or-le-sorcier-majdar.json`).
+2. Format: `{ "bookId": "astre-d-or-le-sorcier-majdar", "title": "...", "pdf": "/src/assets/pdf/path/to/file.pdf", "sections": [{ "id": 1, "text": "...", "choices": [{ "to": 2, "label": "..." }] }] }`. The `pdf` field is optional.
+3. Add the book to `src/data/library.json` with `"hasReader": true`.
+4. Restart the server: it auto-imports new JSON files.
+5. The book is accessible via `reader.html?book=astre-d-or-le-sorcier-majdar`.
 
 ## Changelog
 
+- [0.25] - ISBN→bookId migration, HTML at root, static FTP deployment
 - [0.24] - Fix promote (sections updated in DB), show only modified section count
 - [0.23] - Submit button (promote with admin password or email request), modification counter, overlay graph without duplicates
 - [0.22] - Fix overlay graph (loops no longer truncate path), PDF drawer with pageMap, choice reordering in edit mode

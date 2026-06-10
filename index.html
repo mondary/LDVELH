@@ -1,0 +1,2489 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LDVELH · Bibliothèque des Livres Dont Vous Êtes le Héros</title>
+<style>
+  :root {
+    --bg-0: #07080c;
+    --bg-1: #0d1017;
+    --bg-2: #161a24;
+    --bg-3: #1f2532;
+    --text: #f5f5f7;
+    --text-dim: #a1a7b3;
+    --text-faint: #6b7280;
+    --accent: #e50914;
+    --accent-glow: rgba(229, 9, 20, 0.4);
+    --gold: #d4af37;
+    --radius: 8px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --pad-x: 48px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow-x: hidden; max-width: 100%; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    background: var(--bg-0);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.01em;
+  }
+
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(1200px 600px at 20% -10%, rgba(139, 0, 0, 0.25), transparent 60%),
+      radial-gradient(900px 500px at 90% 10%, rgba(184, 134, 11, 0.15), transparent 60%),
+      radial-gradient(800px 400px at 50% 120%, rgba(30, 60, 120, 0.25), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ===== TOPBAR ===== */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    display: flex; align-items: center; gap: 20px;
+    padding: 16px var(--pad-x);
+    background: linear-gradient(to bottom, rgba(7,8,12,0.95), rgba(7,8,12,0.7) 60%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    z-index: 50;
+  }
+  .logo {
+    font-weight: 800; font-size: 20px; letter-spacing: 0.12em;
+    color: var(--accent);
+    text-shadow: 0 0 20px var(--accent-glow);
+    white-space: nowrap;
+  }
+  .logo span { color: var(--text); font-weight: 300; letter-spacing: 0.2em; }
+  .stats {
+    display: flex; gap: 18px;
+    font-size: 11px; color: var(--text-faint);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .stats b { color: var(--text); font-weight: 600; }
+  .topbar-right {
+    margin-left: auto;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .search-wrap { position: relative; }
+  .search {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text);
+    padding: 8px 13px 8px 34px;
+    border-radius: 999px;
+    font-size: 12px;
+    width: 200px;
+    outline: none;
+    transition: all 0.3s var(--ease);
+  }
+  .search:focus { width: 260px; border-color: rgba(229,9,20,0.5); background: rgba(255,255,255,0.1); }
+  .search-icon {
+    position: absolute; left: 12px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-faint);
+  }
+  .sort-select {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+  }
+  .sort-select option { background: var(--bg-2); color: var(--text); }
+  .icon-btn {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--text-dim);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s var(--ease);
+  }
+  .icon-btn:hover { color: var(--text); background: rgba(255,255,255,0.1); }
+  .icon-btn.active { color: var(--accent); border-color: var(--accent); }
+
+  /* ===== NAV ===== */
+  .nav-wrap {
+    position: fixed;
+    top: 54px;
+    left: 0; right: 0;
+    z-index: 49;
+    display: flex; flex-direction: column;
+    background: linear-gradient(to bottom, rgba(7,8,12,0.92) 0%, rgba(7,8,12,0.75) 70%, transparent 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding-bottom: 12px;
+  }
+  .nav {
+    display: flex; gap: 6px;
+    padding: 8px var(--pad-x);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav-universes { padding-top: 10px; }
+  .nav-series { padding-top: 4px; border-top: 1px solid rgba(255,255,255,0.03); }
+  .nav-categories {
+    padding-top: 4px;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    margin-top: 2px;
+  }
+  .nav a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    padding: 5px 11px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s var(--ease);
+    white-space: nowrap;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .nav a:hover { color: var(--text); }
+  .nav a.active {
+    color: var(--text);
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(255,255,255,0.12);
+  }
+  .nav-universes a {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+  }
+  .nav-universes a.active {
+    background: rgba(229, 9, 20, 0.2);
+    border-color: rgba(229, 9, 20, 0.5);
+    color: #ff8a91;
+  }
+  .nav-categories a {
+    font-size: 11px;
+    padding: 4px 10px;
+    letter-spacing: 0.05em;
+  }
+  .nav-categories a.active {
+    background: rgba(229, 9, 20, 0.15);
+    border-color: rgba(229, 9, 20, 0.4);
+    color: #ff8a91;
+  }
+  .nav-categories a .ico { font-size: 13px; line-height: 1; }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    height: 78vh;
+    min-height: 540px;
+    display: flex; align-items: flex-end;
+    padding: 150px var(--pad-x) 72px;
+    overflow: hidden;
+    transition: height 0.5s var(--ease), min-height 0.5s var(--ease), padding 0.5s var(--ease);
+  }
+  .hero.compact {
+    height: auto;
+    min-height: 240px;
+    padding: 140px var(--pad-x) 40px;
+  }
+  .hero.compact.search {
+    min-height: 200px;
+    padding: 140px var(--pad-x) 32px;
+  }
+  .hero.compact .hero-title {
+    font-size: clamp(32px, 5vw, 52px);
+    margin-bottom: 12px;
+  }
+  .hero.compact.search .hero-title {
+    font-size: clamp(28px, 4vw, 44px);
+    font-style: italic;
+    font-weight: 600;
+    color: #ffe9a8;
+    text-shadow: 0 2px 30px rgba(0,0,0,0.7);
+  }
+  .hero.compact.sort .hero-title {
+    color: #a8d8ff;
+    text-shadow: 0 2px 30px rgba(0,0,0,0.7);
+  }
+  .hero.compact .hero-desc {
+    font-size: 14px;
+    margin-bottom: 16px;
+    max-width: 640px;
+  }
+  .hero.compact .hero-actions { display: none; }
+  .hero.compact .hero-content { max-width: 720px; }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    filter: saturate(1.15) contrast(1.05);
+    transform: scale(1.05);
+    transition: opacity 1s var(--ease);
+  }
+  .hero-bg::after {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(180deg, transparent 10%, rgba(7,8,12,0.6) 55%, var(--bg-0) 100%),
+      linear-gradient(90deg, rgba(7,8,12,0.95) 0%, rgba(7,8,12,0.4) 50%, transparent 100%);
+  }
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 620px;
+    animation: fadeUp 0.8s var(--ease) both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    margin-bottom: 18px;
+  }
+  .hero-eyebrow::before {
+    content: ""; width: 28px; height: 1px; background: var(--accent);
+  }
+  .hero-title {
+    font-size: clamp(40px, 6vw, 76px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 18px;
+    text-shadow: 0 4px 40px rgba(0,0,0,0.7);
+  }
+  .hero-meta {
+    display: flex; gap: 14px; align-items: center; flex-wrap: wrap;
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-bottom: 16px;
+    letter-spacing: 0.04em;
+  }
+  .hero-meta .chip {
+    padding: 3px 10px;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 999px;
+    font-size: 11px;
+    color: var(--text);
+  }
+  .hero-meta .rating { color: var(--gold); }
+  .hero-desc {
+    font-size: 16px;
+    line-height: 1.55;
+    color: #d5d9e2;
+    margin-bottom: 28px;
+    max-width: 520px;
+  }
+  .hero-actions { display: flex; gap: 12px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    border: none;
+    transition: all 0.25s var(--ease);
+  }
+  .btn-primary { background: var(--text); color: #111; }
+  .btn-primary:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,255,255,0.15); }
+  .btn-ghost {
+    background: rgba(255,255,255,0.12); color: var(--text);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.18);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+  /* ===== ROWS ===== */
+  .library {
+    position: relative; z-index: 2;
+    padding: 20px 0 80px;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  .row { margin-top: 44px; max-width: 100%; overflow: hidden; }
+  .row-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 0 var(--pad-x) 14px;
+    width: 100%;
+  }
+  .row-title {
+    font-size: 20px; font-weight: 700;
+    letter-spacing: -0.015em;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .row-title .count {
+    font-size: 11px;
+    color: var(--text-faint);
+    font-weight: 500;
+    padding: 2px 8px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+  }
+  .row-subtitle {
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .row-scroller {
+    display: flex;
+    gap: 14px;
+    padding: 10px var(--pad-x) 28px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scroll-padding-inline: var(--pad-x);
+    scrollbar-width: none;
+    max-width: 100%;
+    width: 100%;
+  }
+  .row-scroller::-webkit-scrollbar { display: none; }
+
+  .library.grid-view {
+    padding: 160px var(--pad-x) 80px;
+    display: flex; flex-wrap: wrap; gap: 24px;
+  }
+  .library.grid-view .row { display: contents; }
+  .library.grid-view .row-header { display: none; }
+  .library.grid-view .row-scroller {
+    display: contents;
+    overflow: visible; padding: 0;
+  }
+
+  .row.force-grid .row-scroller {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    overflow: visible;
+  }
+  .row.force-grid .card {
+    flex: 0 0 calc((100% - 16px * 7) / 8);
+    min-width: 150px;
+  }
+
+  /* ===== BOOK CARD ===== */
+  .card {
+    flex: 0 0 200px;
+    scroll-snap-align: start;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.45s var(--ease);
+  }
+  .library.grid-view .card {
+    flex: 0 0 calc((100% - 24px * 7) / 8);
+    min-width: 150px;
+  }
+  .card:hover { transform: translateY(-6px) scale(1.03); z-index: 5; }
+
+  .cover {
+    position: relative;
+    aspect-ratio: 2 / 3;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #1a1d26;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.06) inset,
+      0 20px 40px -15px rgba(0,0,0,0.8),
+      0 10px 20px -10px rgba(0,0,0,0.6);
+    transition: box-shadow 0.45s var(--ease);
+  }
+  .card:hover .cover {
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.1) inset,
+      0 30px 60px -10px rgba(0,0,0,0.9),
+      0 0 0 2px rgba(229, 9, 20, 0.6),
+      0 0 40px -5px var(--accent-glow);
+  }
+  .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cover-fallback {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 16px;
+    text-align: center;
+    background: linear-gradient(160deg, #1a1d26, #0a0c12);
+    color: var(--text-dim);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+  }
+  .cover-fallback .num {
+    font-size: 44px; font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 14px;
+    text-shadow: 0 0 24px var(--accent-glow);
+  }
+  .cover-fallback .ttl {
+    font-size: 12px; font-weight: 600;
+    color: var(--text); line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .cover-fallback::before {
+    content: ""; position: absolute; inset: 8px;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 4px;
+  }
+
+  .badge {
+    position: absolute;
+    top: 10px; left: 10px;
+    padding: 3px 7px;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(6px);
+    color: var(--text);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  .badge.top { background: var(--gold); color: #111; }
+  .badge-editions {
+    position: absolute;
+    top: 10px; right: 10px;
+    padding: 3px 7px;
+    border-radius: 4px;
+    background: rgba(229, 9, 20, 0.85);
+    backdrop-filter: blur(6px);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    display: flex; align-items: center; gap: 3px;
+  }
+
+  .card-info { padding: 12px 4px 4px; }
+  .card-title {
+    font-size: 13px; font-weight: 600;
+    color: var(--text); line-height: 1.3;
+    margin-bottom: 3px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-sub {
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.02em;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .card-rating {
+    display: flex; align-items: center; gap: 4px;
+    margin-top: 4px;
+    font-size: 10px;
+    color: var(--gold);
+  }
+  .card-rating span { color: var(--text-faint); }
+
+  .card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.92) 100%);
+    opacity: 0;
+    transition: opacity 0.4s var(--ease);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 14px;
+    gap: 6px;
+  }
+  .card:hover .card-overlay { opacity: 1; }
+  .card-overlay .ov-title {
+    color: var(--text);
+    font-size: 13px; font-weight: 700; line-height: 1.2;
+  }
+  .card-overlay .ov-authors {
+    color: var(--text-dim);
+    font-size: 11px;
+    line-height: 1.3;
+  }
+  .card-overlay .ov-meta {
+    color: var(--text-dim);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-top: 4px;
+  }
+  .card-overlay .ov-meta span {
+    padding: 2px 6px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 3px;
+  }
+  .card-overlay .ov-play {
+    margin-top: 6px;
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px;
+    background: var(--text);
+    color: #111;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  /* ===== MODAL ===== */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: none;
+    align-items: center; justify-content: center;
+    animation: fadeIn 0.3s var(--ease);
+  }
+  .modal-backdrop.open { display: flex; }
+  @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+  .modal {
+    width: min(920px, 92vw);
+    max-height: 88vh;
+    overflow-y: auto;
+    background: var(--bg-1);
+    border-radius: 14px;
+    position: relative;
+    animation: zoomIn 0.4s var(--ease);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.7);
+  }
+  @keyframes zoomIn {
+    from { opacity:0; transform: scale(0.92); }
+    to   { opacity:1; transform: scale(1); }
+  }
+  .modal-hero {
+    position: relative;
+    height: 340px;
+    background-size: cover;
+    background-position: center;
+    display: flex; align-items: flex-end;
+    padding: 32px;
+  }
+  .modal-hero::after {
+    content:""; position:absolute; inset:0;
+    background: linear-gradient(180deg, transparent 20%, var(--bg-1) 100%);
+  }
+  .modal-hero-content { position: relative; z-index: 2; }
+  .modal-hero h2 {
+    font-size: 42px; font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .modal-hero .meta {
+    color: var(--text-dim);
+    font-size: 13px;
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .modal-hero .meta .rating { color: var(--gold); }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.6);
+    color: var(--text);
+    border: none; cursor: pointer;
+    font-size: 18px;
+    z-index: 3;
+    transition: background 0.2s var(--ease);
+  }
+  .modal-close:hover { background: var(--accent); }
+  .modal-body {
+    padding: 24px 32px 36px;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 32px;
+  }
+  .modal-body p { line-height: 1.6; color: #c8cdd6; margin-bottom: 14px; }
+  .stat {
+    display: flex; justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 13px;
+  }
+  .stat span:first-child { color: var(--text-faint); letter-spacing: 0.05em; }
+  .stat span:last-child  { color: var(--text); font-weight: 500; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .tag {
+    padding: 4px 10px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 999px;
+    font-size: 11px;
+    color: var(--text-dim);
+  }
+
+  /* Editions section in modal */
+  .editions-section {
+    padding: 0 32px 32px;
+  }
+  .editions-title {
+    font-size: 16px; font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .editions-title .count {
+    font-size: 11px;
+    color: var(--text-faint);
+    font-weight: 500;
+    padding: 2px 8px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 999px;
+  }
+  .editions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+  }
+  .edition-card {
+    background: var(--bg-2);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: border-color 0.2s var(--ease), transform 0.2s var(--ease);
+    cursor: default;
+  }
+  .edition-card:hover {
+    border-color: rgba(229, 9, 20, 0.4);
+    transform: translateY(-2px);
+  }
+  .edition-cover {
+    aspect-ratio: 2/3;
+    background: var(--bg-3);
+    position: relative;
+  }
+  .edition-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .edition-cover .universe-label {
+    position: absolute; top: 8px; left: 8px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(4px);
+    color: var(--accent);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+  .edition-info {
+    padding: 10px 12px;
+  }
+  .edition-info .ed-universe {
+    font-size: 12px; font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .edition-info .ed-source {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+    line-height: 1.35;
+  }
+  .edition-info .ed-detail {
+    font-size: 10px;
+    color: var(--text-faint);
+    line-height: 1.6;
+  }
+
+  /* ===== READER ===== */
+  .reader-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.3s var(--ease);
+  }
+  .reader-backdrop.open { display: flex; }
+  .reader-shell {
+    width: min(1360px, 96vw);
+    height: min(90vh, 980px);
+    background: linear-gradient(180deg, rgba(17, 20, 29, 0.98), rgba(10, 12, 18, 0.98));
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 40px 120px rgba(0,0,0,0.75);
+    display: grid;
+    grid-template-rows: auto 1fr;
+  }
+  .reader-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 18px 22px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+  }
+  .reader-title {
+    min-width: 0;
+  }
+  .reader-title .eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    margin-bottom: 5px;
+    font-weight: 700;
+  }
+  .reader-title h2 {
+    font-size: 22px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .reader-title .meta {
+    margin-top: 6px;
+    color: var(--text-dim);
+    font-size: 12px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .reader-close {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: var(--text);
+    cursor: pointer;
+    font-size: 18px;
+    flex: 0 0 auto;
+  }
+  .reader-close:hover { background: var(--accent); border-color: var(--accent); }
+  .reader-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+    min-height: 0;
+  }
+  .reader-main,
+  .reader-tree {
+    min-height: 0;
+    overflow: auto;
+  }
+  .reader-main {
+    padding: 28px 28px 30px;
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+  .reader-section {
+    max-width: 820px;
+  }
+  .reader-section-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+  .reader-section-number {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+  .reader-section-title {
+    font-size: 34px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 6px;
+  }
+  .reader-section-count {
+    color: var(--text-faint);
+    font-size: 12px;
+    white-space: nowrap;
+    padding-top: 4px;
+  }
+  .reader-text {
+    font-size: 16px;
+    line-height: 1.78;
+    color: #d5d9e2;
+  }
+  .reader-text p {
+    margin-bottom: 14px;
+  }
+  .reader-choices {
+    margin-top: 26px;
+    display: grid;
+    gap: 10px;
+  }
+  .reader-choice {
+    appearance: none;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.04);
+    color: var(--text);
+    border-radius: 14px;
+    padding: 14px 16px;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.2s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .reader-choice:hover {
+    transform: translateY(-1px);
+    border-color: rgba(229, 9, 20, 0.45);
+    background: rgba(229, 9, 20, 0.08);
+  }
+  .reader-choice .label {
+    display: block;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .reader-choice .to {
+    display: block;
+    margin-top: 6px;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  .reader-empty {
+    margin-top: 26px;
+    padding: 16px;
+    border-radius: 14px;
+    border: 1px dashed rgba(255,255,255,0.16);
+    color: var(--text-faint);
+    font-size: 13px;
+  }
+  .reader-tree {
+    padding: 24px 18px 24px 18px;
+    background: rgba(255,255,255,0.015);
+  }
+  .reader-tree-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 16px;
+    padding: 0 6px;
+  }
+  .reader-tree-head h3 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--text-dim);
+  }
+  .reader-tree-head .hint {
+    color: var(--text-faint);
+    font-size: 11px;
+  }
+  .reader-tree-scroll {
+    overflow: auto;
+    max-height: calc(90vh - 108px);
+    padding-right: 6px;
+  }
+  .reader-node {
+    display: block;
+    width: 100%;
+    text-align: left;
+    margin-left: calc(var(--depth) * 18px);
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.03);
+    color: var(--text);
+    border-radius: 14px;
+    padding: 12px 12px 11px;
+    cursor: pointer;
+  }
+  .reader-node.active {
+    border-color: rgba(229, 9, 20, 0.58);
+    background: rgba(229, 9, 20, 0.12);
+    box-shadow: 0 0 0 1px rgba(229, 9, 20, 0.18) inset;
+  }
+  .reader-node .section {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--text-faint);
+    margin-bottom: 6px;
+  }
+  .reader-node .excerpt {
+    display: block;
+    font-size: 13px;
+    line-height: 1.45;
+    color: #d5d9e2;
+  }
+  .reader-branch {
+    margin: 8px 0 14px;
+  }
+  .reader-branch-label {
+    margin: 0 0 8px calc(var(--depth) * 18px + 10px);
+    padding-left: 10px;
+    border-left: 1px solid rgba(255,255,255,0.08);
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .reader-loading,
+  .reader-error {
+    padding: 36px;
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+  .reader-error strong {
+    display: block;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .empty {
+    padding: 160px var(--pad-x) 80px;
+    text-align: center;
+    color: var(--text-faint);
+    font-size: 15px;
+  }
+
+  @media (max-width: 900px) {
+    :root { --pad-x: 20px; }
+    .topbar { padding: 14px var(--pad-x); gap: 12px; flex-wrap: wrap; }
+    .nav-wrap {
+      position: relative;
+      top: 0;
+      order: 10;
+      background: transparent;
+      backdrop-filter: none;
+      padding: 0;
+    }
+    .nav { padding: 6px var(--pad-x); }
+    .stats { display: none; }
+    .hero { padding: 120px var(--pad-x) 50px; height: 70vh; }
+    .hero.compact { min-height: 200px; padding: 120px var(--pad-x) 32px; }
+    .card { flex: 0 0 160px; }
+    .modal-body { grid-template-columns: 1fr; }
+    .modal-hero h2 { font-size: 28px; }
+    .library.grid-view { padding: 20px; }
+    .library.grid-view .card { flex: 0 0 calc((100% - 40px) / 3); }
+    .editions-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+    .stats-panel { padding: 80px var(--pad-x) 40px; }
+    .stats-universe-grid { grid-template-columns: 1fr; }
+    .reader-shell {
+      width: 96vw;
+      height: 92vh;
+    }
+    .reader-body {
+      grid-template-columns: 1fr;
+    }
+    .reader-main {
+      border-right: none;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .reader-tree {
+      max-height: 34vh;
+    }
+    .reader-section-title {
+      font-size: 28px;
+    }
+  }
+
+  /* ===== STATS PANEL ===== */
+  .stats-panel {
+    position: fixed; inset: 0;
+    z-index: 90;
+    background: var(--bg-0);
+    overflow-y: auto;
+    padding: 80px var(--pad-x) 60px;
+    display: none;
+    animation: fadeIn 0.3s var(--ease);
+  }
+  .stats-panel.open { display: block; }
+  .stats-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 32px;
+  }
+  .stats-header h2 {
+    font-size: 28px; font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .stats-section {
+    margin-bottom: 40px;
+  }
+  .stats-section h3 {
+    font-size: 16px; font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+    color: var(--text-dim);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .stats-section h3 .count {
+    font-size: 11px;
+    color: var(--text-faint);
+    font-weight: 500;
+    padding: 2px 8px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 999px;
+  }
+
+  .stats-overview {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .stat-card {
+    background: var(--bg-2);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: border-color 0.2s var(--ease);
+  }
+  .stat-card:hover { border-color: rgba(229, 9, 20, 0.3); }
+  .stat-card .stat-value {
+    font-size: 36px; font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-card .stat-label {
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+.stat-card.accent .stat-value { color: var(--accent); }
+.stat-card.gold .stat-value { color: var(--gold); }
+.stat-card.is-button {
+  appearance: none;
+  width: 100%;
+  text-align: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.stat-card.is-button .stat-value {
+  pointer-events: none;
+}
+.stat-mini {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--text-faint);
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+}
+.stat-mini:hover { color: var(--text); }
+
+  .stats-universe-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .combo-card {
+    background: var(--bg-2);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 0.2s var(--ease);
+  }
+  .combo-card:hover { border-color: rgba(229, 9, 20, 0.3); }
+  .combo-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .combo-label {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 14px; font-weight: 700;
+  }
+  .combo-label .univ-tag {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+  }
+  .univ-tag.V1 { background: rgba(229, 9, 20, 0.2); color: #ff6b73; }
+  .univ-tag.V2 { background: rgba(59, 130, 246, 0.2); color: #6b9fff; }
+  .univ-tag.V3 { background: rgba(16, 185, 129, 0.2); color: #6be8b5; }
+  .univ-tag.V4 { background: rgba(245, 158, 11, 0.2); color: #f5c96b; }
+  .univ-tag.V5 { background: rgba(139, 92, 246, 0.2); color: #b58bff; }
+  .combo-count {
+    font-size: 24px; font-weight: 800;
+    color: var(--text);
+  }
+  .combo-bar {
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .combo-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--gold));
+    transition: width 0.6s var(--ease);
+  }
+  .combo-books {
+    font-size: 11px;
+    color: var(--text-faint);
+    line-height: 1.8;
+    max-height: 120px;
+    overflow-y: auto;
+  }
+  .combo-books .book-line {
+    display: flex; align-items: center; gap: 6px;
+    padding: 2px 0;
+  }
+  .combo-books .book-line:hover { color: var(--text-dim); }
+  .combo-books .book-cover {
+    width: 16px; height: 24px;
+    border-radius: 2px;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .combo-books .book-title {
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .combo-books .book-series {
+    color: var(--text-faint);
+    font-size: 10px;
+    flex-shrink: 0;
+  }
+
+  .stats-bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    height: 160px;
+    padding: 0 0 30px;
+    position: relative;
+  }
+  .stats-bar-chart .bar-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+  }
+  .stats-bar-chart .bar {
+    width: 100%;
+    max-width: 60px;
+    border-radius: 4px 4px 0 0;
+    transition: height 0.6s var(--ease);
+    position: relative;
+  }
+  .stats-bar-chart .bar-value {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .stats-bar-chart .bar-label {
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.05em;
+    text-align: center;
+  }
+  .bar.V1 { background: linear-gradient(180deg, #ff6b73, rgba(229, 9, 20, 0.6)); }
+  .bar.V2 { background: linear-gradient(180deg, #6b9fff, rgba(59, 130, 246, 0.6)); }
+  .bar.V3 { background: linear-gradient(180deg, #6be8b5, rgba(16, 185, 129, 0.6)); }
+  .bar.V4 { background: linear-gradient(180deg, #f5c96b, rgba(245, 158, 11, 0.6)); }
+  .bar.V5 { background: linear-gradient(180deg, #b58bff, rgba(139, 92, 246, 0.6)); }
+
+  .stats-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .stats-table th {
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 11px;
+    color: var(--text-faint);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .stats-table td {
+    padding: 8px 12px;
+    font-size: 13px;
+    color: var(--text-dim);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .stats-table tr:hover td { color: var(--text); background: rgba(255,255,255,0.02); }
+  .stats-table .num { text-align: right; font-weight: 600; color: var(--text); font-variant-numeric: tabular-nums; }
+
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="logo">LDVELH<span>·</span></div>
+  <div class="stats" id="stats"></div>
+  <div class="topbar-right">
+    <div class="search-wrap">
+      <svg class="search-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="text" class="search" id="search" placeholder="Titre, auteur, série..." />
+    </div>
+    <select class="sort-select" id="sort">
+      <option value="default">Tri : défaut</option>
+      <option value="year">Année</option>
+      <option value="rating">Note</option>
+      <option value="title">Titre (A-Z)</option>
+    </select>
+    <button class="icon-btn" id="statsToggle" title="Statistiques">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg>
+    </button>
+  </div>
+</header>
+
+<nav class="nav-wrap" id="navWrap">
+  <div class="nav nav-universes" id="navUniverses"></div>
+  <div class="nav nav-series" id="navSeries"></div>
+  <div class="nav nav-categories" id="navCategories"></div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-content" id="heroContent"></div>
+</section>
+
+<main class="library" id="library"></main>
+
+<div class="stats-panel" id="statsPanel">
+  <div class="stats-header">
+    <h2>Statistiques de la collection</h2>
+    <button class="icon-btn" id="statsClose">✕</button>
+  </div>
+  <div class="stats-content" id="statsContent"></div>
+</div>
+
+<div class="modal-backdrop" id="modal">
+  <div class="modal" id="modalInner"></div>
+</div>
+
+<div class="reader-backdrop" id="reader">
+  <div class="reader-shell" id="readerInner"></div>
+</div>
+
+<script>
+const COVER = (isbn) => `src/assets/covers/small/${isbn}.webp`;
+const COVER_BIG = (isbn) => `src/assets/covers/medium/${isbn}.webp`;
+
+let DATA = null;
+let activeFilter = "all";
+let activeCategory = "none";
+let activeUniverse = null;
+let activeUniverseMode = "all";
+let searchTerm = "";
+let sortBy = "default";
+let heroBook = null;
+let currentDisplayItemsById = new Map();
+const readerCache = new Map();
+let readerState = null;
+let readerNodeSeq = 0;
+
+const UNIVERSE_LABELS = {
+  V1: "V1", V2: "V2", V3: "V3", V4: "V4", V5: "V5"
+};
+
+const CATEGORIES = [
+  { id: "top",        label: "Mieux notés",        ico: "★", filter: b => b.rating >= 4.3,           sort: (a,b) => b.rating - a.rating },
+  { id: "hardcore",   label: "Plus difficiles",    ico: "⚔", filter: b => b.difficulty >= 4,         sort: (a,b) => b.difficulty - a.difficulty },
+  { id: "recent",     label: "Sorties récentes",   ico: "↻", filter: b => (b.year || 0) >= 1992,     sort: (a,b) => (b.year||0) - (a.year||0) },
+  { id: "classics",   label: "Classiques",         ico: "◈", filter: b => (b.year || 0) > 0 && (b.year || 0) < 1988, sort: (a,b) => (a.year||0) - (b.year||0) },
+  { id: "hidden",     label: "Pépites cachées",    ico: "✦", filter: b => b.rating >= 4.0 && b.rating < 4.4, sort: (a,b) => b.rating - a.rating },
+];
+
+const UNIVERSE_ORDER = ["V1", "V2", "V3", "V4", "V5"];
+const COVER_FALLBACK = (isbn) => `https://covers.openlibrary.org/b/isbn/${encodeURIComponent(isbn)}-L.jpg?default=false`;
+
+function universeRank(universe) {
+  const idx = UNIVERSE_ORDER.indexOf(universe);
+  return idx === -1 ? UNIVERSE_ORDER.length : idx;
+}
+
+function getEditionIsbn(b, universe) {
+  if (!b.editions || !b.editions.length) return b.isbn;
+  if (universe) {
+    const ed = b.editions.find(e => e.universe === universe);
+    if (ed) return ed.isbn;
+  }
+  for (const u of UNIVERSE_ORDER) {
+    const ed = b.editions.find(e => e.universe === u);
+    if (ed) return ed.isbn;
+  }
+  return b.editions[0]?.isbn || b.isbn;
+}
+
+function getEditionData(b, universe) {
+  if (!b.editions || !b.editions.length) return null;
+  if (universe) {
+    return b.editions.find(e => e.universe === universe) || null;
+  }
+  for (const u of UNIVERSE_ORDER) {
+    const ed = b.editions.find(e => e.universe === u);
+    if (ed) return ed;
+  }
+  return b.editions[0];
+}
+
+function coverSrc(isbn) {
+  return COVER(isbn);
+}
+
+function isVisible(b) {
+  if (!activeUniverse) return true;
+  const editions = b.editions || [];
+  if (activeUniverseMode === "exclusive") {
+    return editions.length === 1 && editions[0].universe === activeUniverse;
+  }
+  return editions.some(e => e.universe === activeUniverse);
+}
+
+function getVisibleBooks() {
+  return DATA.books.filter(isVisible);
+}
+
+function stripVariantSuffix(title) {
+  return (title || "").replace(/\s*\(([^)]+)\)\s*$/, "").trim();
+}
+
+const TITLE_ALIASES = new Map([
+  ["la foret de malediction", "la foret de la malediction"],
+  ["la couronnes des rois", "la couronne des rois"],
+  ["rendez vous avec la mort", "rendez vous avec la m o r t"],
+]);
+
+const CANONICAL_NUMBERS = new Map([
+  ["defis-fantastiques#rendez vous avec la m o r t", 17],
+  ["defis-fantastiques#la malediction de la momie", 59],
+  ["defis-fantastiques#l oeil d emeraude", 60],
+  ["defis-fantastiques#le pirate de l au dela", 61],
+  ["defis-fantastiques#la nuit du loup garou", 62],
+  ["defis-fantastiques#le maitre des tempetes", 63],
+  ["defis-fantastiques#la nuit du necromancien", 64],
+  ["defis-fantastiques#le sang des zombies", 65],
+  ["defis-fantastiques#l anneau des serpents de feu", 66],
+  ["defis-fantastiques#le fleau de titan", 67],
+  ["defis-fantastiques#les mysteres de salamonis", 68],
+  ["defis-fantastiques#les geants de fer", 69],
+  ["loup-solitaire#la guerre des runes", 23],
+  ["loup-solitaire#le heros de mynuit", 24],
+]);
+
+function canonicalBookTitle(title) {
+  const normalized = stripVariantSuffix(title)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/œ/g, "oe")
+    .replace(/æ/g, "ae")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return TITLE_ALIASES.get(normalized) || normalized;
+}
+
+function canonicalBookKey(book) {
+  return `${book.series}#${canonicalBookTitle(book.title)}`;
+}
+
+function getCatalogNumber(book) {
+  return CANONICAL_NUMBERS.get(canonicalBookKey(book)) || book.number;
+}
+
+function numberSortValue(number) {
+  if (number == null) return Number.POSITIVE_INFINITY;
+  const match = String(number).match(/\d+/);
+  return match ? Number(match[0]) : Number.POSITIVE_INFINITY;
+}
+
+function compareCatalogNumber(a, b) {
+  const an = getCatalogNumber(a);
+  const bn = getCatalogNumber(b);
+  const diff = numberSortValue(an) - numberSortValue(bn);
+  if (diff !== 0) return diff;
+  return String(an || "").localeCompare(String(bn || ""), "fr", { sensitivity: "base" });
+}
+
+function displayBookTitle(title) {
+  return stripVariantSuffix(title || "").trim();
+}
+
+function titleSortScore(title) {
+  const variant = /\([^)]*\)\s*$/.test(title || "") ? 1 : 0;
+  return [variant, canonicalBookTitle(title).length, title || ""];
+}
+
+function compareTitlePriority(a, b) {
+  const as = titleSortScore(a);
+  const bs = titleSortScore(b);
+  if (as[0] !== bs[0]) return as[0] - bs[0];
+  if (as[1] !== bs[1]) return as[1] - bs[1];
+  return String(as[2]).localeCompare(String(bs[2]), "fr", { sensitivity: "base" });
+}
+
+function bookSearchText(book) {
+  const seriesName = DATA.series.find(s => s.id === book.series)?.name || "";
+  return [
+    book.title,
+    seriesName,
+    ...(book.authors || []),
+    ...(book.tags || []),
+    book.number != null ? String(book.number) : ""
+  ].join(" ").toLowerCase();
+}
+
+function escapeHTML(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function hasInteractiveReader(bookId) {
+  const book = DATA.books.find(x => x.id === bookId);
+  return !!book?.hasReader;
+}
+
+function normalizeReaderChoiceLabel(label) {
+  return String(label || "")
+    .replace(/\s+/g, " ")
+    .replace(/^Aller à\s+\d+\s*/i, "")
+    .replace(/^Rendez-vous au\s+\d+\s*/i, "")
+    .trim();
+}
+
+function readerChoiceLabel(choice) {
+  const cleaned = normalizeReaderChoiceLabel(choice?.label || "");
+  if (!cleaned) return `Aller à ${choice?.to ?? "?"}`;
+  if (/^aller à\s*\d+$/i.test(cleaned)) return `Aller à ${choice?.to ?? "?"}`;
+  if (/^rendez-vous au\s*\d+$/i.test(cleaned)) return `Aller à ${choice?.to ?? "?"}`;
+  return cleaned;
+}
+
+function readerExcerpt(text, limit = 180) {
+  const clean = String(text || "").replace(/\s+/g, " ").trim();
+  if (!clean) return "";
+  if (clean.length <= limit) return clean;
+  return `${clean.slice(0, limit - 1).trim()}…`;
+}
+
+function readerSectionMap(data) {
+  return new Map((data.sections || []).map(section => [section.id, section]));
+}
+
+function createReaderNode(sectionId, viaChoice = null, parent = null) {
+  const node = {
+    id: `reader-node-${++readerNodeSeq}`,
+    sectionId,
+    viaChoice,
+    parent,
+    children: []
+  };
+  if (readerState?.nodeIndex) readerState.nodeIndex.set(node.id, node);
+  return node;
+}
+
+function buildReaderTrail(node) {
+  const trail = [];
+  let cur = node;
+  while (cur) {
+    trail.push(cur.sectionId);
+    cur = cur.parent;
+  }
+  return trail.reverse();
+}
+
+function findReaderNodeById(node, id) {
+  if (!node) return null;
+  if (node.id === id) return node;
+  for (const child of node.children || []) {
+    const found = findReaderNodeById(child, id);
+    if (found) return found;
+  }
+  return null;
+}
+
+function getReaderSection(sectionId) {
+  return readerState?.sectionMap?.get(sectionId) || null;
+}
+
+async function loadReaderData(bookId) {
+  if (readerCache.has(bookId)) return readerCache.get(bookId);
+  const res = await fetch("src/data/readers/" + encodeURIComponent(bookId) + ".json");
+  if (!res.ok) throw new Error("Impossible de charger le lecteur");
+  const data = await res.json();
+  data.sectionMap = readerSectionMap(data);
+  readerCache.set(bookId, data);
+  return data;
+}
+
+function renderReaderNode(node, depth = 0) {
+  const section = getReaderSection(node.sectionId);
+  const active = readerState?.currentNode?.id === node.id ? " active" : "";
+  const viaLabel = node.viaChoice ? readerChoiceLabel(node.viaChoice) : "Départ";
+  let html = `
+    <div class="reader-branch" style="--depth:${depth}">
+      ${node.viaChoice ? `<div class="reader-branch-label">${escapeHTML(viaLabel)}</div>` : ""}
+      <button type="button" class="reader-node${active}" data-reader-node="${node.id}" style="--depth:${depth}">
+        <span class="section">Section ${node.sectionId}</span>
+        <span class="excerpt">${escapeHTML(readerExcerpt(section?.text || ""))}</span>
+      </button>
+    </div>
+  `;
+  if (node.children.length) {
+    html += `<div class="reader-children">`;
+    node.children.forEach(child => {
+      html += renderReaderNode(child, depth + 1);
+    });
+    html += `</div>`;
+  }
+  return html;
+}
+
+function renderReader() {
+  const inner = document.getElementById("readerInner");
+  if (!readerState) {
+    inner.innerHTML = `<div class="reader-loading">Chargement du lecteur…</div>`;
+    return;
+  }
+  const { book, currentNode, sectionMap } = readerState;
+  const section = sectionMap.get(currentNode.sectionId);
+  const choices = section?.choices || [];
+  const trail = buildReaderTrail(currentNode);
+  const textHTML = section?.text
+    ? String(section.text)
+        .split(/\n+/)
+        .map(p => `<p>${escapeHTML(p.trim())}</p>`)
+        .join("")
+    : `<p>Section introuvable.</p>`;
+  const choiceHTML = choices.length
+    ? choices.map((choice, index) => `
+        <button type="button" class="reader-choice" data-reader-choice="${index}">
+          <span class="label">${escapeHTML(readerChoiceLabel(choice))}</span>
+          <span class="to">Section ${choice.to}</span>
+        </button>
+      `).join("")
+    : section?.go_back && currentNode.parent
+    ? `<button type="button" class="reader-choice" data-reader-goback="1">
+          <span class="label">Retourner au paragraphe d'où vous venez</span>
+          <span class="to">Section ${currentNode.parent.sectionId}</span>
+        </button>`
+    : `<div class="reader-empty">Cette section termine l'aventure. Vous pouvez revenir en arrière dans l'arbre à droite pour explorer une autre branche.</div>`;
+
+  inner.innerHTML = `
+    <div class="reader-topbar">
+      <div class="reader-title">
+        <div class="eyebrow">Lecture interactive</div>
+        <h2>${escapeHTML(book.title)}</h2>
+        <div class="meta">
+          <span>${escapeHTML((DATA.series.find(s => s.id === book.series)?.name) || "")}</span>
+          <span>·</span>
+          <span>${escapeHTML(`Section ${currentNode.sectionId}`)}</span>
+          <span>·</span>
+          <span>${trail.length} noeud${trail.length > 1 ? "s" : ""} exploré${trail.length > 1 ? "s" : ""}</span>
+        </div>
+      </div>
+      <button type="button" class="reader-close" data-reader-close aria-label="Fermer le lecteur">✕</button>
+    </div>
+    <div class="reader-body">
+      <main class="reader-main">
+        <div class="reader-section">
+          <div class="reader-section-header">
+            <div>
+              <div class="reader-section-number">Chapitre ${currentNode.sectionId}</div>
+              <div class="reader-section-title">${escapeHTML(book.title)}</div>
+            </div>
+            <div class="reader-section-count">${choices.length} choix${choices.length > 1 ? " possibles" : " possible"}</div>
+          </div>
+          <div class="reader-text">${textHTML}</div>
+          <div class="reader-choices">${choiceHTML}</div>
+        </div>
+      </main>
+      <aside class="reader-tree">
+        <div class="reader-tree-head">
+          <h3>Arborescence</h3>
+          <div class="hint">Clique sur un noeud pour revenir dessus</div>
+        </div>
+        <div class="reader-tree-scroll">
+          ${renderReaderNode(readerState.root, 0)}
+        </div>
+      </aside>
+    </div>
+  `;
+  document.getElementById("reader").classList.add("open");
+}
+
+function closeReader() {
+  document.getElementById("reader").classList.remove("open");
+}
+
+async function openReader(bookId) {
+  const book = DATA.books.find(x => x.id === bookId);
+  if (!book) return;
+  if (!book.hasReader) {
+    openModal(bookId);
+    return;
+  }
+
+  closeModal();
+  const backdrop = document.getElementById("reader");
+  const inner = document.getElementById("readerInner");
+  inner.innerHTML = `<div class="reader-loading">Chargement du lecteur interactif…</div>`;
+  backdrop.classList.add("open");
+
+  try {
+    const data = await loadReaderData(bookId);
+    readerNodeSeq = 0;
+    const sectionMap = data.sectionMap || readerSectionMap(data);
+    readerState = {
+      book,
+      data,
+      sectionMap,
+      nodeIndex: new Map()
+    };
+    const root = createReaderNode(1, null, null);
+    readerState.root = root;
+    readerState.currentNode = root;
+    readerState.nodeIndex.set(root.id, root);
+    renderReader();
+  } catch (err) {
+    inner.innerHTML = `
+      <div class="reader-error">
+        <strong>Impossible d'ouvrir le lecteur interactif.</strong>
+        <div>${escapeHTML(err.message || "Erreur inconnue")}</div>
+      </div>
+    `;
+  }
+}
+
+function readerNavigateToChoice(choice) {
+  if (!readerState || !choice) return;
+  const current = readerState.currentNode;
+  let child = current.children.find(node => {
+    const via = node.viaChoice || {};
+    return node.sectionId === choice.to && normalizeReaderChoiceLabel(via.label) === normalizeReaderChoiceLabel(choice.label);
+  });
+  if (!child) {
+    child = createReaderNode(choice.to, choice, current);
+    current.children.push(child);
+  }
+  readerState.currentNode = child;
+  renderReader();
+}
+
+function readerJumpToNode(nodeId) {
+  if (!readerState || !nodeId) return;
+  const node = readerState.nodeIndex.get(nodeId) || findReaderNodeById(readerState.root, nodeId);
+  if (!node) return;
+  readerState.currentNode = node;
+  renderReader();
+}
+
+function groupKeyForBook(book) {
+  return `${book.series}#${canonicalBookTitle(book.title)}`;
+}
+
+function pickGroupTitle(books) {
+  const sorted = [...books].sort((a, b) => {
+    const priority = compareTitlePriority(a.title, b.title);
+    if (priority !== 0) return priority;
+    return (b.year || 0) - (a.year || 0);
+  });
+  return displayBookTitle(sorted[0]?.title || books[0]?.title || "");
+}
+
+function mergeEditions(books) {
+  const merged = [];
+  const seen = new Set();
+  books.forEach(book => {
+    const sourceEditions = book.editions && book.editions.length
+      ? book.editions
+      : [{ universe: "V1", isbn: book.isbn, year: book.year, date: null, price: book.price, rating: book.rating }];
+    sourceEditions.forEach(e => {
+      const key = e.isbn || `${e.universe || ""}:${e.year || ""}:${book.id}`;
+      if (seen.has(key)) return;
+      seen.add(key);
+      merged.push({
+        ...e,
+        sourceId: book.id,
+        sourceTitle: book.title
+      });
+    });
+  });
+  return merged.sort((a, b) =>
+    universeRank(a.universe) - universeRank(b.universe) ||
+    (a.year || 0) - (b.year || 0) ||
+    String(a.sourceTitle || "").localeCompare(String(b.sourceTitle || ""), "fr", { sensitivity: "base" })
+  );
+}
+
+function compareSeriesName(a, b) {
+  const aName = String(a?.name || "");
+  const bName = String(b?.name || "");
+  const aIsAsDesAs = aName.localeCompare("as des as", "fr", { sensitivity: "base" }) === 0;
+  const bIsAsDesAs = bName.localeCompare("as des as", "fr", { sensitivity: "base" }) === 0;
+  if (aIsAsDesAs && !bIsAsDesAs) return 1;
+  if (bIsAsDesAs && !aIsAsDesAs) return -1;
+  return aName.localeCompare(bName, "fr", { sensitivity: "base" });
+}
+
+function buildGroupedBooks(books) {
+  const groups = new Map();
+  books.forEach(book => {
+    const key = groupKeyForBook(book);
+    if (!groups.has(key)) {
+      groups.set(key, {
+        id: `group:${key}`,
+        key,
+        series: book.series,
+        number: book.number,
+        books: []
+      });
+    }
+    groups.get(key).books.push(book);
+  });
+
+  return [...groups.values()].map(group => {
+    const booksInGroup = [...group.books].sort((a, b) => (a.year || 0) - (b.year || 0) || a.title.localeCompare(b.title, "fr", { sensitivity: "base" }));
+    const editions = mergeEditions(booksInGroup);
+    const authors = [...new Set(booksInGroup.flatMap(b => b.authors || []))];
+    const years = booksInGroup.map(b => b.year).filter(Boolean);
+    const ratings = booksInGroup.map(b => b.rating).filter(r => typeof r === "number");
+    const difficulties = booksInGroup.map(b => b.difficulty).filter(r => typeof r === "number");
+    const chapters = booksInGroup.map(b => b.chapters).filter(r => typeof r === "number");
+    const tags = [...new Set(booksInGroup.flatMap(b => b.tags || []))];
+    const title = pickGroupTitle(booksInGroup);
+
+    return {
+      ...group,
+      title,
+      authors,
+      year: years.length ? Math.min(...years) : null,
+      rating: ratings.length ? ratings.reduce((s, v) => s + v, 0) / ratings.length : 0,
+      difficulty: difficulties.length ? Math.max(...difficulties) : null,
+      chapters: chapters.length ? Math.max(...chapters) : null,
+      tags,
+      editions,
+      editionCount: editions.length,
+      bookCount: booksInGroup.length
+    };
+  });
+}
+
+function getCatalogBooks(books) {
+  return buildGroupedBooks(books);
+}
+
+function countLabel(n, singular, plural) {
+  return `${n} ${n > 1 ? plural : singular}`;
+}
+
+async function init() {
+  try {
+    const res = await fetch("src/data/library.json");
+    DATA = await res.json();
+  } catch (e) {
+    document.body.innerHTML = `<div class="empty">Impossible de charger library.json. Lancez un serveur local (ex: <code>python3 -m http.server</code>).</div>`;
+    throw e;
+  }
+  renderStats();
+  renderNav();
+  renderLibrary();
+  pickHero();
+  bindEvents();
+}
+
+function renderStats() {
+  const visible = getCatalogBooks(getVisibleBooks());
+  const totalBooks = visible.length;
+  const totalEditions = visible.reduce((s, b) => s + (b.editions ? b.editions.length : 1), 0);
+  const totalSeries = new Set(visible.map(b => b.series)).size;
+  document.getElementById("stats").innerHTML = `
+    <span><b>${totalBooks}</b> livres</span>
+    <span><b>${totalEditions}</b> parutions</span>
+    <span><b>${totalSeries}</b> séries</span>
+  `;
+}
+
+function renderNav() {
+  const navUniverses = document.getElementById("navUniverses");
+  const navSeries = document.getElementById("navSeries");
+  const navCats = document.getElementById("navCategories");
+
+  const allU = `<a class="${!activeUniverse ? 'active' : ''}" data-universe="">Toutes les éditions</a>`;
+  const uItems = Object.entries(UNIVERSE_LABELS).map(([k, v]) => {
+    const count = DATA.books.filter(b => b.editions && b.editions.some(e => e.universe === k)).length;
+    return `<a class="${activeUniverse === k ? 'active' : ''}" data-universe="${k}">${v} <span style="opacity:.5;font-size:9px;">${count}</span></a>`;
+  }).join("");
+  navUniverses.innerHTML = allU + uItems;
+
+  const visible = getCatalogBooks(getVisibleBooks());
+  const allCount = visible.length;
+  const all = `<a class="${activeFilter === 'all' ? 'active' : ''}" data-series="all">Tout (${allCount})</a>`;
+  const seriesInScope = DATA.series.filter(s => visible.some(b => b.series === s.id));
+  const items = seriesInScope
+    .sort(compareSeriesName)
+    .map(s => {
+      const count = visible.filter(b => b.series === s.id).length;
+      return `<a class="${activeFilter === s.id ? 'active' : ''}" data-series="${s.id}">${s.name} <span style="opacity:.5;font-size:10px;">${count}</span></a>`;
+    }).join("");
+  navSeries.innerHTML = all + items;
+
+  const cats = CATEGORIES.map(c =>
+    `<a class="${activeCategory === c.id ? 'active' : ''}" data-category="${c.id}"><span class="ico">${c.ico}</span>${c.label}</a>`
+  ).join("");
+  navCats.innerHTML = cats;
+}
+
+function getReaderBookId(item) {
+  const books = item.books || [item];
+  return (books.find(b => b.hasReader) || books[0]).id;
+}
+
+function pickHero() {
+  const pool = getCatalogBooks(getVisibleBooks()).filter(b => b.rating >= 4.3);
+  heroBook = pool[Math.floor(Math.random() * pool.length)] || getCatalogBooks(getVisibleBooks())[0];
+  renderHero();
+}
+
+function renderHero() {
+  const heroEl = document.getElementById("hero");
+  const bg = document.getElementById("heroBg");
+  const content = document.getElementById("heroContent");
+
+  if (searchTerm) {
+    const matches = getCatalogBooks(getVisibleBooks().filter(b => bookSearchText(b).includes(searchTerm)));
+    heroEl.className = "hero compact search";
+    const coverIsbn = matches.length ? getEditionIsbn(matches[0], activeUniverse) : null;
+    bg.style.backgroundImage = coverIsbn ? `url(${COVER_BIG(coverIsbn)})` : `none`;
+    bg.style.filter = "blur(8px) saturate(0.6) brightness(0.35)";
+    content.innerHTML = `
+      <div class="hero-eyebrow">Recherche</div>
+      <h1 class="hero-title">« ${searchTerm.replace(/</g,"&lt;")} »</h1>
+      <div class="hero-meta">
+        <span>${matches.length} résultat${matches.length > 1 ? "s" : ""}</span>
+        ${matches.length ? `<span>·</span><span>Premier : ${matches[0].title}</span>` : ""}
+      </div>
+    `;
+    return;
+  }
+
+  if (sortBy !== "default") {
+    const sortLabels = {
+      year:   { eyebrow: "Tri chronologique",  title: "Par année de parution", desc: "Les livres regroupés par décennie." },
+      rating: { eyebrow: "Tri par note",       title: "Par note communautaire", desc: "Les livres regroupés par paliers de note." },
+      title:  { eyebrow: "Index alphabétique", title: "De A à Z",              desc: "Tous les livres classés par initiale." },
+    };
+    const s = sortLabels[sortBy];
+    heroEl.className = "hero compact sort";
+    const pool = getCatalogBooks(activeFilter === "all" ? getVisibleBooks() : getVisibleBooks().filter(b => b.series === activeFilter));
+    const coverIsbn = pool[0] ? getEditionIsbn(pool[0], activeUniverse) : null;
+    bg.style.backgroundImage = coverIsbn ? `url(${COVER_BIG(coverIsbn)})` : "none";
+    bg.style.filter = "blur(6px) saturate(1.1) brightness(0.45)";
+    content.innerHTML = `
+      <div class="hero-eyebrow">${s.eyebrow}</div>
+      <h1 class="hero-title">${s.title}</h1>
+      <div class="hero-meta">
+        <span>${pool.length} livre${pool.length>1?"s":""}</span>
+        ${activeFilter !== "all" ? `<span>·</span><span>${DATA.series.find(x=>x.id===activeFilter)?.name || ""}</span>` : ""}
+      </div>
+      <p class="hero-desc">${s.desc}</p>
+    `;
+    return;
+  }
+
+  if (activeFilter !== "all") {
+    const series = DATA.series.find(s => s.id === activeFilter);
+    if (!series) return;
+    const books = getCatalogBooks(getVisibleBooks().filter(b => b.series === series.id)).sort(compareCatalogNumber);
+    heroEl.className = "hero compact";
+    const coverIsbn = books[0] ? getEditionIsbn(books[0], activeUniverse) : null;
+    bg.style.backgroundImage = coverIsbn ? `url(${COVER_BIG(coverIsbn)})` : "none";
+    bg.style.filter = "blur(4px) saturate(1.3) brightness(0.55)";
+    const avgRating = books.reduce((s,b)=>s+(b.rating||0),0)/books.length;
+    const years = books.map(b=>b.year).filter(Boolean);
+    const yearRange = years.length ? `${Math.min(...years)} – ${Math.max(...years)}` : "";
+    content.innerHTML = `
+      <div class="hero-eyebrow">Collection officielle</div>
+      <h1 class="hero-title">${series.name}</h1>
+      <div class="hero-meta">
+        <span>${books.length} tomes</span>
+        ${yearRange ? `<span>·</span><span>${yearRange}</span>` : ""}
+        <span class="chip rating">★ ${avgRating.toFixed(2)}</span>
+      </div>
+    `;
+    return;
+  }
+
+  heroEl.className = "hero";
+  bg.style.filter = "";
+  const b = heroBook;
+  if (!b) return;
+  const series = DATA.series.find(s => s.id === b.series);
+  const authors = (b.authors || []).join(", ");
+  const coverIsbn = getEditionIsbn(b, activeUniverse);
+  bg.style.backgroundImage = `url(${COVER_BIG(coverIsbn)})`;
+  const editionCount = b.editions ? b.editions.length : 1;
+  content.innerHTML = `
+    <div class="hero-eyebrow">${series?.name || ""} · Tome ${getCatalogNumber(b) || "?"}</div>
+    <h1 class="hero-title">${b.title}</h1>
+    <div class="hero-meta">
+      <span>${authors || "Auteur inconnu"}</span>
+      <span>·</span>
+      <span>${b.year || "—"}</span>
+      ${b.rating ? `<span class="chip rating">★ ${b.rating.toFixed(2)}</span>` : ""}
+      ${editionCount > 1 ? `<span class="chip">${editionCount} éditions</span>` : ""}
+    </div>
+    <p class="hero-desc">${b.description || ""}</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" data-action="read" data-id="${getReaderBookId(b)}">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        Commencer l'aventure
+      </button>
+      <button class="btn btn-ghost" data-action="info" data-id="${b.id}">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        Plus d'infos
+      </button>
+    </div>
+  `;
+}
+
+function renderLibrary() {
+  const lib = document.getElementById("library");
+  lib.innerHTML = "";
+
+  let base = activeFilter === "all" ? getVisibleBooks() : getVisibleBooks().filter(b => b.series === activeFilter);
+  if (searchTerm) {
+    base = base.filter(b => bookSearchText(b).includes(searchTerm));
+  }
+
+  const rows = [];
+
+  if (sortBy === "year") {
+    const catalog = getCatalogBooks(base);
+    const byDecade = {};
+    catalog.forEach(b => {
+      const y = b.year || 0;
+      const decade = y ? Math.floor(y / 10) * 10 : 0;
+      (byDecade[decade] = byDecade[decade] || []).push(b);
+    });
+    Object.keys(byDecade).map(Number).sort((a,b)=>b-a).forEach(dec => {
+      const label = dec ? `Années ${dec}` : "Année inconnue";
+      rows.push({
+        title: label,
+        subtitle: `${byDecade[dec].length} livre${byDecade[dec].length>1?"s":""}`,
+        books: byDecade[dec].sort((a,b)=>(b.year||0)-(a.year||0) || (b.rating||0)-(a.rating||0)),
+        forceGrid: true,
+      });
+    });
+  } else if (sortBy === "rating") {
+    const catalog = getCatalogBooks(base);
+    const tiers = [
+      { id: "legend", label: "★ 4.5 et plus · Légendes", min: 4.5, max: 6 },
+      { id: "great",  label: "★ 4.0 – 4.5 · Très bons", min: 4.0, max: 4.5 },
+      { id: "good",   label: "★ 3.5 – 4.0 · Solides",   min: 3.5, max: 4.0 },
+      { id: "mixed",  label: "★ 3.0 – 3.5 · Mitigés",   min: 3.0, max: 3.5 },
+      { id: "low",    label: "★ Moins de 3.0",           min: 0,   max: 3.0 },
+    ];
+    tiers.forEach(t => {
+      const list = catalog.filter(b => (b.rating||0) >= t.min && (b.rating||0) < t.max);
+      if (list.length) {
+        rows.push({
+          title: t.label,
+          subtitle: `${list.length} livre${list.length>1?"s":""}`,
+          books: list.sort((a,b)=>(b.rating||0)-(a.rating||0)),
+          forceGrid: true,
+        });
+      }
+    });
+  } else if (sortBy === "title") {
+    const catalog = getCatalogBooks(base);
+    const byLetter = {};
+    catalog.forEach(b => {
+      const letter = (b.title[0] || "?").toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+      const key = /[A-Z]/.test(letter) ? letter : "#";
+      (byLetter[key] = byLetter[key] || []).push(b);
+    });
+    const order = [..."ABCDEFGHIJKLMNOPQRSTUVWXYZ"].concat(["#"]);
+    order.forEach(letter => {
+      if (byLetter[letter]) {
+        rows.push({
+          title: letter,
+          subtitle: `${byLetter[letter].length} livre${byLetter[letter].length>1?"s":""}`,
+          books: byLetter[letter].sort((a,b)=>a.title.localeCompare(b.title, "fr")),
+          forceGrid: true,
+        });
+      }
+    });
+  } else {
+    const cat = CATEGORIES.find(c => c.id === activeCategory);
+    if (cat) {
+      let list = [...base].filter(cat.filter);
+      list = getCatalogBooks(list);
+      list.sort(cat.sort);
+      rows.push({
+        title: `${cat.ico} ${cat.label}`,
+        subtitle: activeFilter === "all" ? "Toutes séries" : DATA.series.find(s => s.id === activeFilter)?.name || "",
+        books: list,
+        forceGrid: true,
+      });
+    } else if (searchTerm) {
+      const list = getCatalogBooks(base);
+      rows.push({ title: `Recherche « ${searchTerm} »`, subtitle: `${list.length} résultat(s)`, books: list, forceGrid: true });
+    } else if (activeFilter !== "all") {
+      const s = DATA.series.find(x => x.id === activeFilter);
+      const list = getCatalogBooks(base);
+      const editionTotal = list.reduce((sum, b) => sum + (b.editions ? b.editions.length : 1), 0);
+      rows.push({
+        title: s?.name || "",
+        subtitle: `${countLabel(list.length, "livre", "livres")} / ${countLabel(editionTotal, "édition", "éditions")}`,
+        books: list.sort(compareCatalogNumber),
+        forceGrid: true,
+      });
+    } else {
+      const visible = getCatalogBooks(getVisibleBooks());
+      const seriesInScope = DATA.series.filter(s => visible.some(b => b.series === s.id));
+      const orderedSeries = [...seriesInScope].sort(compareSeriesName);
+      orderedSeries.forEach(s => {
+        const sBooks = visible.filter(b => b.series === s.id).sort(compareCatalogNumber);
+        if (sBooks.length) {
+          const editionTotal = sBooks.reduce((sum, b) => sum + (b.editions ? b.editions.length : 1), 0);
+          rows.push({
+            title: s.name,
+            subtitle: `${countLabel(sBooks.length, "livre", "livres")} / ${countLabel(editionTotal, "édition", "éditions")}`,
+            books: sBooks,
+            forceGrid: true
+          });
+        }
+      });
+    }
+  }
+
+  const finalRows = rows.filter(r => r.books.length);
+  if (!finalRows.length) {
+    lib.innerHTML = `<div class="empty">Aucun livre ne correspond à votre recherche.</div>`;
+    return;
+  }
+
+  currentDisplayItemsById = new Map();
+  finalRows.forEach(row => {
+    const el = document.createElement("div");
+    el.className = "row" + (row.forceGrid ? " force-grid" : "");
+    row.books.forEach(item => currentDisplayItemsById.set(item.id, item));
+    el.innerHTML = `
+      <div class="row-header">
+        <div class="row-title">${row.title} <span class="count">${row.books.length}</span></div>
+        <div class="row-subtitle">${row.subtitle}</div>
+      </div>
+      <div class="row-scroller">${row.books.map(b => cardHTML(b)).join("")}</div>
+    `;
+    lib.appendChild(el);
+  });
+}
+
+function visibleCount(seriesId) {
+  return getVisibleBooks().filter(b => b.series === seriesId).length;
+}
+
+function cardHTML(b) {
+  const series = DATA.series.find(s => s.id === b.series);
+  const authors = (b.authors || []).slice(0, 2).join(" & ");
+  const isTop = b.rating >= 4.5;
+  const coverIsbn = getEditionIsbn(b, activeUniverse);
+  const editionCount = b.editions ? b.editions.length : 1;
+  const catalogNumber = getCatalogNumber(b);
+  return `
+    <article class="card" data-id="${b.id}">
+      <div class="cover">
+        <img src="${coverSrc(coverIsbn)}" alt="${b.title}" loading="lazy" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='${COVER_FALLBACK(coverIsbn)}';return;} this.style.display='none';this.nextElementSibling.style.display='flex';" />
+        <div class="cover-fallback" style="display:none;">
+          <div class="num">${String(catalogNumber || 0).padStart(2,"0")}</div>
+          <div class="ttl">${b.title}</div>
+          <div>${series?.name || ""}</div>
+        </div>
+        ${catalogNumber ? `<div class="badge ${isTop ? "top" : ""}">N°${catalogNumber}</div>` : ""}
+        ${editionCount > 1 ? `<div class="badge-editions">${editionCount} éd.</div>` : ""}
+        <div class="card-overlay">
+          <div class="ov-title">${b.title}</div>
+          ${authors ? `<div class="ov-authors">${authors}</div>` : ""}
+          <div class="ov-meta">
+            ${b.year ? `<span>${b.year}</span>` : ""}
+            ${b.rating ? `<span>★ ${b.rating.toFixed(1)}</span>` : ""}
+            ${editionCount > 1 ? `<span>${editionCount} éditions</span>` : ""}
+          </div>
+          <div class="ov-play">▶ OUVRIR</div>
+        </div>
+      </div>
+      <div class="card-info">
+        <div class="card-title">${b.title}</div>
+        <div class="card-sub">${authors || series?.name || ""}</div>
+        ${b.rating ? `<div class="card-rating">★ ${b.rating.toFixed(1)} <span>· ${b.year || ""}</span></div>` : ""}
+      </div>
+    </article>
+  `;
+}
+
+function openModal(id) {
+  closeReader();
+  const item = currentDisplayItemsById.get(id) || DATA.books.find(x => x.id === id);
+  if (!item) return;
+  const books = item.books || [item];
+  const series = DATA.series.find(s => s.id === item.series || books[0]?.series);
+  const authors = ((item.authors && item.authors.length ? item.authors : [...new Set(books.flatMap(b => b.authors || []))]) || []).join(", ") || "Auteur inconnu";
+  const coverIsbn = getEditionIsbn(item, activeUniverse);
+  const editions = item.editions && item.editions.length
+    ? item.editions
+    : [{ universe: "V1", isbn: item.isbn, year: item.year, date: null, price: item.price, rating: item.rating, sourceTitle: item.title }];
+  editions.sort((a, b) => universeRank(a.universe) - universeRank(b.universe) || (a.year || 0) - (b.year || 0));
+  const isGrouped = !!item.books;
+  const catalogNumber = getCatalogNumber(item);
+
+  const editionsHTML = editions.map(e => `
+    <div class="edition-card">
+      <div class="edition-cover">
+        <img src="${coverSrc(e.isbn)}" alt="${e.universe}" loading="lazy" onerror="if(!this.dataset.fallback){this.dataset.fallback='1';this.src='${COVER_FALLBACK(e.isbn)}';return;} this.style.display='none';" />
+        <div class="universe-label">${e.universe}</div>
+      </div>
+      <div class="edition-info">
+        <div class="ed-universe">${e.universe} ${activeUniverse === e.universe ? '(actif)' : ''}</div>
+        ${isGrouped && e.sourceTitle ? `<div class="ed-source">${e.sourceTitle}</div>` : ""}
+        <div class="ed-detail">
+          ${e.year ? `Année : ${e.year}<br>` : ""}
+          ${e.price ? `Prix : ${e.price.toFixed(2)} €<br>` : ""}
+          ${e.rating ? `Note : ★ ${e.rating.toFixed(2)}<br>` : ""}
+          ISBN : ${e.isbn}
+        </div>
+      </div>
+    </div>
+  `).join("");
+
+  document.getElementById("modalInner").innerHTML = `
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-hero" style="background-image:url(${COVER_BIG(coverIsbn)})">
+      <div class="modal-hero-content">
+        <h2>${item.title}</h2>
+        <div class="meta">
+          <span>${series?.name || ""} · Tome ${catalogNumber || "?"}</span>
+          <span>·</span>
+          <span>${authors}</span>
+          ${item.year ? `<span>·</span><span>${item.year}</span>` : ""}
+          ${item.rating ? `<span class="rating">★ ${item.rating.toFixed(2)} / 5</span>` : ""}
+          ${isGrouped ? `<span class="chip">${books.length} formats</span>` : ""}
+        </div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div>
+        ${item.description ? `<p>${item.description}</p>` : ""}
+        <div class="tags">${(item.tags || []).map(t => `<span class="tag">${t.trim()}</span>`).join("")}</div>
+      </div>
+      <aside>
+        <div class="stat"><span>ISBN</span><span>${coverIsbn}</span></div>
+        <div class="stat"><span>Année</span><span>${item.year || "—"}</span></div>
+        <div class="stat"><span>Auteur(s)</span><span>${authors}</span></div>
+        ${isGrouped ? `<div class="stat"><span>Formats</span><span>${books.length}</span></div>` : ""}
+        <div class="stat"><span>Note moyenne</span><span>${item.rating ? "★ " + item.rating.toFixed(2) : "—"}</span></div>
+        <div class="stat"><span>Éditions</span><span>${editions.length}</span></div>
+        <div class="stat"><span>Série</span><span>${series?.name || "—"}</span></div>
+        <a class="btn btn-primary" href="reader.html?book=${encodeURIComponent(getReaderBookId(item))}" style="margin-top:18px;width:100%;justify-content:center;display:inline-flex;text-decoration:none;">▶ Lire ce livre</a>
+      </aside>
+    </div>
+    ${editions.length > 1 ? `
+    <div class="editions-section">
+      <div class="editions-title">Toutes les éditions <span class="count">${editions.length}</span></div>
+      <div class="editions-grid">${editionsHTML}</div>
+    </div>
+    ` : ""}
+  `;
+  document.getElementById("modal").classList.add("open");
+  document.getElementById("modalClose").onclick = closeModal;
+}
+function closeModal() { document.getElementById("modal").classList.remove("open"); }
+
+function fullRender() {
+  renderStats();
+  renderNav();
+  renderHero();
+  renderLibrary();
+}
+
+function isTypingTarget(el) {
+  if (!el) return false;
+  const tag = (el.tagName || "").toUpperCase();
+  return tag === "INPUT" || tag === "TEXTAREA" || el.isContentEditable;
+}
+
+function commitSearchText(value) {
+  const searchEl = document.getElementById("search");
+  searchEl.value = value;
+  searchTerm = value.toLowerCase().trim();
+  renderHero();
+  renderLibrary();
+}
+
+function bindEvents() {
+  document.getElementById("navUniverses").addEventListener("click", e => {
+    const a = e.target.closest("a[data-universe]");
+    if (!a) return;
+    activeUniverse = a.dataset.universe || null;
+    activeUniverseMode = "all";
+    activeCategory = "none";
+    fullRender();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  document.getElementById("navSeries").addEventListener("click", e => {
+    const a = e.target.closest("a[data-series]");
+    if (!a) return;
+    activeFilter = a.dataset.series;
+    activeCategory = "none";
+    fullRender();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  document.getElementById("navCategories").addEventListener("click", e => {
+    const a = e.target.closest("a[data-category]");
+    if (!a) return;
+    const id = a.dataset.category;
+    if (activeCategory === id) {
+      activeCategory = "none";
+    } else {
+      activeCategory = id;
+    }
+    fullRender();
+  });
+
+  let searchTimer = null;
+  document.getElementById("search").addEventListener("input", e => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => {
+      searchTerm = e.target.value.toLowerCase().trim();
+      renderHero();
+      renderLibrary();
+    }, 120);
+  });
+
+  document.getElementById("sort").addEventListener("change", e => {
+    sortBy = e.target.value;
+    fullRender();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  document.getElementById("statsToggle").addEventListener("click", toggleStats);
+  document.getElementById("statsClose").addEventListener("click", toggleStats);
+  document.getElementById("statsContent").addEventListener("click", e => {
+    const btn = e.target.closest("[data-universe-filter]");
+    if (!btn) return;
+    applyUniverseFilter(btn.dataset.universeFilter, btn.dataset.universeMode);
+  });
+
+  document.addEventListener("click", e => {
+    const actionBtn = e.target.closest("[data-action]");
+    if (actionBtn) {
+      if (actionBtn.dataset.action === "read") {
+        window.location.href = "reader.html?book=" + encodeURIComponent(actionBtn.dataset.id);
+      } else {
+        openModal(actionBtn.dataset.id);
+      }
+      return;
+    }
+    const card = e.target.closest(".card");
+    if (card) openModal(card.dataset.id);
+    if (e.target.id === "modal") closeModal();
+    if (e.target.id === "reader") closeReader();
+    const readerChoice = e.target.closest("[data-reader-choice]");
+    if (readerChoice && readerState) {
+      const section = getReaderSection(readerState.currentNode.sectionId);
+      const choice = section?.choices?.[Number(readerChoice.dataset.readerChoice)];
+      if (choice) readerNavigateToChoice(choice);
+      return;
+    }
+    if (e.target.closest("[data-reader-goback]") && readerState?.currentNode?.parent) {
+      readerJumpToNode(readerState.currentNode.parent.id);
+      return;
+    }
+    const readerNode = e.target.closest("[data-reader-node]");
+    if (readerNode) {
+      readerJumpToNode(readerNode.dataset.readerNode);
+      return;
+    }
+    if (e.target.closest("[data-reader-close]")) {
+      closeReader();
+      return;
+    }
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") {
+      if (document.getElementById("reader").classList.contains("open")) {
+        closeReader();
+        return;
+      }
+      closeModal();
+      const panel = document.getElementById("statsPanel");
+      if (panel.classList.contains("open")) toggleStats();
+      return;
+    }
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    if (isTypingTarget(e.target)) return;
+    const searchEl = document.getElementById("search");
+    if (e.key === "Backspace") {
+      if (!searchEl.value) return;
+      commitSearchText(searchEl.value.slice(0, -1));
+      searchEl.focus();
+      e.preventDefault();
+      return;
+    }
+    if (e.key === " " || e.key.length === 1) {
+      commitSearchText(searchEl.value + e.key);
+      searchEl.focus();
+      e.preventDefault();
+    }
+  });
+
+  let idx = 0;
+  setInterval(() => {
+    if (!DATA) return;
+    const pool = getCatalogBooks(getVisibleBooks()).filter(b => b.rating >= 4.3);
+    if (!pool.length) return;
+    idx = (idx + 1) % pool.length;
+    heroBook = pool[idx];
+    renderHero();
+  }, 8000);
+}
+
+function renderStatsPanel() {
+  const el = document.getElementById("statsContent");
+  const books = DATA.books;
+  const groupedBooks = buildGroupedBooks(books);
+  const groupedCount = groupedBooks.length;
+  const totalEditions = books.reduce((s, b) => s + (b.editions ? b.editions.length : 1), 0);
+  const multiEd = books.filter(b => b.editions && b.editions.length > 1).length;
+
+  // Universe counts
+  const univCounts = {};
+  const exclusiveCounts = {};
+  ["V1","V2","V3","V4","V5"].forEach(u => univCounts[u] = 0);
+  ["V1","V2","V3","V4","V5"].forEach(u => exclusiveCounts[u] = 0);
+  books.forEach(b => {
+    const univs = (b.editions || []).map(e => e.universe);
+    univs.forEach(u => { univCounts[u] = (univCounts[u] || 0) + 1; });
+    if (univs.length === 1) {
+      const only = univs[0];
+      if (only) exclusiveCounts[only] = (exclusiveCounts[only] || 0) + 1;
+    }
+  });
+  const maxUniv = Math.max(...Object.values(univCounts));
+
+  // Series per universe
+  const seriesPerUniv = {};
+  ["V1","V2","V3","V4","V5"].forEach(u => {
+    const s = new Set();
+    books.forEach(b => {
+      if (b.editions && b.editions.some(e => e.universe === u)) s.add(b.series);
+    });
+    seriesPerUniv[u] = s.size;
+  });
+
+  // Overview cards
+  let html = `
+    <div class="stats-overview">
+      <div class="stat-card accent"><div class="stat-value">${groupedCount}</div><div class="stat-label">Livres regroupés</div></div>
+      <div class="stat-card"><div class="stat-value">${totalEditions}</div><div class="stat-label">Parutions</div></div>
+      <div class="stat-card gold"><div class="stat-value">${multiEd}</div><div class="stat-label">Multi-éditions</div></div>
+      <div class="stat-card"><div class="stat-value">${DATA.series.length}</div><div class="stat-label">Séries</div></div>
+    </div>
+    <div style="margin:-8px 0 24px;color:var(--text-faint);font-size:12px;letter-spacing:0.02em;">${groupedCount} = affichage par défaut sur la page d'accueil. ${totalEditions} = parutions totales.</div>
+  `;
+
+  // Bar chart: editions per universe
+  html += `<div class="stats-section"><h3>Tomes uniques par version</h3>`;
+  html += `<div class="stats-bar-chart">`;
+  ["V1","V2","V3","V4","V5"].forEach(u => {
+    const count = univCounts[u];
+    const pct = maxUniv ? (count / maxUniv * 100) : 0;
+    html += `
+      <div class="bar-col">
+        <button class="bar ${u} stat-card is-button" data-universe-filter="${u}" data-universe-mode="all" style="height:${pct}%">
+          <div class="bar-value">${count}</div>
+        </button>
+        <div class="bar-label">${u}<br><button class="stat-mini" data-universe-filter="${u}" data-universe-mode="exclusive">${exclusiveCounts[u]} exclusifs</button></div>
+      </div>
+    `;
+  });
+  html += `</div></div>`;
+
+  html += `<div class="stats-section"><h3>Lecture rapide</h3>`;
+  html += `<div class="stats-overview" style="grid-template-columns: repeat(5, 1fr);">`;
+  ["V1","V2","V3","V4","V5"].forEach(u => {
+    html += `
+      <button class="stat-card is-button" data-universe-filter="${u}" data-universe-mode="all">
+        <div class="stat-value">${univCounts[u]}</div>
+        <div class="stat-label">${u} · ${exclusiveCounts[u]} exclusifs</div>
+      </button>
+    `;
+  });
+  html += `</div></div>`;
+
+  // Table: series breakdown per universe
+  html += `<div class="stats-section"><h3>Séries par univers</h3>`;
+  html += `<table class="stats-table"><thead><tr><th>Série</th><th>Total</th>`;
+  ["V1","V2","V3","V4","V5"].forEach(u => html += `<th class="num">${u}</th>`);
+  html += `</tr></thead><tbody>`;
+  const seriesSorted = [...DATA.series].sort(compareSeriesName);
+  seriesSorted.forEach(s => {
+    const sBooks = books.filter(b => b.series === s.id);
+    const total = sBooks.length;
+    const perU = {};
+    ["V1","V2","V3","V4","V5"].forEach(u => {
+      perU[u] = sBooks.filter(b => b.editions && b.editions.some(e => e.universe === u)).length;
+    });
+    html += `<tr><td>${s.name}</td><td class="num">${total}</td>`;
+    ["V1","V2","V3","V4","V5"].forEach(u => {
+      html += `<td class="num" style="opacity:${perU[u] ? 1 : 0.2}">${perU[u] || "—"}</td>`;
+    });
+    html += `</tr>`;
+  });
+  html += `</tbody></table></div>`;
+
+  el.innerHTML = html;
+}
+
+function applyUniverseFilter(universe, mode) {
+  activeUniverse = universe || null;
+  activeUniverseMode = mode || "all";
+  activeFilter = "all";
+  activeCategory = "none";
+  closeModal();
+  toggleStats(false);
+  fullRender();
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function toggleStats() {
+  const panel = document.getElementById("statsPanel");
+  const btn = document.getElementById("statsToggle");
+  const forceClose = arguments.length > 0 && arguments[0] === false;
+  const isOpen = forceClose ? false : panel.classList.toggle("open");
+  if (forceClose) panel.classList.remove("open");
+  btn.classList.toggle("active", isOpen);
+  if (isOpen) renderStatsPanel();
+}
+
+init();
+</script>
+</body>
+</html>
