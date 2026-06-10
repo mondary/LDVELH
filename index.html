@@ -1766,10 +1766,12 @@ function buildGroupedBooks(books) {
     const chapters = booksInGroup.map(b => b.chapters).filter(r => typeof r === "number");
     const tags = [...new Set(booksInGroup.flatMap(b => b.tags || []))];
     const title = pickGroupTitle(booksInGroup);
+    const description = booksInGroup.map(b => b.description).find(Boolean) || "";
 
     return {
       ...group,
       title,
+      description,
       authors,
       year: years.length ? Math.min(...years) : null,
       rating: ratings.length ? ratings.reduce((s, v) => s + v, 0) / ratings.length : 0,

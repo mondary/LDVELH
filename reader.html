@@ -531,7 +531,7 @@ function toggleEditMode() {
 }
 
 function exportBookData() {
-  apiExportBook();
+  downloadJSON(buildExportJSON(), currentBookId + ".json");
 }
 
 function openPDF() {
@@ -565,8 +565,42 @@ function closePDF() {
   drawer.classList.remove("open");
 }
 
+function buildExportJSON() {
+  var exportData = {
+    bookId: currentBookId,
+    title: BOOK_META.title || currentBookId,
+    subtitle: BOOK_META.subtitle || "",
+    sections: []
+  };
+  if (BOOK_META.pdf) exportData.pdf = BOOK_META.pdf;
+  if (BOOK_META.intro) exportData.intro = BOOK_META.intro;
+  var ids = [];
+  for (var id in BOOK_DATA) ids.push(Number(id));
+  ids.sort(function(a, b) { return a - b; });
+  ids.forEach(function(id) {
+    var s = BOOK_DATA[id];
+    exportData.sections.push({
+      id: id,
+      text: s.text,
+      choices: (s.choices || []).map(function(c) { return { label: c.label, to: c.go_to }; })
+    });
+  });
+  return exportData;
+}
+
+function downloadJSON(data, filename) {
+  var blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+}
+
 function submitMod() {
-  var pw = prompt("Mot de passe admin ?\n(Laisser vide pour envoyer une demande)");
+  var pw = prompt("Mot de passe admin ?\n(Laisser vide pour télécharger les modifications en JSON)");
   if (pw === null) return;
   if (pw) {
     fetch("/api/books/" + encodeURIComponent(currentBookId) + "/promote", {
@@ -579,20 +613,14 @@ function submitMod() {
       if (data.error) { alert("Erreur : " + data.error); return; }
       alert("Promu ! " + data.modified + " section" + (data.modified > 1 ? "s" : "") + " mise" + (data.modified > 1 ? "s" : "") + " à jour.");
       loadBook(currentBookId);
+    })
+    .catch(function() {
+      alert("Serveur indisponible. Le fichier modifié va être téléchargé.");
+      downloadJSON(buildExportJSON(), currentBookId + ".json");
     });
   } else {
-    fetch("/api/books/" + encodeURIComponent(currentBookId) + "/request-mod", { method: "POST" })
-    .then(function(r) { return r.json(); })
-    .then(function(data) {
-      if (data.message) { alert(data.message); return; }
-      var msg = "Demande enregistrée (" + data.sections + " sections).\nFichier : " + data.file;
-      if (data.adminEmail) {
-        var subject = encodeURIComponent("[LDVELH] Modifs - " + (BOOK_META.title || currentBookId));
-        var body = encodeURIComponent("Modifications pour " + (BOOK_META.title || currentBookId) + "\nFichier : " + data.file + "\nSections : " + data.sections);
-        window.open("mailto:" + data.adminEmail + "?subject=" + subject + "&body=" + body);
-      }
-      alert(msg);
-    });
+    downloadJSON(buildExportJSON(), currentBookId + ".json");
+    alert("Fichier téléchargé. Vous pouvez l'envoyer manuellement pour intégration.");
   }
 }
 
